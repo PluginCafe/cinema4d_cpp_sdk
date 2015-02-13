@@ -186,6 +186,12 @@ Bool PluginStart(void)
 	if (!RegisterGeneratorObject())
 		return false;
 
+	// other examples
+
+	// SnapData example
+	if(!RegisterSnapDataNullSnap())
+		return false;
+
 	return true;
 }
 

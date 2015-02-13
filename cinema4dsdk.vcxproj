@@ -233,6 +233,7 @@
     <ClCompile Include="source\other\commandlinerender.cpp" />
     <ClCompile Include="source\other\misctest.cpp" />
     <ClCompile Include="source\other\movecopyconstructors.cpp" />
+    <ClCompile Include="source\other\snapdata_nullsnap.cpp" />
     <ClCompile Include="source\painting\advanced\paintbrushbase.cpp" />
     <ClCompile Include="source\painting\advanced\paintbrushsculpt.cpp" />
     <ClCompile Include="source\painting\advanced\paintchannels.cpp" />

@@ -294,6 +294,9 @@
     <ClCompile Include="source\other\arraytutorial.cpp">
       <Filter>source\other</Filter>
     </ClCompile>
+    <ClCompile Include="source\other\snapdata_nullsnap.cpp">
+      <Filter>source\other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\gui\gradientuserarea.h">

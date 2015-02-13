@@ -78,5 +78,6 @@ Bool RegisterSculptDeformer();
 Bool RegisterSculptModifiers();
 Bool RegisterSculptBrushTwist();
 Bool RegisterSculptBrushMultiStamp();
+Bool RegisterSnapDataNullSnap();
 
 #endif // MAIN_H__

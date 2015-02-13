@@ -119,6 +119,8 @@ STRINGTABLE
 
 	IDS_PAINT_BRUSH_BASE_HELP	"Paint on polygon objects";
 	IDS_PAINT_BRUSH_SCULPT_HELP	"Paint and Sculpt at the same time.";
+	
+	IDS_NULLSNAP				"C++ SDK - Nullsnap";
 
 
 }

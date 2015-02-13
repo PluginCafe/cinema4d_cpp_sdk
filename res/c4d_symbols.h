@@ -141,6 +141,10 @@ enum
 	IDS_PAINT_BRUSH_SCULPT,
 	IDS_PAINT_BRUSH_BASE_HELP,
 	IDS_PAINT_BRUSH_SCULPT_HELP,
+	
+	// Other
+	
+	IDS_NULLSNAP,
 
 // End of symbol definition
 	_DUMMY_ELEMENT_

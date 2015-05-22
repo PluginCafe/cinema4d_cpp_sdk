@@ -145,6 +145,9 @@ enum
 	// Other
 	
 	IDS_NULLSNAP,
+	IDS_CUSTOMGUISTRING,
+	IDS_CUSTOMGUI_DOTS,
+	IDS_CUSTOMDATATYPE_DOTS,
 
 // End of symbol definition
 	_DUMMY_ELEMENT_

@@ -79,5 +79,7 @@ Bool RegisterSculptModifiers();
 Bool RegisterSculptBrushTwist();
 Bool RegisterSculptBrushMultiStamp();
 Bool RegisterSnapDataNullSnap();
+Bool RegisterCustomGUIString();
+Bool RegisterCustomDatatypeCustomGUI();
 
 #endif // MAIN_H__

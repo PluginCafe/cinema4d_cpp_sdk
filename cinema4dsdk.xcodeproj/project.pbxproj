@@ -97,7 +97,9 @@
 		A0A6683339FC7832E1010000 /* hair_shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339FC7832E1000000 /* hair_shader.cpp */; };
 		A0A6683339FC93D0C3010000 /* gl_test_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339FC93D0C3000000 /* gl_test_object.cpp */; };
 		A0A6683339FD2F9822010000 /* filtermatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339FD2F9822000000 /* filtermatrix.cpp */; };
+		CF1845371B0B868200A2C1A5 /* customdata_customgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */; };
 		CF5F74391A8E312800E840EC /* snapdata_nullsnap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */; };
+		CF930B5F1AC41A45006064BA /* customgui_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF930B5E1AC41A45006064BA /* customgui_string.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,7 +220,9 @@
 		A0A6683339FC7832E1000000 /* hair_shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hair_shader.cpp; path = source/shader/hair_shader.cpp; sourceTree = SOURCE_ROOT; };
 		A0A6683339FC93D0C3000000 /* gl_test_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gl_test_object.cpp; path = source/object/gl_test_object.cpp; sourceTree = SOURCE_ROOT; };
 		A0A6683339FD2F9822000000 /* filtermatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filtermatrix.cpp; path = source/bitmapfilter/filtermatrix.cpp; sourceTree = SOURCE_ROOT; };
+		CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customdata_customgui.cpp; path = source/gui/customdata_customgui.cpp; sourceTree = SOURCE_ROOT; };
 		CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = snapdata_nullsnap.cpp; path = source/other/snapdata_nullsnap.cpp; sourceTree = SOURCE_ROOT; };
+		CF930B5E1AC41A45006064BA /* customgui_string.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customgui_string.cpp; path = source/gui/customgui_string.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +421,8 @@
 		A0A6683339BDAFD147000000 /* gui */ = {
 			isa = PBXGroup;
 			children = (
+				CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */,
+				CF930B5E1AC41A45006064BA /* customgui_string.cpp */,
 				A0A6683339D1700DC2000000 /* activeobject.cpp */,
 				A0A668333962E569FB000000 /* asynctest.cpp */,
 				A0A66833390BE67085000000 /* gradientuserarea.cpp */,
@@ -664,8 +670,10 @@
 				A0A66833398FA5014B010000 /* particlevolume.cpp in Sources */,
 				A0A6683339945B11F5010000 /* spherify.cpp in Sources */,
 				A0A6683339A0E953B3010000 /* hair_constraint.cpp in Sources */,
+				CF930B5F1AC41A45006064BA /* customgui_string.cpp in Sources */,
 				CF5F74391A8E312800E840EC /* snapdata_nullsnap.cpp in Sources */,
 				261F66D719F934C300641C14 /* arraytutorial.cpp in Sources */,
+				CF1845371B0B868200A2C1A5 /* customdata_customgui.cpp in Sources */,
 				A0A6683339A15A2F4F010000 /* vpstereo.cpp in Sources */,
 				A0A6683339B5C1CF35010000 /* lookatcamera.cpp in Sources */,
 				A0A6683339B7BF7B61010000 /* circle.cpp in Sources */,

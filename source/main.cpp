@@ -192,6 +192,14 @@ Bool PluginStart(void)
 	if(!RegisterSnapDataNullSnap())
 		return false;
 
+	// String custom GUI example
+	if(!RegisterCustomGUIString())
+		return false;
+
+	// CustomDataType and CustomGUI example
+	if(!RegisterCustomDatatypeCustomGUI())
+		return false;
+
 	return true;
 }
 

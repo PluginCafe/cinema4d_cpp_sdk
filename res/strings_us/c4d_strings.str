@@ -121,6 +121,13 @@ STRINGTABLE
 	IDS_PAINT_BRUSH_SCULPT_HELP	"Paint and Sculpt at the same time.";
 	
 	IDS_NULLSNAP				"C++ SDK - Nullsnap";
+	
+	IDS_CUSTOMGUISTRING 	"C++ SDK - Custom GUI String";
+	
+	IDS_CUSTOMGUISTRING 	"C++ SDK - Custom GUI Dots";
+	
+	IDS_CUSTOMDATATYPE_DOTS "C++ SDK - Custom Datatype Dots";
+	
 
 
 }

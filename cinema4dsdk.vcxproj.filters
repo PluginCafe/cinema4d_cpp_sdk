@@ -297,6 +297,12 @@
     <ClCompile Include="source\other\snapdata_nullsnap.cpp">
       <Filter>source\other</Filter>
     </ClCompile>
+    <ClCompile Include="source\gui\customgui_string.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\customdata_customgui.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\gui\gradientuserarea.h">

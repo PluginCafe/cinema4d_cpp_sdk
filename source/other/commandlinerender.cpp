@@ -39,8 +39,6 @@ fi
 
 */
 
-#if 0
-
 #include "c4d.h"
 #include <string.h>
 #include <ctype.h>
@@ -51,6 +49,8 @@ fi
 	#include <direct.h>
 	#define getcwd _getcwd
 #endif
+
+#include "main.h"
 
 Float lastProgressValue = -1.0;
 RENDERPROGRESSTYPE lastProgressType = RENDERPROGRESSTYPE_AFTERRENDERING;
@@ -96,7 +96,7 @@ static void RenderProgressHook(Float p, RENDERPROGRESSTYPE progress_type, void* 
 	}
 }
 
-static void CommandLineRendering(C4DPL_CommandLineArgs* args)
+void CommandLineRendering(C4DPL_CommandLineArgs* args)
 {
 	BaseDocument* doc = nullptr;
 	String				filename;
@@ -431,5 +431,3 @@ static void CommandLineRendering(C4DPL_CommandLineArgs* args)
 	if (doc)
 		BaseDocument::Free(doc);
 }
-
-#endif

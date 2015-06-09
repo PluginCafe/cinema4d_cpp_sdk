@@ -303,6 +303,12 @@
     <ClCompile Include="source\gui\customdata_customgui.cpp">
       <Filter>source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="source\gui\gedialog_gadgets.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gui\objectdata_descriptions.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\gui\gradientuserarea.h">

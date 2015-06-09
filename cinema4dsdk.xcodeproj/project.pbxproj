@@ -98,6 +98,8 @@
 		A0A6683339FC93D0C3010000 /* gl_test_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339FC93D0C3000000 /* gl_test_object.cpp */; };
 		A0A6683339FD2F9822010000 /* filtermatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339FD2F9822000000 /* filtermatrix.cpp */; };
 		CF1845371B0B868200A2C1A5 /* customdata_customgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */; };
+		CF2C3A131B1F05590000B009 /* objectdata_descriptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF2C3A121B1F05590000B009 /* objectdata_descriptions.cpp */; };
+		CF36BFF91B17857D00531499 /* gedialog_gadgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF36BFF81B17857D00531499 /* gedialog_gadgets.cpp */; };
 		CF5F74391A8E312800E840EC /* snapdata_nullsnap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */; };
 		CF930B5F1AC41A45006064BA /* customgui_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF930B5E1AC41A45006064BA /* customgui_string.cpp */; };
 /* End PBXBuildFile section */
@@ -221,6 +223,8 @@
 		A0A6683339FC93D0C3000000 /* gl_test_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gl_test_object.cpp; path = source/object/gl_test_object.cpp; sourceTree = SOURCE_ROOT; };
 		A0A6683339FD2F9822000000 /* filtermatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filtermatrix.cpp; path = source/bitmapfilter/filtermatrix.cpp; sourceTree = SOURCE_ROOT; };
 		CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customdata_customgui.cpp; path = source/gui/customdata_customgui.cpp; sourceTree = SOURCE_ROOT; };
+		CF2C3A121B1F05590000B009 /* objectdata_descriptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = objectdata_descriptions.cpp; path = source/gui/objectdata_descriptions.cpp; sourceTree = SOURCE_ROOT; };
+		CF36BFF81B17857D00531499 /* gedialog_gadgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gedialog_gadgets.cpp; path = source/gui/gedialog_gadgets.cpp; sourceTree = SOURCE_ROOT; };
 		CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = snapdata_nullsnap.cpp; path = source/other/snapdata_nullsnap.cpp; sourceTree = SOURCE_ROOT; };
 		CF930B5E1AC41A45006064BA /* customgui_string.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customgui_string.cpp; path = source/gui/customgui_string.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -421,6 +425,8 @@
 		A0A6683339BDAFD147000000 /* gui */ = {
 			isa = PBXGroup;
 			children = (
+				CF2C3A121B1F05590000B009 /* objectdata_descriptions.cpp */,
+				CF36BFF81B17857D00531499 /* gedialog_gadgets.cpp */,
 				CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */,
 				CF930B5E1AC41A45006064BA /* customgui_string.cpp */,
 				A0A6683339D1700DC2000000 /* activeobject.cpp */,
@@ -624,6 +630,7 @@
 				A0A66833390BE67085010000 /* gradientuserarea.cpp in Sources */,
 				A0A668333912D85805010000 /* triangulate.cpp in Sources */,
 				A0A66833391B8C1CAF010000 /* vpvisualizenormals.cpp in Sources */,
+				CF36BFF91B17857D00531499 /* gedialog_gadgets.cpp in Sources */,
 				A0A66833391D9370C0010000 /* gradientshader.cpp in Sources */,
 				A0A6683339201D7F34010000 /* dropeffector.cpp in Sources */,
 				A0A668333926279CA7010000 /* noiseeffector.cpp in Sources */,
@@ -634,6 +641,7 @@
 				A0A668333934D3DB7B010000 /* serial.cpp in Sources */,
 				A0A66833393AD1E940010000 /* listview.cpp in Sources */,
 				A0A66833393C12ED44010000 /* loadsave.cpp in Sources */,
+				CF2C3A131B1F05590000B009 /* objectdata_descriptions.cpp in Sources */,
 				A0A66833394214739C010000 /* bitmapdistortionshader.cpp in Sources */,
 				30C3BAC71803FDDE004E2C96 /* snaptool.cpp in Sources */,
 				A0A6683339448C016F010000 /* layershaderbrowser.cpp in Sources */,

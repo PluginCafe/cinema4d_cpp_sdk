@@ -200,6 +200,14 @@ Bool PluginStart(void)
 	if(!RegisterCustomDatatypeCustomGUI())
 		return false;
 
+	// GeDialog example
+	if(!RegisterExampleDialogCommand())
+		return false;
+
+	// ObjectData example showing the use of GetDDescription()
+	if(!RegisterObjectDynamicDescription())
+		return false;
+
 	return true;
 }
 
@@ -239,7 +247,6 @@ Bool PluginMessage(Int32 id, void* data)
 
 		case C4DPL_COMMANDLINEARGS:
 			//sample implementation of command line rendering:
-			//void CommandLineRendering(C4DPL_CommandLineArgs* args);
 			//CommandLineRendering((C4DPL_CommandLineArgs*)data);
 
 			//react to this message to react to command line arguments on startup

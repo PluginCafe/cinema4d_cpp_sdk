@@ -81,5 +81,9 @@ Bool RegisterSculptBrushMultiStamp();
 Bool RegisterSnapDataNullSnap();
 Bool RegisterCustomGUIString();
 Bool RegisterCustomDatatypeCustomGUI();
+Bool RegisterExampleDialogCommand();
+Bool RegisterObjectDynamicDescription();
+
+void CommandLineRendering(C4DPL_CommandLineArgs* args);
 
 #endif // MAIN_H__

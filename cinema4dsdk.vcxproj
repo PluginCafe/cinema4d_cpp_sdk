@@ -206,11 +206,13 @@
     <ClCompile Include="source\gui\asynctest.cpp" />
     <ClCompile Include="source\gui\customdata_customgui.cpp" />
     <ClCompile Include="source\gui\customgui_string.cpp" />
+    <ClCompile Include="source\gui\gedialog_gadgets.cpp" />
     <ClCompile Include="source\gui\gradientuserarea.cpp" />
     <ClCompile Include="source\gui\layershaderbrowser.cpp" />
     <ClCompile Include="source\gui\listview.cpp" />
     <ClCompile Include="source\gui\memstat.cpp" />
     <ClCompile Include="source\gui\menutest.cpp" />
+    <ClCompile Include="source\gui\objectdata_descriptions.cpp" />
     <ClCompile Include="source\gui\serial.cpp" />
     <ClCompile Include="source\gui\serial_hook.cpp" />
     <ClCompile Include="source\gui\subdialog.cpp" />

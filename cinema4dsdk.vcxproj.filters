@@ -309,6 +309,9 @@
     <ClCompile Include="source\gui\objectdata_descriptions.cpp">
       <Filter>source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="source\gui\objectdata_getsetdparameter.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\gui\gradientuserarea.h">

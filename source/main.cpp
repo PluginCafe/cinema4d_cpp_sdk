@@ -29,6 +29,8 @@
 
 Bool PluginStart(void)
 {
+	VERSIONTYPE versionType = GeGetVersionType();
+
 	// shader plugin examples
 	if (!RegisterGradient())
 		return false;
@@ -100,28 +102,31 @@ Bool PluginStart(void)
 		return false;
 
 	// sculpting tool examples
-	if (!RegisterSculptDrawPolyTool())
-		return false;
-	if (!RegisterSculptPullBrush())
-		return false;
-	if (!RegisterSculptSelectionBrush())
-		return false;
-	if (!RegisterSculptCubesBrush())
-		return false;
-	if (!RegisterSculptGrabBrush())
-		return false;
-	if (!RegisterSculptDrawPolyBrush())
-		return false;
-	if (!RegisterSculptDeformer())
-		return false;
-	if (!RegisterSculptModifiers())
-		return false;
-	if (!RegisterSculptBrushTwist())
-		return false;
-	if (!RegisterSculptBrushMultiStamp())
-		return false;
-	if (!RegisterPaintAdvanced())
-		return false;
+	if ((versionType ==  VERSIONTYPE_STUDIO) || (versionType ==  VERSIONTYPE_BODYPAINT))
+	{
+		if (!RegisterSculptDrawPolyTool())
+			return false;
+		if (!RegisterSculptPullBrush())
+			return false;
+		if (!RegisterSculptSelectionBrush())
+			return false;
+		if (!RegisterSculptCubesBrush())
+			return false;
+		if (!RegisterSculptGrabBrush())
+			return false;
+		if (!RegisterSculptDrawPolyBrush())
+			return false;
+		if (!RegisterSculptDeformer())
+			return false;
+		if (!RegisterSculptModifiers())
+			return false;
+		if (!RegisterSculptBrushTwist())
+			return false;
+		if (!RegisterSculptBrushMultiStamp())
+			return false;
+		if (!RegisterPaintAdvanced())
+			return false;
+	}
 
 	// animation plugin example
 	if (!RegisterBlinker())
@@ -161,8 +166,13 @@ Bool PluginStart(void)
 		return false;
 
 	// effector plugin examples, can only be loaded if MoGfx is installed
-	RegisterNoiseEffector();
-	RegisterDropEffector();
+	if ((versionType ==  VERSIONTYPE_BROADCAST) || (versionType ==  VERSIONTYPE_STUDIO))
+	{
+		if (!RegisterNoiseEffector())
+			return false;
+		if (!RegisterDropEffector())
+			return false;
+	}
 
 	// hair examples
 	if (!RegisterDeformerObject())
@@ -206,6 +216,10 @@ Bool PluginStart(void)
 
 	// ObjectData example showing the use of GetDDescription()
 	if(!RegisterObjectDynamicDescription())
+		return false;
+
+	// ObjectData example showing the use of Get-/SetDParameter() with certain CustomGUIs
+	if(!RegisterGetSetDParameterExample())
 		return false;
 
 	return true;

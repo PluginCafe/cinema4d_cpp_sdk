@@ -92,9 +92,9 @@ STRINGTABLE
 	IDS_HELP_PICKOBJECT_SDK	"Demonstrates how to use ViewportSelect::PickObject";
 
 	IDS_LAYER_SHADER_BROWSER      "C++ SDK - Layer Shader Browser";
-	
+
 	IDS_RANDOMFALLOFF			"C++ SDK - Random Falloff";
-	
+
 	IDS_NOISEEFFECTOR			"C++ SDK - Noise Effector";
 	IDS_DROPEFFECTOR			"C++ SDK - Drop to Surface Effector";
 
@@ -119,19 +119,19 @@ STRINGTABLE
 
 	IDS_PAINT_BRUSH_BASE_HELP	"Paint on polygon objects";
 	IDS_PAINT_BRUSH_SCULPT_HELP	"Paint and Sculpt at the same time.";
-	
-	IDS_NULLSNAP				"C++ SDK - Nullsnap";
-	
-	IDS_CUSTOMGUISTRING 	"C++ SDK - Custom GUI String";
-	
-	IDS_CUSTOMGUISTRING 	"C++ SDK - Custom GUI Dots";
-	
-	IDS_CUSTOMDATATYPE_DOTS "C++ SDK - Custom Datatype Dots";
-	
-	IDS_EXAMPLEDIALOG_COMMAND "C++ SDK - Example Dialog";
-	
-	IDS_OBJECTDATA_DESCRIPTION "C++ SDK - Descriptions Example Object";
-	
 
+	IDS_NULLSNAP				"C++ SDK - Nullsnap";
+
+	IDS_CUSTOMGUISTRING 	"C++ SDK - Custom GUI String";
+
+	IDS_CUSTOMGUISTRING 	"C++ SDK - Custom GUI Dots";
+
+	IDS_CUSTOMDATATYPE_DOTS "C++ SDK - Custom Datatype Dots";
+
+	IDS_EXAMPLEDIALOG_COMMAND "C++ SDK - Example Dialog";
+
+	IDS_OBJECTDATA_DESCRIPTION "C++ SDK - Descriptions Example Object";
+
+	IDS_OBJECTDATA_GETSETDPARAMETEREXAMPLE "C++ SDK - Get-/SetDParameter Example Object";
 
 }

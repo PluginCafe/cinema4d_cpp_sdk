@@ -4,7 +4,7 @@
 #include "c4d_symbols.h"
 
 //----------------------------------------------------------------------------------------
-/// This ObjectData example shows how to create parameter descriptions dynimaically and how to access parameters.
+/// This ObjectData example shows how to create parameter descriptions dynamically and how to access parameters.
 //----------------------------------------------------------------------------------------
 
 #include "customgui_filename.h"
@@ -16,12 +16,14 @@
 #include "c4d_basebitmap.h"
 #include "customgui_datetime.h"
 
+#define ID_QUICKTABSRADIO_GADGET 200000281  // this define is currently missing in the SDK
+
 enum DESCRIPTIONELEMENTS
 {
-	
 	BUTTON = 0,
 	LONG,
 	LONG_CYCLE,
+	LONG_QUICKTAB,
 	LONG_SLIDER,
 	REAL,
 	REAL_SLIDER,
@@ -45,12 +47,10 @@ enum DESCRIPTIONELEMENTS
 	COLORPROFILE,
 	DATETIME,
 
-
 	GROUP = 100,
 	SEPERATOR = 150,
 
 	DUMMY
-
 };
 
 
@@ -65,7 +65,6 @@ public:
 	virtual Bool GetDDescription(GeListNode* node, Description* description, DESCFLAGS_DESC& flags);
 	virtual Bool 	Message (GeListNode *node, Int32 type, void *data);
 
-
 	static NodeData* Alloc(void) { return NewObjClear(ObjectDynamicDescription); }
 
 private:
@@ -76,14 +75,13 @@ private:
 
 	void SetParameter(GeListNode* node);
 	void GetParameter(GeListNode* node);
-
 };
 
 Bool ObjectDynamicDescription::Init(GeListNode *node)
 {
 	BaseContainer* bc = ((BaseList2D*)node)->GetDataInstance();
 	
-	// set the default value for theses custom or complex datatypes
+	// set the default value for these custom or complex datatypes
 	
 	bc->SetData(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LINK, GeData(DTYPE_BASELISTLINK, DEFAULTVALUE));
 	bc->SetData(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE, GeData(CUSTOMDATATYPE_SPLINE, DEFAULTVALUE));
@@ -98,7 +96,7 @@ Bool ObjectDynamicDescription::Init(GeListNode *node)
 
 Bool ObjectDynamicDescription::GetDEnabling(GeListNode* node, const DescID& id, const GeData& t_data, DESCFLAGS_ENABLE flags, const BaseContainer* itemdesc)
 {
-	if(id[0].id == ID_SET_PARAMETER || id[0].id == ID_GET_PARAMETER)
+	if (id[0].id == ID_SET_PARAMETER || id[0].id == ID_GET_PARAMETER)
 	{
 		BaseContainer* data = ((BaseObject*)node)->GetDataInstance();
 		const Int32 selection = data->GetInt32(ID_SELECT_DESCRIPTION);
@@ -130,7 +128,6 @@ Bool ObjectDynamicDescription::GetDDescription(GeListNode* node, Description* de
 	// create dynamic element
 	this->CreateDynamicDescriptions(description);
 	
-
 	flags |= DESCFLAGS_DESC_LOADED;
 
 	return SUPER::GetDDescription(node, description, flags);
@@ -140,7 +137,7 @@ Bool ObjectDynamicDescription::Message(GeListNode *node, Int32 type, void *data)
 {
 	switch (type)
 	{
-	case MSG_DESCRIPTION_COMMAND:
+		case MSG_DESCRIPTION_COMMAND:
 		{
 			DescriptionCommand* dc = (DescriptionCommand*) data;
 
@@ -148,18 +145,18 @@ Bool ObjectDynamicDescription::Message(GeListNode *node, Int32 type, void *data)
 
 			switch(id)
 			{
-			case ID_SET_PARAMETER:
+				case ID_SET_PARAMETER:
 				{
 					this->SetParameter(node);
 					return true;
+					break;
 				}
-				break;
-			case ID_GET_PARAMETER:
+				case ID_GET_PARAMETER:
 				{
 					this->GetParameter(node);
 					return true;
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -186,7 +183,8 @@ void ObjectDynamicDescription::FillSelection(Description* const description)
 			{
 				items->SetString(DESCRIPTIONELEMENTS::BUTTON, String("Button"));
 				items->SetString(DESCRIPTIONELEMENTS::LONG, String("Long"));
-				items->SetString(DESCRIPTIONELEMENTS::LONG_CYCLE, String("Cycle"));
+				items->SetString(DESCRIPTIONELEMENTS::LONG_CYCLE, String("Long Cycle"));
+				items->SetString(DESCRIPTIONELEMENTS::LONG_QUICKTAB, String("Long Quicktab"));
 				items->SetString(DESCRIPTIONELEMENTS::LONG_SLIDER, String("Long Slider"));
 				items->SetString(DESCRIPTIONELEMENTS::REAL, String("Real"));
 				items->SetString(DESCRIPTIONELEMENTS::REAL_SLIDER, String("Real Slider"));
@@ -227,11 +225,11 @@ void ObjectDynamicDescription::CreateDynamicDescriptions(Description* const desc
 	// get current selection
 
 	GeData data;
-	this->Get()->GetParameter(DescID(ID_SELECT_DESCRIPTION),data,DESCFLAGS_GET_0);
+	this->Get()->GetParameter(DescID(ID_SELECT_DESCRIPTION), data, DESCFLAGS_GET_0);
 	const Int32 selection = data.GetInt32();
 
 	// create dynamic element
-	this->CreateDynamicElement(description,selection);
+	this->CreateDynamicElement(description, selection);
 }
 
 
@@ -241,10 +239,10 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 	switch(selection)
 	{
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BUTTON / CUSTOMGUI_BUTTON
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::BUTTON):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BUTTON / CUSTOMGUI_BUTTON
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::BUTTON):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BUTTON;
 			const DescID cid = DescLevel(ID, DTYPE_BUTTON, 0);
@@ -260,12 +258,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_LONG
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LONG):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LONG;
 			const DescID cid = DescLevel(ID, DTYPE_LONG, 0);
@@ -281,12 +279,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_LONG / CUSTOMGUI_CYCLE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LONG_CYCLE):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG / CUSTOMGUI_CYCLE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG_CYCLE):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LONG_CYCLE;
 			const DescID cid = DescLevel(ID, DTYPE_LONG, 0);
@@ -296,33 +294,61 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 				BaseContainer bc = GetCustomDataTypeDefault(DTYPE_LONG);
 
 				bc.SetInt32(DESC_CUSTOMGUI, CUSTOMGUI_CYCLE);
-				bc.SetString(DESC_NAME, "Cycle");
+				bc.SetString(DESC_NAME, "Long Cycle");
 				bc.SetInt32(DESC_SCALEH, 1);
 
 				// cycle elements
 				BaseContainer items;
-				items.SetString(0,String("Item 0"));
-				items.SetString(1,String("Item 1"));
-				items.SetString(2,String("Item 2"));
+				items.SetString(0, String("Item 0"));
+				items.SetString(1, String("Item 1"));
+				items.SetString(2, String("Item 2"));
 
 				bc.SetContainer(DESC_CYCLE,items);
 
 				// icons
 				BaseContainer icons;
-				icons.SetInt32(0,IDM_COPY);
-				icons.SetInt32(1,IDM_CUT);
-				icons.SetInt32(2,IDM_DELETE);
+				icons.SetInt32(0, IDM_COPY);
+				icons.SetInt32(1, IDM_CUT);
+				icons.SetInt32(2, IDM_DELETE);
 
 				bc.SetContainer(DESC_CYCLEICONS, icons);
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_LONG / CUSTOMGUI_LONGSLIDER
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LONG_SLIDER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG / QUICKTABSRADIO_GADGET
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG_QUICKTAB):
+		{
+			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LONG_QUICKTAB;
+			const DescID cid = DescLevel(ID, DTYPE_LONG, 0);
+
+			if (!singleid || cid.IsPartOf(*singleid, nullptr))  
+			{
+				BaseContainer bc = GetCustomDataTypeDefault(DTYPE_LONG);
+
+				bc.SetInt32(DESC_CUSTOMGUI, ID_QUICKTABSRADIO_GADGET);
+				bc.SetString(DESC_NAME, "Long Quicktab");
+				bc.SetInt32(DESC_SCALEH, 1);
+
+				// quicktab elements
+				BaseContainer items;
+				items.SetString(0, String("Tab 0"));
+				items.SetString(1, String("Tab 1"));
+				items.SetString(2, String("Tab 2"));
+
+				bc.SetContainer(DESC_CYCLE, items);
+
+				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
+			}
+			break;
+		}
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG / CUSTOMGUI_LONGSLIDER
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG_SLIDER):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LONG_SLIDER;
 			const DescID cid = DescLevel(ID, DTYPE_LONG, 0);
@@ -339,17 +365,17 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 				bc.SetInt32(DESC_STEP, 1);
 
 				// slider settings
-				bc.SetInt32(DESC_MINSLIDER,250);
-				bc.SetInt32(DESC_MAXSLIDER,750);
+				bc.SetInt32(DESC_MINSLIDER, 250);
+				bc.SetInt32(DESC_MAXSLIDER, 750);
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_REAL 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::REAL):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_REAL 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::REAL):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::REAL;
 			const DescID cid = DescLevel(ID, DTYPE_REAL, 0);
@@ -367,12 +393,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_REAL / CUSTOMGUI_REALSLIDER
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::REAL_SLIDER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_REAL / CUSTOMGUI_REALSLIDER
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::REAL_SLIDER):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::REAL_SLIDER;
 			const DescID cid = DescLevel(ID, DTYPE_REAL, 0);
@@ -390,17 +416,17 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 				bc.SetInt32(DESC_UNIT, DESC_UNIT_METER);
 
 				// slider settings
-				bc.SetFloat(DESC_MINSLIDER,250);
-				bc.SetFloat(DESC_MAXSLIDER,750);
+				bc.SetFloat(DESC_MINSLIDER, 250);
+				bc.SetFloat(DESC_MAXSLIDER, 750);
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;	
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_VECTOR / CUSTOMGUI_VECTOR
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::VECTOR):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_VECTOR / CUSTOMGUI_VECTOR
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::VECTOR):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::VECTOR;
 			const DescID cid = DescLevel(ID, DTYPE_VECTOR, 0);
@@ -416,12 +442,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_MATRIX 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::MATRIX):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_MATRIX 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::MATRIX):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::MATRIX;
 			const DescID cid = DescLevel(ID, DTYPE_MATRIX, 0);
@@ -433,12 +459,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_STRING 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::STRING):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_STRING 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::STRING):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::STRING;
 			const DescID cid = DescLevel(ID, DTYPE_STRING, 0);
@@ -450,12 +476,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_STRING / CUSTOMGUI_STRINGMULTI
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::STRING_MULTILINE):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_STRING / CUSTOMGUI_STRINGMULTI
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::STRING_MULTILINE):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::STRING_MULTILINE;
 			const DescID cid = DescLevel(ID, DTYPE_STRING, 0);
@@ -469,12 +495,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_STATICTEXT / CUSTOMGUI_STATICTEXT
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::STATIC_TEXT):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_STATICTEXT / CUSTOMGUI_STATICTEXT
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::STATIC_TEXT):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::STATIC_TEXT;
 			const DescID cid = DescLevel(ID, DTYPE_STATICTEXT, 0);
@@ -488,12 +514,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_FILENAME / CUSTOMGUI_FILENAME
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::FILENAME):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_FILENAME / CUSTOMGUI_FILENAME
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::FILENAME):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::FILENAME;
 			const DescID cid = DescLevel(ID, DTYPE_FILENAME, 0);
@@ -507,12 +533,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BOOL
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::BOOL):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BOOL
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::BOOL):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BOOL;
 			const DescID cid = DescLevel(ID, DTYPE_BOOL, 0);
@@ -525,12 +551,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BASELISTLINK / CUSTOMGUI_LINKBOX
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LINK):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BASELISTLINK / CUSTOMGUI_LINKBOX
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LINK):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LINK;
 			const DescID cid = DescLevel(ID, DTYPE_BASELISTLINK, 0);
@@ -548,12 +574,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BASELISTLINK / CUSTOMGUI_TEXBOX
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::SHADERLINK):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BASELISTLINK / CUSTOMGUI_TEXBOX
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::SHADERLINK):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SHADERLINK;
 			const DescID cid = DescLevel(ID, DTYPE_BASELISTLINK, 0);
@@ -567,12 +593,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 					
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_TIME 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::TIME):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_TIME 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::TIME):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::TIME;
 			const DescID cid = DescLevel(ID, DTYPE_TIME, 0);
@@ -585,12 +611,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_COLOR 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::COLOR_PARAMETER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_COLOR 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::COLOR_PARAMETER):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLOR_PARAMETER;
 			const DescID cid = DescLevel(ID, DTYPE_COLOR, 0);
@@ -604,12 +630,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_GRADIENT / CUSTOMGUI_GRADIENT
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::GRADIENT):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_GRADIENT / CUSTOMGUI_GRADIENT
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::GRADIENT):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::GRADIENT;
 			const DescID cid = DescLevel(ID, CUSTOMDATATYPE_GRADIENT, 0);
@@ -623,12 +649,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_SPLINE / CUSTOMGUI_SPLINE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::SPLINE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_SPLINE / CUSTOMGUI_SPLINE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::SPLINE):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE;
 			const DescID cid = DescLevel(ID, CUSTOMDATATYPE_SPLINE, 0);
@@ -651,12 +677,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_BITMAPBUTTON / CUSTOMGUI_BITMAPBUTTON
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::BITMAPBUTTON):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_BITMAPBUTTON / CUSTOMGUI_BITMAPBUTTON
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::BITMAPBUTTON):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BITMAPBUTTON;
 			const DescID cid = DescLevel(ID, CUSTOMDATATYPE_BITMAPBUTTON, 0);
@@ -673,12 +699,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_INEXCLUDE_LIST / CUSTOMGUI_INEXCLUDE_LIST
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_INEXCLUDE_LIST / CUSTOMGUI_INEXCLUDE_LIST
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE;
 			const DescID cid = DescLevel(ID, CUSTOMDATATYPE_INEXCLUDE_LIST, 0);
@@ -697,12 +723,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMGUI_PRIORITY_DATA / CUSTOMGUI_PRIORITY
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::PRIORITY):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMGUI_PRIORITY_DATA / CUSTOMGUI_PRIORITY
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::PRIORITY):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::PRIORITY;
 			const DescID cid = DescLevel(ID, CUSTOMGUI_PRIORITY_DATA, 0);
@@ -716,12 +742,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_COLORPROFILE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::COLORPROFILE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_COLORPROFILE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::COLORPROFILE):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLORPROFILE;
 			const DescID cid = DescLevel(ID, CUSTOMDATATYPE_COLORPROFILE, 0);
@@ -734,12 +760,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DATETIME_DATA
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::DATETIME):
+		//--------------------------------------------------------------------------------------
+		/// DATETIME_DATA
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::DATETIME):
 		{
 			const Int32 ID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::DATETIME;
 			const DescID cid = DescLevel(ID, DATETIME_DATA, 0);
@@ -752,12 +778,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(cid, bc, DescLevel(ID_GROUP_DYAMIC));
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_SEPARATOR / CUSTOMGUI_SEPARATOR
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::SEPERATOR):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_SEPARATOR / CUSTOMGUI_SEPARATOR
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::SEPERATOR):
 		{
 			const Int32 seperatorID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SEPERATOR;
 
@@ -785,12 +811,12 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 				description->SetParameter(DescLevel(seperatorID+2, DTYPE_STRING, 0), bc, ID_GROUP_DYAMIC);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_GROUP
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::GROUP):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_GROUP
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::GROUP):
 		{
 			const Int32 groupID = ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::GROUP;
 
@@ -809,7 +835,7 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 			{
 				BaseContainer bc = GetCustomDataTypeDefault(DTYPE_STRING);
-				bc.SetString(DESC_NAME, "Text 1");		
+				bc.SetString(DESC_NAME, "Text 1");
 				bc.SetInt32(DESC_SCALEH, 1);
 
 				description->SetParameter(DescLevel(groupID+1, DTYPE_STRING, 0), bc, groupID);
@@ -817,181 +843,180 @@ void ObjectDynamicDescription::CreateDynamicElement(Description* const descripti
 
 			{
 				BaseContainer bc = GetCustomDataTypeDefault(DTYPE_STRING);
-				bc.SetString(DESC_NAME, "Text 2");		
+				bc.SetString(DESC_NAME, "Text 2");
 				bc.SetInt32(DESC_SCALEH, 1);
 
 				description->SetParameter(DescLevel(groupID+2, DTYPE_STRING, 0), bc, groupID);
 			}
+			break;
 		}
-		break;
-
 	}
 }
 
 void ObjectDynamicDescription::SetParameter(GeListNode* node)
 {
-	if(node == nullptr)
+	if (node == nullptr)
 		return;
 
 	// get the document of this node
 	BaseDocument* doc = node->GetDocument();
 
-	if(doc == nullptr)
+	if (doc == nullptr)
 		return;
 
 	// get the current selection
 	GeData data;
-	node->GetParameter(DescID(ID_SELECT_DESCRIPTION),data,DESCFLAGS_GET_0);
+	node->GetParameter(DescID(ID_SELECT_DESCRIPTION), data, DESCFLAGS_GET_0);
 
 	const Int32 selection = data.GetInt32();
 
 	switch(selection)
 	{
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_LONG
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LONG):
-	case(DESCRIPTIONELEMENTS::LONG_SLIDER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG):
+		case(DESCRIPTIONELEMENTS::LONG_SLIDER):
 		{
 			const Int32 value = 123;
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;	
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_LONG
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LONG_CYCLE):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG_CYCLE):
+		case(DESCRIPTIONELEMENTS::LONG_QUICKTAB):
 		{
 			const Int32 value = 1;
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;	
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_REAL 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::REAL):
-	case(DESCRIPTIONELEMENTS::REAL_SLIDER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_REAL 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::REAL):
+		case(DESCRIPTIONELEMENTS::REAL_SLIDER):
 		{
 			const Float32 value = 123.45f;
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_VECTOR
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::VECTOR):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_VECTOR
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::VECTOR):
 		{
-			Vector value = Vector(1,1,1);
+			Vector value = Vector(1, 1, 1);
 
-			if(node->IsInstanceOf(Obase))
+			if (node->IsInstanceOf(Obase))
 			{
 				BaseObject* object = static_cast<BaseObject*>(node);
 
-				if(object != nullptr)
+				if (object != nullptr)
 					value = object->GetMg().off;
 			}
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::VECTOR),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::VECTOR), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_MATRIX 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::MATRIX):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_MATRIX 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::MATRIX):
 		{
 			Matrix value;
 
-			if(node->IsInstanceOf(Obase))
+			if (node->IsInstanceOf(Obase))
 			{
 				BaseObject* object = static_cast<BaseObject*>(node);
 
-				if(object != nullptr)
+				if (object != nullptr)
 					value = object->GetMg();
 			}
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::MATRIX),value,DESCFLAGS_SET_0);
-
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::MATRIX), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_STRING 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::STRING):
-	case(DESCRIPTIONELEMENTS::STRING_MULTILINE):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_STRING 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::STRING):
+		case(DESCRIPTIONELEMENTS::STRING_MULTILINE):
 		{
 			String value = "Some string";
 
-			if(node->IsInstanceOf(Tbaselist2d))
+			if (node->IsInstanceOf(Tbaselist2d))
 			{
 				BaseList2D* entity = static_cast<BaseList2D*>(node);
 
-				if(entity != nullptr)
+				if (entity != nullptr)
 					value = entity->GetName();
 			}
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + selection), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_FILENAME
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::FILENAME):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_FILENAME
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::FILENAME):
 		{
 			Filename filename;
 
-			if(filename.FileSelect(FILESELECTTYPE_ANYTHING, FILESELECT_LOAD, "Select a C4D file"))
+			if (filename.FileSelect(FILESELECTTYPE_ANYTHING, FILESELECT_LOAD, "Select a C4D file"))
 			{
 				// set parameter
-				node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::FILENAME),filename,DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::FILENAME), filename, DESCFLAGS_SET_0);
 			}	
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BOOL
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::BOOL):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BOOL
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::BOOL):
 		{
 			const Bool value = true;
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BOOL),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BOOL), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BASELISTLINK
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LINK):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BASELISTLINK
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LINK):
 		{
-			node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LINK),data,DESCFLAGS_GET_0);
+			node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LINK), data, DESCFLAGS_GET_0);
 
-			if(data.GetType() == DTYPE_BASELISTLINK)
+			if (data.GetType() == DTYPE_BASELISTLINK)
 			{
 				BaseLink* link = data.GetBaseLink();
 
-				if(link != nullptr)
+				if (link != nullptr)
 				{
 					link->SetLink(doc->GetActiveObject());
 						
 					// set parameter
-					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LINK),data,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::LINK), data, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BASELISTLINK
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::SHADERLINK):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BASELISTLINK
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::SHADERLINK):
 		{
 			AutoAlloc<BaseLink> link;
 
-			if(link != nullptr && node->IsInstanceOf(Tbaselist2d))
+			if (link != nullptr && node->IsInstanceOf(Tbaselist2d))
 			{
 				BaseShader* shader = BaseShader::Alloc(Xbrick);
 
-				if(shader != nullptr)
+				if (shader != nullptr)
 				{
 					BaseList2D* entity = static_cast<BaseList2D*>(node);
 
@@ -1001,15 +1026,15 @@ void ObjectDynamicDescription::SetParameter(GeListNode* node)
 					entity->InsertShader(shader);
 
 					// set parameter
-					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SHADERLINK),GeData(link),DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SHADERLINK), GeData(link), DESCFLAGS_SET_0);
 				}
 			}	
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_TIME 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::TIME):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_TIME 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::TIME):
 		{
 			BaseTime value;
 
@@ -1017,100 +1042,100 @@ void ObjectDynamicDescription::SetParameter(GeListNode* node)
 			value = doc->GetTime();
 
 			// set parameter
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::TIME),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::TIME), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_COLOR 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::COLOR_PARAMETER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_COLOR 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::COLOR_PARAMETER):
 		{
-			const Vector value = Vector(0,0,1);
+			const Vector value = Vector(0, 0, 1);
 
 			// set parameter
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLOR_PARAMETER),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLOR_PARAMETER), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_GRADIENT / CUSTOMGUI_GRADIENT
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::GRADIENT):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_GRADIENT / CUSTOMGUI_GRADIENT
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::GRADIENT):
 		{
 			GeData value(CUSTOMDATATYPE_GRADIENT, DEFAULTVALUE);
 			Gradient* gradient = (Gradient*)value.GetCustomDataType(CUSTOMDATATYPE_GRADIENT);
 
-			if(gradient != nullptr)
+			if (gradient != nullptr)
 			{
 				{
 					GradientKnot knot;
 					knot.pos = 0.1;
-					knot.col = Vector(1,0,0);
+					knot.col = Vector(1, 0, 0);
 					gradient->InsertKnot(knot);
 				}
 
 				{
 					GradientKnot knot;
 					knot.pos = 0.9;
-					knot.col = Vector(0,1,0);
+					knot.col = Vector(0, 1, 0);
 					gradient->InsertKnot(knot);
 				}
 			}
 
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::GRADIENT),value,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::GRADIENT), value, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_SPLINE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::SPLINE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_SPLINE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::SPLINE):
 		{
-			node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE),data,DESCFLAGS_GET_0);
+			node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE), data, DESCFLAGS_GET_0);
 
-			if(data.GetType() == CUSTOMDATATYPE_SPLINE)
+			if (data.GetType() == CUSTOMDATATYPE_SPLINE)
 			{
 				SplineData* splineData = (SplineData*)data.GetCustomDataType(CUSTOMDATATYPE_SPLINE);
 
-				if(splineData != nullptr)
+				if (splineData != nullptr)
 				{
 					
-					splineData->SetRange(0.0,100.0,0.1,0.0,100,0.0);
+					splineData->SetRange(0.0, 100.0, 0.1, 0.0, 100, 0.0);
 
 					splineData->DeleteAllPoints();
-					splineData->InsertKnot(0,0);
-					splineData->InsertKnot(100,100);
+					splineData->InsertKnot(0, 0);
+					splineData->InsertKnot(100, 100);
 
 					// set parameter
-					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE),data,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE), data, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_INEXCLUDE_LIST
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_INEXCLUDE_LIST
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE):
 		{
-			node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE),data,DESCFLAGS_GET_0);
+			node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE), data, DESCFLAGS_GET_0);
 
-			if(data.GetType() == CUSTOMDATATYPE_INEXCLUDE_LIST)
+			if (data.GetType() == CUSTOMDATATYPE_INEXCLUDE_LIST)
 			{
 				InExcludeData* ieData = (InExcludeData*)data.GetCustomDataType(CUSTOMDATATYPE_INEXCLUDE_LIST);
 
-				if(ieData != nullptr)
+				if (ieData != nullptr)
 				{
 					// add the active object to the list
-					ieData->InsertObject(doc->GetActiveObject(),0);
+					ieData->InsertObject(doc->GetActiveObject(), 0);
 						
 					// set parameter
-					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE),data,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE), data, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMGUI_PRIORITY_DATA / CUSTOMGUI_PRIORITY
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::PRIORITY):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMGUI_PRIORITY_DATA / CUSTOMGUI_PRIORITY
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::PRIORITY):
 		{
 			GeData priorityData = GeData(CUSTOMGUI_PRIORITY_DATA, DEFAULTVALUE);
 			PriorityData *value = (PriorityData*)priorityData.GetCustomDataType(CUSTOMGUI_PRIORITY_DATA);
@@ -1122,37 +1147,37 @@ void ObjectDynamicDescription::SetParameter(GeListNode* node)
 			}
 
 			// set parameter
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::PRIORITY),priorityData,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::PRIORITY), priorityData, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_COLORPROFILE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::COLORPROFILE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_COLORPROFILE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::COLORPROFILE):
 		{
 			GeData colorProfileData = GeData(CUSTOMDATATYPE_COLORPROFILE, DEFAULTVALUE);
 			
 			ColorProfile* value = (ColorProfile*)colorProfileData.GetCustomDataType(CUSTOMDATATYPE_COLORPROFILE);
 
-			if(value != nullptr)
+			if (value != nullptr)
 			{
 				value->SetMonitorProfileMode(true);
 			}
 
 			// set parameter
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLORPROFILE),colorProfileData,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLORPROFILE), colorProfileData, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DATETIME_DATA
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::DATETIME):
+		//--------------------------------------------------------------------------------------
+		/// DATETIME_DATA
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::DATETIME):
 		{
 			GeData dateTimeData = GeData(DATETIME_DATA, DEFAULTVALUE);
 			
 			DateTimeData* value = (DateTimeData*)dateTimeData.GetCustomDataType(DATETIME_DATA);
 
-			if(value != nullptr)
+			if (value != nullptr)
 			{
 				DateTime time;
 				GetDateTimeNow(time);
@@ -1161,92 +1186,93 @@ void ObjectDynamicDescription::SetParameter(GeListNode* node)
 			}
 
 			// set parameter
-			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::DATETIME),dateTimeData,DESCFLAGS_SET_0);
+			node->SetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::DATETIME), dateTimeData, DESCFLAGS_SET_0);
+			break;
 		}
-		break;
 	}
 }
 
 void ObjectDynamicDescription::GetParameter(GeListNode* node)
 {
-		if(node == nullptr)
+	if (node == nullptr)
 		return;
 
 	// get the document of this node
 	BaseDocument* doc = node->GetDocument();
 
-	if(doc == nullptr)
+	if (doc == nullptr)
 		return;
 
 	// get the current selection
 	GeData data;
-	node->GetParameter(DescID(ID_SELECT_DESCRIPTION),data,DESCFLAGS_GET_0);
+	node->GetParameter(DescID(ID_SELECT_DESCRIPTION), data, DESCFLAGS_GET_0);
 
 	const Int32 selection = data.GetInt32();
 
 	// print the value of the currently displayed dynamic parameter to the ID_RESULT_TEXT parameter
 	switch(selection)
 	{
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_LONG
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LONG):
-	case(DESCRIPTIONELEMENTS::LONG_CYCLE):
-	case(DESCRIPTIONELEMENTS::LONG_SLIDER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_LONG
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LONG):
+		case(DESCRIPTIONELEMENTS::LONG_CYCLE):
+		case(DESCRIPTIONELEMENTS::LONG_QUICKTAB):
+		case(DESCRIPTIONELEMENTS::LONG_SLIDER):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_LONG)
+			if (success && data.GetType() == DA_LONG)
 			{
 				const Int32 value = data.GetInt32();
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),String::IntToString(value),DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), String::IntToString(value), DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;	
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_REAL 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::REAL):
-	case(DESCRIPTIONELEMENTS::REAL_SLIDER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_REAL 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::REAL):
+		case(DESCRIPTIONELEMENTS::REAL_SLIDER):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_REAL)
+			if (success && data.GetType() == DA_REAL)
 			{
 				const Float value = data.GetFloat();
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),String::FloatToString(value),DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), String::FloatToString(value), DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_VECTOR / CUSTOMGUI_VECTOR
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::VECTOR):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_VECTOR / CUSTOMGUI_VECTOR
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::VECTOR):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::VECTOR),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::VECTOR), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_VECTOR)
+			if (success && data.GetType() == DA_VECTOR)
 			{
 				const Vector value = data.GetVector();
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),String::VectorToString(value),DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), String::VectorToString(value), DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_MATRIX 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::MATRIX):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_MATRIX 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::MATRIX):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::MATRIX),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::MATRIX), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_MATRIX)
+			if (success && data.GetType() == DA_MATRIX)
 			{
 				const Matrix value = data.GetMatrix();
 
@@ -1257,135 +1283,135 @@ void ObjectDynamicDescription::GetParameter(GeListNode* node)
 				result += String::VectorToString(value.v3) + "\n";
 				result += String::VectorToString(value.off) + "\n";
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_STRING 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::STRING):
-	case(DESCRIPTIONELEMENTS::STRING_MULTILINE):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_STRING 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::STRING):
+		case(DESCRIPTIONELEMENTS::STRING_MULTILINE):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_STRING)
+			if (success && data.GetType() == DA_STRING)
 			{
 				const String result = data.GetString();
-				node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_FILENAME
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::FILENAME):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_FILENAME
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::FILENAME):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::FILENAME),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::FILENAME), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_FILENAME)
+			if (success && data.GetType() == DA_FILENAME)
 			{
 				const Filename filename = data.GetFilename();
 				const String result = filename.GetString();
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BOOL
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::BOOL):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BOOL
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::BOOL):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BOOL),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::BOOL), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_LONG)
+			if (success && data.GetType() == DA_LONG)
 			{
 				const Bool value = data.GetBool();
 				String result;
 
-				if(value)
+				if (value)
 					result = "Checked";
 				else
 					result = "Not Checked";
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_BASELISTLINK
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::LINK):
-	case(DESCRIPTIONELEMENTS::SHADERLINK):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_BASELISTLINK
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::LINK):
+		case(DESCRIPTIONELEMENTS::SHADERLINK):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + selection), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_ALIASLINK)
+			if (success && data.GetType() == DA_ALIASLINK)
 			{
 				BaseList2D* linkedEntity = data.GetLink(doc);
 
-				if(linkedEntity != nullptr)
+				if (linkedEntity != nullptr)
 				{
 					const String result = linkedEntity->GetName();
 
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_TIME 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::TIME):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_TIME 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::TIME):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::TIME),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::TIME), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_TIME)
+			if (success && data.GetType() == DA_TIME)
 			{
 				const BaseTime time = data.GetTime();
 				const Int32 frame = time.GetFrame(doc->GetFps());
 
 				const String result = String::IntToString(frame);
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DTYPE_COLOR 
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::COLOR_PARAMETER):
+		//--------------------------------------------------------------------------------------
+		/// DTYPE_COLOR 
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::COLOR_PARAMETER):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLOR_PARAMETER),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLOR_PARAMETER), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DA_VECTOR)
+			if (success && data.GetType() == DA_VECTOR)
 			{
 				const Vector value = data.GetVector();
 
-				node->SetParameter(DescID(ID_RESULT_TEXT),String::VectorToString(value),DESCFLAGS_SET_0);
+				node->SetParameter(DescID(ID_RESULT_TEXT), String::VectorToString(value), DESCFLAGS_SET_0);
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_GRADIENT / CUSTOMGUI_GRADIENT
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::GRADIENT):
-		{		
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::GRADIENT),data,DESCFLAGS_GET_0);
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_GRADIENT / CUSTOMGUI_GRADIENT
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::GRADIENT):
+		{
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::GRADIENT), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == CUSTOMDATATYPE_GRADIENT)
+			if (success && data.GetType() == CUSTOMDATATYPE_GRADIENT)
 			{		
 				Gradient* gradientData = (Gradient*)data.GetCustomDataType(CUSTOMDATATYPE_GRADIENT);
 
-				if(gradientData != nullptr)
+				if (gradientData != nullptr)
 				{
 					String result;
 
@@ -1393,7 +1419,7 @@ void ObjectDynamicDescription::GetParameter(GeListNode* node)
 					InitRenderStruct irs(doc);
 					gradientData->InitRender(irs);
 
-					for(Int32 i = 0; i < 10; i++)
+					for (Int32 i = 0; i < 10; i++)
 					{
 							const Vector color = gradientData->CalcGradientPixel(Float(i) / 10.0);
 
@@ -1402,135 +1428,135 @@ void ObjectDynamicDescription::GetParameter(GeListNode* node)
     
 					gradientData->FreeRender();
 
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_SPLINE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::SPLINE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_SPLINE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::SPLINE):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::SPLINE), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == CUSTOMDATATYPE_SPLINE)
+			if (success && data.GetType() == CUSTOMDATATYPE_SPLINE)
 			{
 				SplineData* splineData = (SplineData*)data.GetCustomDataType(CUSTOMDATATYPE_SPLINE);
 
-				if(splineData != nullptr)
+				if (splineData != nullptr)
 				{
 					String result;
 
 					// get range
 					Float minX, maxX, dummy;
-					splineData->GetRange(&minX,&maxX,&dummy,&dummy,&dummy,&dummy);
+					splineData->GetRange(&minX, &maxX, &dummy, &dummy, &dummy, &dummy);
 
 					const Float stepSize = (maxX - minX) / 10.0;
 
 					// sample the curve
-					for(Float i = minX; i <= maxX; i = i + stepSize)
+					for (Float i = minX; i <= maxX; i = i + stepSize)
 					{
 						const Vector point = splineData->GetPoint(i);
 
 						result += String::FloatToString(point.y) + "\n";
 					}
 
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_INEXCLUDE_LIST
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_INEXCLUDE_LIST
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::INCLUDE_EXCLUDE), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == CUSTOMDATATYPE_INEXCLUDE_LIST)
+			if (success && data.GetType() == CUSTOMDATATYPE_INEXCLUDE_LIST)
 			{
 				InExcludeData* inexData = (InExcludeData*)data.GetCustomDataType(CUSTOMDATATYPE_INEXCLUDE_LIST);
 
-				if(inexData != nullptr)
+				if (inexData != nullptr)
 				{
 					String result;
 
 					// loop through objects
 					const Int32 count = inexData->GetObjectCount();
 
-					for(Int32 i = 0; i < count; ++i)
+					for (Int32 i = 0; i < count; ++i)
 					{
-						BaseList2D* baseList = inexData->ObjectFromIndex(doc,i);
+						BaseList2D* baseList = inexData->ObjectFromIndex(doc, i);
 
 						// add object name to output
-						if(baseList != nullptr)
+						if (baseList != nullptr)
 							result += baseList->GetName()+"\n";
 					}
 
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMGUI_PRIORITY_DATA
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::PRIORITY):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMGUI_PRIORITY_DATA
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::PRIORITY):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::PRIORITY),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::PRIORITY), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == CUSTOMGUI_PRIORITY_DATA)
+			if (success && data.GetType() == CUSTOMGUI_PRIORITY_DATA)
 			{
 				PriorityData *value = (PriorityData*)data.GetCustomDataType(CUSTOMGUI_PRIORITY_DATA);
 
-				if(value != nullptr)
+				if (value != nullptr)
 				{
 					GeData priorityData = value->GetPriorityValue(PRIORITYVALUE_MODE);
 
 					const String result = String::IntToString(priorityData.GetInt32());
 
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// CUSTOMDATATYPE_COLORPROFILE
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::COLORPROFILE):
+		//--------------------------------------------------------------------------------------
+		/// CUSTOMDATATYPE_COLORPROFILE
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::COLORPROFILE):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLORPROFILE),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::COLORPROFILE), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == CUSTOMDATATYPE_COLORPROFILE)
+			if (success && data.GetType() == CUSTOMDATATYPE_COLORPROFILE)
 			{
 				ColorProfile* value = (ColorProfile*)data.GetCustomDataType(CUSTOMDATATYPE_COLORPROFILE);
 
-				if(value != nullptr)
+				if (value != nullptr)
 				{
 					const String result = value->GetInfo(ColorProfile::COLORPROFILEINFO_DESCRIPTION);
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
-	//--------------------------------------------------------------------------------------
-	/// DATETIME_DATA
-	//--------------------------------------------------------------------------------------
-	case(DESCRIPTIONELEMENTS::DATETIME):
+		//--------------------------------------------------------------------------------------
+		/// DATETIME_DATA
+		//--------------------------------------------------------------------------------------
+		case(DESCRIPTIONELEMENTS::DATETIME):
 		{
-			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::DATETIME),data,DESCFLAGS_GET_0);
+			const Bool success = node->GetParameter(DescID(ID_DYANMIC_ELEMENT + DESCRIPTIONELEMENTS::DATETIME), data, DESCFLAGS_GET_0);
 
 			// check type
-			if(success && data.GetType() == DATETIME_DATA)
+			if (success && data.GetType() == DATETIME_DATA)
 			{
 				DateTimeData* value = (DateTimeData*)data.GetCustomDataType(DATETIME_DATA);
 
-				if(value != nullptr)
+				if (value != nullptr)
 				{
 					DateTime time = value->GetDateTime();
 
@@ -1542,11 +1568,11 @@ void ObjectDynamicDescription::GetParameter(GeListNode* node)
 					result += String::IntToString(time.minute) + ":";
 					result += String::IntToString(time.second);
 
-					node->SetParameter(DescID(ID_RESULT_TEXT),result,DESCFLAGS_SET_0);
+					node->SetParameter(DescID(ID_RESULT_TEXT), result, DESCFLAGS_SET_0);
 				}
 			}
+			break;
 		}
-		break;
 	}
 }
 
@@ -1556,4 +1582,3 @@ Bool RegisterObjectDynamicDescription()
 {
 	return RegisterObjectPlugin(ID_SDK_OBJECTDATA_DESCRIPTION, GeLoadString(IDS_OBJECTDATA_DESCRIPTION), 0, ObjectDynamicDescription::Alloc, "Odescription", nullptr, 0);
 };
-

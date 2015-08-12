@@ -213,6 +213,7 @@
     <ClCompile Include="source\gui\memstat.cpp" />
     <ClCompile Include="source\gui\menutest.cpp" />
     <ClCompile Include="source\gui\objectdata_descriptions.cpp" />
+    <ClCompile Include="source\gui\objectdata_getsetdparameter.cpp" />
     <ClCompile Include="source\gui\serial.cpp" />
     <ClCompile Include="source\gui\serial_hook.cpp" />
     <ClCompile Include="source\gui\subdialog.cpp" />

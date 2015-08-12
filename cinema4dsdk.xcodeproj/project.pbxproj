@@ -25,6 +25,7 @@
 		28897327187B9EE4006FF83E /* sculptdeformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 28897323187B9EE4006FF83E /* sculptdeformer.cpp */; };
 		28897328187B9EE4006FF83E /* sculptmodifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 28897324187B9EE4006FF83E /* sculptmodifier.cpp */; };
 		30C3BAC71803FDDE004E2C96 /* snaptool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30C3BAC61803FDDE004E2C96 /* snaptool.cpp */; };
+		603E13231B5FA23200CE980D /* objectdata_getsetdparameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 603E13221B5FA23200CE980D /* objectdata_getsetdparameter.cpp */; };
 		A0A6683339003C788F010000 /* selectionbrush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339003C788F000000 /* selectionbrush.cpp */; };
 		A0A668333909A83EB8010000 /* pickobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A668333909A83EB8000000 /* pickobject.cpp */; };
 		A0A66833390B8011F0010000 /* datatype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A66833390B8011F0000000 /* datatype.cpp */; };
@@ -147,6 +148,7 @@
 		28897323187B9EE4006FF83E /* sculptdeformer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sculptdeformer.cpp; path = source/sculpting/sculptdeformer.cpp; sourceTree = SOURCE_ROOT; };
 		28897324187B9EE4006FF83E /* sculptmodifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sculptmodifier.cpp; path = source/sculpting/sculptmodifier.cpp; sourceTree = SOURCE_ROOT; };
 		30C3BAC61803FDDE004E2C96 /* snaptool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = snaptool.cpp; path = source/tool/snaptool.cpp; sourceTree = SOURCE_ROOT; };
+		603E13221B5FA23200CE980D /* objectdata_getsetdparameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = objectdata_getsetdparameter.cpp; path = source/gui/objectdata_getsetdparameter.cpp; sourceTree = SOURCE_ROOT; };
 		A08C5CDEA3A66833397B0000 /* cinema4dsdk.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = cinema4dsdk.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A668333900000000000000 /* debugbase.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = debugbase.xcconfig; path = ../../../frameworks/settings/debugbase.xcconfig; sourceTree = SOURCE_ROOT; };
 		A0A668333900000000050000 /* releasebase.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = releasebase.xcconfig; path = ../../../frameworks/settings/releasebase.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -425,6 +427,7 @@
 		A0A6683339BDAFD147000000 /* gui */ = {
 			isa = PBXGroup;
 			children = (
+				603E13221B5FA23200CE980D /* objectdata_getsetdparameter.cpp */,
 				CF2C3A121B1F05590000B009 /* objectdata_descriptions.cpp */,
 				CF36BFF81B17857D00531499 /* gedialog_gadgets.cpp */,
 				CF1845361B0B868200A2C1A5 /* customdata_customgui.cpp */,
@@ -628,6 +631,7 @@
 				A0A668333909A83EB8010000 /* pickobject.cpp in Sources */,
 				A0A66833390B8011F0010000 /* datatype.cpp in Sources */,
 				A0A66833390BE67085010000 /* gradientuserarea.cpp in Sources */,
+				603E13231B5FA23200CE980D /* objectdata_getsetdparameter.cpp in Sources */,
 				A0A668333912D85805010000 /* triangulate.cpp in Sources */,
 				A0A66833391B8C1CAF010000 /* vpvisualizenormals.cpp in Sources */,
 				CF36BFF91B17857D00531499 /* gedialog_gadgets.cpp in Sources */,

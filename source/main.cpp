@@ -126,6 +126,8 @@ Bool PluginStart(void)
 			return false;
 		if (!RegisterPaintAdvanced())
 			return false;
+		if (!RegisterSculptBrushSpline())
+			return false;
 	}
 
 	// animation plugin example
@@ -196,10 +198,12 @@ Bool PluginStart(void)
 	if (!RegisterGeneratorObject())
 		return false;
 
-	// other examples
-
 	// SnapData example
 	if(!RegisterSnapDataNullSnap())
+		return false;
+
+	// take system example
+	if (!RegisterTakeTestCommmands())
 		return false;
 
 	// String custom GUI example

@@ -239,7 +239,7 @@ void CommandLineRendering(C4DPL_CommandLineArgs* args)
 
 			if (i + 1 < args->argc && args->argv[i + 1] && args->argv[i + 1][0] != '-')
 			{
-				AutoGeFree<Char> str = String(args->argv[i]).ToUpper().GetCStringCopy();
+				AutoGeFree<Char> str(String(args->argv[i]).ToUpper().GetCStringCopy());
 				if (!str)
 					break;
 				i++;

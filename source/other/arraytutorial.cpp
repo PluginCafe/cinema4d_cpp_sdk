@@ -125,8 +125,13 @@ public:
 		maxon::BaseArray<Int>::Iterator it = array.Begin();
 		maxon::BaseArray<Int>::Iterator start;
 		maxon::BaseArray<Int>::Iterator end;
+
+		// The following two variables exist for debugging purposes only, hence the use of
+		// UseVariable() to eliminate compiler warnings that indicate they are set but not used.
 		Int cnt;
 		Int distance;
+		maxon::UseVariable(cnt);
+		maxon::UseVariable(distance);
 
 		// Assign a value to the element the iterator points to.
 		*it = 21;
@@ -170,8 +175,13 @@ public:
 		typename COLLECTION::Iterator it = array.Begin();
 		typename COLLECTION::Iterator start;
 		typename COLLECTION::Iterator end;
+
+		// The following two variables exist for debugging purposes only, hence the use of
+		// UseVariable() to eliminate compiler warnings that indicate they are set but not used.
 		Int cnt;
 		Int distance;
+		maxon::UseVariable(cnt);
+		maxon::UseVariable(distance);
 
 		// Assign a value to the element the iterator points to.
 		*it = a;
@@ -217,7 +227,7 @@ public:
 		Example1(Example1&& src) : _data(std::move(src._data)) {}
 		MAXON_OPERATOR_MOVE_ASSIGNMENT(Example1);
 
-		MAXON_WARN_UNUSED maxon::Result<void> CopyFrom(const Example1& src)
+		maxon::Result<void> CopyFrom(const Example1& src)
 		{
 			if (_data.CopyFrom(src._data) == maxon::FAILED)
 				return maxon::OutOfMemoryError(CREATE);

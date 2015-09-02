@@ -83,7 +83,9 @@ Bool RegisterCustomGUIString();
 Bool RegisterCustomDatatypeCustomGUI();
 Bool RegisterExampleDialogCommand();
 Bool RegisterObjectDynamicDescription();
+Bool RegisterSculptBrushSpline();
 Bool RegisterGetSetDParameterExample();
+Bool RegisterTakeTestCommmands();
 
 void CommandLineRendering(C4DPL_CommandLineArgs* args);
 

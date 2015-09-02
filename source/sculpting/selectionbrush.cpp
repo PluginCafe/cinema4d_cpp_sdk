@@ -139,6 +139,9 @@ Bool RegisterSculptSelectionBrush()
 	//We want to handle undo/redo ourselves so we tell the Sculpting System that should not do anything with its Undo System.
 	pParams->SetUndoType(SCULPTBRUSHDATATYPE_NONE);
 
+	//Tell the system to only rebuild the collision cache if something other than the select flags have changed
+	pParams->SetPolygonObjectDirtyFlags(DIRTYFLAGS_ALL & ~DIRTYFLAGS_SELECT);
+
 	//Set the MovePointFunc to call for each dab.
 	pParams->SetMovePointFunc(&SculptSelectionBrush::MovePointsFunc);
 

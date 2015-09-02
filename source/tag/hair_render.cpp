@@ -37,7 +37,7 @@ static Bool _InitRenderFn(HairVideoPost* vp, VolumeData* vd, BaseDocument* doc, 
 	//GePrint("Init Render");
 
 	BaseContainer*		bc	= bl->GetDataInstance();
-	HairRenderingTag* hrt = (HairRenderingTag*)bl->GetNodeData();
+	HairRenderingTag* hrt = bl->GetNodeData<HairRenderingTag>();
 
 	if (!bc || !hrt)
 		return false;
@@ -54,9 +54,9 @@ static void _HrFreeRenderFn(HairVideoPost* vp, BaseList2D* bl)
 	//GePrint("Free Render");
 }
 
-static Float _ModifyHairShadowTransparencyFn(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& n, const Vector& lp, const Vector& huv, const RayHitID& ply_id, RayLight* light, Float trans)
+static Float _ModifyHairShadowTransparencyFn(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, const RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& n, const Vector& lp, const Vector& huv, const RayHitID& ply_id, const RayLight* light, Float trans)
 {
-	HairRenderingTag* hrt = (HairRenderingTag*)bl->GetNodeData();
+	HairRenderingTag* hrt = bl->GetNodeData<HairRenderingTag>();
 
 	if (light)	// shadow call
 		trans = (Float) 1.0 - Clamp01(((Float) 1.0 - Clamp01(trans)) * hrt->m_Shadow);
@@ -72,9 +72,9 @@ static Float _ModifyHairShadowTransparencyFn(HairVideoPost* vp, Int32 oindex, Ha
 	return trans;
 }
 
-static Vector _GenerateColorFn(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& v, const Vector& n, const Vector& lp, const Vector& t, const Vector& r, const Vector& huv, const RayHitID& ply_id)
+static Vector _GenerateColorFn(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, const RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& v, const Vector& n, const Vector& lp, const Vector& t, const Vector& r, const Vector& huv, const RayHitID& ply_id)
 {
-	HairRenderingTag* hrt = (HairRenderingTag*)bl->GetNodeData();
+	HairRenderingTag* hrt = bl->GetNodeData<HairRenderingTag>();
 
 	Vector col;
 

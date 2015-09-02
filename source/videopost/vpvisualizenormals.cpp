@@ -19,7 +19,7 @@ RENDERRESULT VisualizePostData::Execute(BaseVideoPost* node, VideoPostStruct* vp
 	if (vps->vp == VIDEOPOSTCALL_RENDER && !vps->open && *vps->error == RENDERRESULT_OK && !vps->thread->TestBreak())
 	{
 		VPBuffer*			rgba = vps->render->GetBuffer(VPBUFFER_RGBA, NOTOK);
-		RayParameter* ray	 = vps->vd->GetRayParameter();	// only in VP_INNER & VIDEOPOSTCALL_RENDER
+		const RayParameter* ray	 = vps->vd->GetRayParameter();	// only in VP_INNER & VIDEOPOSTCALL_RENDER
 		if (!ray)
 			return RENDERRESULT_OUTOFMEMORY;
 		if (!rgba)
@@ -48,14 +48,14 @@ RENDERRESULT VisualizePostData::Execute(BaseVideoPost* node, VideoPostStruct* vp
 		{
 			rgba->GetLine(x1, y, cnt, buffer, 32, true);
 
-			VPFragment** frag = vps->vd->GetFragments(x1, y, cnt, VPGETFRAGMENTS_Z_P | VPGETFRAGMENTS_N), ** ind = frag;
+			const VPFragment** frag = vps->vd->GetFragments(x1, y, cnt, VPGETFRAGMENTS_Z_P | VPGETFRAGMENTS_N), ** ind = frag;
 			if (!frag)
 				continue;
 
 			for (b = buffer, x = x1; x <= x2; x++, b += cpp, ind++)
 			{
 				Vector32		col = Vector32(0.0);
-				VPFragment* f;
+				const VPFragment* f;
 				for (f = (*ind); f; f = f->next)
 					col += (Vector32((Float32)Abs(f->n.x), (Float32)Abs(f->n.y), (Float32)Abs(f->n.z)) * f->weight) * f->color;
 

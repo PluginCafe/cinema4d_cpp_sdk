@@ -88,6 +88,7 @@ STRINGTABLE
 	IDS_SCULPTDRAWPOLYBRUSH_TOOL "C++ SDK - Sculpt Draw Poly Brush Tool";
 	IDS_SCULPTCUBESBRUSH_TOOL	"C++ SDK - Sculpt Cubes Brush Tool";
 	IDS_SCULPTBRUSH_SELECTIONTOOL "C++ SDK - Sculpt Selection Brush Tool";
+	IDS_SCULPTBRUSH_SPLINETOOL "C++ SDK - Sculpt Spline Brush Tool";
 	IDS_PICKOBJECT_SDK		"C++ SDK - Pick Object Tool";
 	IDS_HELP_PICKOBJECT_SDK	"Demonstrates how to use ViewportSelect::PickObject";
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="source">
@@ -291,6 +291,9 @@
     <ClCompile Include="source\other\movecopyconstructors.cpp">
       <Filter>source\other</Filter>
     </ClCompile>
+    <ClCompile Include="source\sculpting\splinebrush.cpp">
+      <Filter>source\sculpting</Filter>
+    </ClCompile>
     <ClCompile Include="source\other\arraytutorial.cpp">
       <Filter>source\other</Filter>
     </ClCompile>
@@ -302,6 +305,9 @@
     </ClCompile>
     <ClCompile Include="source\gui\customdata_customgui.cpp">
       <Filter>source\gui</Filter>
+    </ClCompile>
+		<ClCompile Include="source\other\takeTest.cpp">
+      <Filter>source\other</Filter>
     </ClCompile>
     <ClCompile Include="source\gui\gedialog_gadgets.cpp">
       <Filter>source\gui</Filter>

@@ -141,9 +141,9 @@ void PaintUndoStroke::Init()
 
 void PaintUndoStroke::Init(PaintUndoStroke *pStroke)
 {
-	FOREACH(a, pStroke->m_Tiles)
+	for (auto& a : pStroke->m_Tiles)
 	{
-		AddUndoTile(a->GetCurrentStateClone());
+		AddUndoTile(a.GetCurrentStateClone());
 	}
 }
 
@@ -165,9 +165,9 @@ void PaintUndoStroke::AddUndoTile(PaintUndoTile *pTile)
 
 void PaintUndoStroke::Apply()
 {
-	FOREACH(a, m_Tiles)
+	for (auto& a : m_Tiles)
 	{
-		a->Apply();
+		a.Apply();
 	}
 	DrawViews(DRAWFLAGS_PRIVATE_NO_WAIT_GL_FINISHED|DRAWFLAGS_ONLY_ACTIVE_VIEW|DRAWFLAGS_NO_THREAD|DRAWFLAGS_NO_ANIMATION);
 }
@@ -194,18 +194,18 @@ PaintUndoRedo::~PaintUndoRedo()
 
 void PaintUndoRedo::ClearRedos()
 {
-	FOREACH(stroke, m_RedoStrokes)
+	for (auto& stroke : m_RedoStrokes)
 	{
-		DeleteObj(*stroke);
+		DeleteObj(stroke);
 	}
 	m_RedoStrokes.Reset();
 }
 
 void PaintUndoRedo::ClearUndos()
 {
-	FOREACH(stroke, m_UndoStrokes)
+	for (auto& stroke : m_UndoStrokes)
 	{
-		DeleteObj(*stroke);
+		DeleteObj(stroke);
 	}
 	m_UndoStrokes.Reset();
 }
@@ -436,7 +436,7 @@ PaintUndoSystem *GetPaintUndoSystem(BaseDocument *doc)
 	BaseSceneHook *pUndoRedoHook = doc->FindSceneHook(ID_PAINT_UNDOREDO_SCENEHOOK);
 	if (pUndoRedoHook)
 	{
-		pUndoRedo = (PaintUndoSystem *)pUndoRedoHook->GetNodeData();
+		pUndoRedo = pUndoRedoHook->GetNodeData<PaintUndoSystem>();
 	}
 	return pUndoRedo;
 }

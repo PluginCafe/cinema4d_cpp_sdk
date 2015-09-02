@@ -26,6 +26,7 @@
 		28897328187B9EE4006FF83E /* sculptmodifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 28897324187B9EE4006FF83E /* sculptmodifier.cpp */; };
 		30C3BAC71803FDDE004E2C96 /* snaptool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30C3BAC61803FDDE004E2C96 /* snaptool.cpp */; };
 		603E13231B5FA23200CE980D /* objectdata_getsetdparameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 603E13221B5FA23200CE980D /* objectdata_getsetdparameter.cpp */; };
+		370E41D219A69052004C284E /* splinebrush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 370E41D119A69052004C284E /* splinebrush.cpp */; };
 		A0A6683339003C788F010000 /* selectionbrush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A6683339003C788F000000 /* selectionbrush.cpp */; };
 		A0A668333909A83EB8010000 /* pickobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A668333909A83EB8000000 /* pickobject.cpp */; };
 		A0A66833390B8011F0010000 /* datatype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0A66833390B8011F0000000 /* datatype.cpp */; };
@@ -103,6 +104,7 @@
 		CF36BFF91B17857D00531499 /* gedialog_gadgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF36BFF81B17857D00531499 /* gedialog_gadgets.cpp */; };
 		CF5F74391A8E312800E840EC /* snapdata_nullsnap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */; };
 		CF930B5F1AC41A45006064BA /* customgui_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF930B5E1AC41A45006064BA /* customgui_string.cpp */; };
+		DA3565F01A7414AB0029EEF9 /* takeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA3565EF1A7414AB0029EEF9 /* takeTest.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,7 @@
 		28897324187B9EE4006FF83E /* sculptmodifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sculptmodifier.cpp; path = source/sculpting/sculptmodifier.cpp; sourceTree = SOURCE_ROOT; };
 		30C3BAC61803FDDE004E2C96 /* snaptool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = snaptool.cpp; path = source/tool/snaptool.cpp; sourceTree = SOURCE_ROOT; };
 		603E13221B5FA23200CE980D /* objectdata_getsetdparameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = objectdata_getsetdparameter.cpp; path = source/gui/objectdata_getsetdparameter.cpp; sourceTree = SOURCE_ROOT; };
+		370E41D119A69052004C284E /* splinebrush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = splinebrush.cpp; path = source/sculpting/splinebrush.cpp; sourceTree = SOURCE_ROOT; };
 		A08C5CDEA3A66833397B0000 /* cinema4dsdk.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = cinema4dsdk.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A668333900000000000000 /* debugbase.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = debugbase.xcconfig; path = ../../../frameworks/settings/debugbase.xcconfig; sourceTree = SOURCE_ROOT; };
 		A0A668333900000000050000 /* releasebase.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = releasebase.xcconfig; path = ../../../frameworks/settings/releasebase.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -229,6 +232,7 @@
 		CF36BFF81B17857D00531499 /* gedialog_gadgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gedialog_gadgets.cpp; path = source/gui/gedialog_gadgets.cpp; sourceTree = SOURCE_ROOT; };
 		CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = snapdata_nullsnap.cpp; path = source/other/snapdata_nullsnap.cpp; sourceTree = SOURCE_ROOT; };
 		CF930B5E1AC41A45006064BA /* customgui_string.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = customgui_string.cpp; path = source/gui/customgui_string.cpp; sourceTree = SOURCE_ROOT; };
+		DA3565EF1A7414AB0029EEF9 /* takeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = takeTest.cpp; path = source/other/takeTest.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +325,7 @@
 		A0A66833391170EC1C000000 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				DA3565EF1A7414AB0029EEF9 /* takeTest.cpp */,
 				CF5F74381A8E312800E840EC /* snapdata_nullsnap.cpp */,
 				261F66D619F934C300641C14 /* arraytutorial.cpp */,
 				A0A66833398066F297000000 /* commandlinerender.cpp */,
@@ -520,6 +525,7 @@
 		A0A6683339FF8051E3000000 /* sculpting */ = {
 			isa = PBXGroup;
 			children = (
+				370E41D119A69052004C284E /* splinebrush.cpp */,
 				A0A66833397EF3397D000000 /* cubesbrush.cpp */,
 				A0A66833395B452E71000000 /* drawpoly.cpp */,
 				A0A66833396F2106B3000000 /* drawpolybrush.cpp */,
@@ -694,6 +700,7 @@
 				28897328187B9EE4006FF83E /* sculptmodifier.cpp in Sources */,
 				A0A6683339CBE6CD68010000 /* vpcolorize.cpp in Sources */,
 				28897316187B9EC9006FF83E /* paintbrushbase.cpp in Sources */,
+				DA3565F01A7414AB0029EEF9 /* takeTest.cpp in Sources */,
 				A0A6683339D1700DC2010000 /* activeobject.cpp in Sources */,
 				A0A6683339D92629F7010000 /* randomfalloff.cpp in Sources */,
 				A0A6683339DE19FA2E010000 /* vpreconstructimage.cpp in Sources */,
@@ -712,6 +719,7 @@
 				28897319187B9EC9006FF83E /* paintbrushsculpt.cpp in Sources */,
 				A0A6683339FC93D0C3010000 /* gl_test_object.cpp in Sources */,
 				A0A6683339FD2F9822010000 /* filtermatrix.cpp in Sources */,
+				370E41D219A69052004C284E /* splinebrush.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

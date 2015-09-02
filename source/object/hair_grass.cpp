@@ -38,7 +38,7 @@ public:
 
 //////////////////////////////////////////////////////////////////////////
 
-static Vector _GenerateColor(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& v, const Vector& n, const Vector& lp, const Vector& t, const Vector& r, const Vector& huv, const RayHitID& ply_id)
+static Vector _GenerateColor(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, const RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& v, const Vector& n, const Vector& lp, const Vector& t, const Vector& r, const Vector& huv, const RayHitID& ply_id)
 {
 	Int32 scnt = guides->GetSegmentCount();
 
@@ -59,7 +59,7 @@ static Vector _GenerateColor(HairVideoPost* vp, Int32 oindex, HairMaterialData* 
 	return Vector(0, 0.5 * dlt, 0) * shd;
 }
 
-static Float _GenerateTransparency(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& n, const Vector& lp, const Vector& huv, const RayHitID& ply_id, RayLight* light)
+static Float _GenerateTransparency(HairVideoPost* vp, Int32 oindex, HairMaterialData* mat, const RayObject* ro, HairObject* op, HairGuides* guides, BaseList2D* bl, Float32* thk, VolumeData* vd, Int32 cpu, Int32 lid, Int32 seg, Int32 p, Float lined, const Vector& linep, const Vector& n, const Vector& lp, const Vector& huv, const RayHitID& ply_id, const RayLight* light)
 {
 	Int32 scnt = guides->GetSegmentCount();
 
@@ -73,7 +73,7 @@ static Float _GenerateTransparency(HairVideoPost* vp, Int32 oindex, HairMaterial
 
 static HairGuides* _GenerateFn(BaseDocument* doc, BaseList2D* op, HairObject* hair, BaseThread* thd, VolumeData* vd, Int32 pass, void* data)
 {
-	HairGrassObject* grass = (HairGrassObject*)op->GetNodeData();
+	HairGrassObject* grass = op->GetNodeData<HairGrassObject>();
 	BaseContainer*	 bc = op->GetDataInstance();
 	HairGuides*			 hairs = nullptr;
 

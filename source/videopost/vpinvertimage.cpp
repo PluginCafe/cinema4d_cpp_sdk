@@ -70,7 +70,7 @@ RENDERRESULT InvertData::Execute(BaseVideoPost* node, VideoPostStruct* vps)
 	if (vps->vp == VIDEOPOSTCALL_RENDER && !vps->open && *vps->error == RENDERRESULT_OK && !vps->thread->TestBreak())
 	{
 		VPBuffer*			rgba = vps->render->GetBuffer(VPBUFFER_RGBA, NOTOK);
-		RayParameter* ray	 = vps->vd->GetRayParameter();	// only in VP_INNER & VIDEOPOSTCALL_RENDER
+		const RayParameter* ray	 = vps->vd->GetRayParameter();	// only in VP_INNER & VIDEOPOSTCALL_RENDER
 		if (!ray)
 			return RENDERRESULT_OUTOFMEMORY;
 		if (!rgba)

@@ -64,7 +64,7 @@ static void RenderProgressHook(Float p, RENDERPROGRESSTYPE progress_type, void* 
 			switch (progress_type)
 			{
 				case RENDERPROGRESSTYPE_AFTERRENDERING:
-					lastProgressValue = 1.0;	// no further output necessary
+					lastProgressValue = 1.0; // no further output necessary
 					GeConsoleOut("Rendering Phase: Finalize");
 					break;
 
@@ -81,6 +81,11 @@ static void RenderProgressHook(Float p, RENDERPROGRESSTYPE progress_type, void* 
 				case RENDERPROGRESSTYPE_GLOBALILLUMINATION:
 					lastProgressValue = -1.0;	// output new percent value
 					GeConsoleOut("Rendering Phase: Global Illumination");
+					break;
+
+				case RENDERPROGRESSTYPE_AMBIENTOCCLUSION:
+					lastProgressValue = -1.0;	// output new percent value
+					GeConsoleOut("Rendering Phase: Ambient Occlusion");
 					break;
 			}
 
@@ -289,12 +294,13 @@ void CommandLineRendering(C4DPL_CommandLineArgs* args)
 		if (!fn.GetDirectory().Content())
 		{
 			static Char startup[1024];
-			getcwd(startup, 1024);
-			Int32 len = (Int32)strlen(startup);
+			Int32 len = 0;
+
+			startup[0] = 0;
+			if (getcwd(startup, sizeof(startup)) != nullptr)
+				len = (Int32)strlen(startup);
 			if (len && startup[len - 1] != '/')
-			{
 				startup[len] = 0;
-			}
 
 #ifdef MAXON_TARGET_OSX
 			tmp.SetCString(args->argv[i], -1, STRINGENCODING_UTF8);	// MacOS X is using UTF8 as encoding

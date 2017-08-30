@@ -82,7 +82,7 @@ Bool SculptBrushTwist::MovePointsFunc(BrushDabData *dab)
 	Vector currentDrawLocation = dab->GetBaseDraw()->WS(dab->GetMousePos3D());
 
 	Float xVal = currentDrawLocation.x - hitScreenSpace.x;
-	Float rotation = maxon::Rad(xVal);
+	Float rotation = maxon::DegToRad(xVal);
 
 	for (a = 0; a < pointCount; ++a)
 	{

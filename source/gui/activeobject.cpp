@@ -396,7 +396,7 @@ public:
 		return NOTOK;
 	}
 
-	virtual Bool DoubleClick(void* root, void* userdata, void* obj, Int32 col, MouseInfo* mouseinfo)
+	virtual Int32 DoubleClick(void* root, void* userdata, void* obj, Int32 col, MouseInfo* mouseinfo)
 	{
 		return false;
 	}

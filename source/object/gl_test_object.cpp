@@ -151,7 +151,7 @@ Bool GLTestObject::DrawParticles(BaseObject* pObject, BaseDraw* bd, BaseDrawHelp
 
 			// normal
 			n = v.x / 50.0f;
-			n = Cos(n * (Float32)PI2) * Rad(20.0f);
+			n = Cos(n * (Float32)PI2) * DegToRad(20.0f);
 			z = Cos(n);
 			x = Sin(n);
 
@@ -215,7 +215,7 @@ Bool GLTestObject::DrawParticles(BaseObject* pObject, BaseDraw* bd, BaseDrawHelp
 			if (!pFactory->IsProgram(CompiledProgram))
 			{
 				// just route the vertex information to the fragment program
-				UInt32 ulParameters = GL_PROGRAM_PARAM_NORMALS | GL_PROGRAM_PARAM_COLOR;
+				UInt64 ulParameters = GL_PROGRAM_PARAM_NORMALS | GL_PROGRAM_PARAM_COLOR;
 				if (lLightCount > 0)
 					ulParameters |= GL_PROGRAM_PARAM_EYEPOSITION;
 				pFactory->AddParameters(ulParameters);

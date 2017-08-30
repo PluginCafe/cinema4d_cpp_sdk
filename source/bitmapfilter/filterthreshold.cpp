@@ -582,7 +582,7 @@ static Int32 do_effect32(BM_REF bm, const RECT32* src_rect, BM_TILE* dst, PRIVAT
 
 					value	 = *srcptr++;
 					value *= no_levels;
-					value	 = floor(value);
+					value	 = Floor(value);
 					value /= no_levels;
 
 					*dstptr++ = value;

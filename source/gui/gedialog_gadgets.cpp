@@ -14,7 +14,7 @@
 #include "customgui_inexclude.h"
 #include "c4d_graphview.h"
 #include "customgui_datetime.h"
-#include "customgui_quickTab.h"
+#include "customgui_quicktab.h"
 
 #define ID_MENU_COMMAND 500
 #define ID_COMBOBOX 1100
@@ -105,7 +105,7 @@ Bool ExampleUserArea::GetMinSize(Int32& w, Int32& h)
 void ExampleUserArea::DrawMsg(Int32 x1, Int32 y1, Int32 x2, Int32 y2, const BaseContainer& msg)
 {
 	OffScreenOn();
-	SetClippingRegion(x1, y1, x2, y2); 
+	SetClippingRegion(x1, y1, x2, y2);
 
 	// background
 	DrawSetPen(Vector(1,1,1));
@@ -162,12 +162,12 @@ Bool QuickTabSubDialog::CreateLayout()
 	BaseContainer bc;
 
 	// create a new QuickTab, which is used as title bar for the subdialog
-	bc.SetBool(QUICKTAB_BAR, true);
+	bc.SetInt32(QUICKTAB_BAR, 1);
 	bc.SetString(QUICKTAB_BARTITLE, "QuickTab #" + String::IntToString(_dialogIdx) + " Subdialog");
 	QuickTabCustomGui* quickTabGUIBar = static_cast<QuickTabCustomGui*>(AddCustomGui(ID_QUICKTAB_SUBDIALOG_TITLE + _dialogIdx, CUSTOMGUI_QUICKTAB, "", BFH_SCALEFIT | BFV_TOP, 100, 5, bc));
 	if (!quickTabGUIBar)
 		return false;
-	
+
 	// a group containing all content of the subdialog (used for easy layout refresh)
 	GroupBegin(ID_QUICKTAB_SUBDIALOG_MAIN_GROUP + _dialogIdx, BFH_SCALEFIT | BFV_TOP, 1, 0, "", 0, 400);
 	GroupBorderSpace(0, 0, 0, 0);
@@ -175,7 +175,7 @@ Bool QuickTabSubDialog::CreateLayout()
 	bc.FlushAll();
 
 	// another QuickTab, this time it's used as a subgroup title bar (with fold arrow icon)
-	bc.SetBool(QUICKTAB_BAR, true);
+	bc.SetInt32(QUICKTAB_BAR, 1);
 	bc.SetString(QUICKTAB_BARTITLE, "Subgroup in Subdialog #" + String::IntToString(_dialogIdx));
 	bc.SetBool(QUICKTAB_BARSUBGROUP, true);
 	_quickTabSubgroup = static_cast<QuickTabCustomGui*>(AddCustomGui(ID_QUICKTAB_SUBDIALOG_SUBGROUP_TITLE + _dialogIdx, CUSTOMGUI_QUICKTAB, "", BFH_SCALEFIT | BFV_TOP, 100, 5, bc));
@@ -256,7 +256,7 @@ private:
 	void HandleQuickTabCommand();
 };
 
-ExampleDialog::ExampleDialog(void) 
+ExampleDialog::ExampleDialog(void)
 {
 	_nodeGUI = nullptr;
 	_lastcoremsg_change = NOTOK;
@@ -266,7 +266,7 @@ ExampleDialog::~ExampleDialog(void)
 {
 	GvGetWorld()->FreeShape(_shape);
 	GvGetWorld()->FreeShape(_group);
-	GvGetWorld()->FreeNodeGUI(_nodeGUI);	
+	GvGetWorld()->FreeNodeGUI(_nodeGUI);
 }
 
 Bool ExampleDialog::CreateLayout()
@@ -274,7 +274,7 @@ Bool ExampleDialog::CreateLayout()
 	SetTitle("Example Dialog");
 
 	// Menu
-		
+
 	MenuFlushAll();
 		MenuSubBegin("Menu");
 
@@ -456,7 +456,7 @@ void ExampleDialog::UpdateDialog()
 
 	// add gadget
 	this->AddDynamicElement(selection);
-		
+
 	// update group
 	LayoutChanged(ID_DYNAMIC_GROUP);
 }
@@ -484,9 +484,9 @@ void ExampleDialog::EnableButton(const int selection)
 		case(DIALOGELEMENTS::EDIT_SLIDER):
 		case(DIALOGELEMENTS::SLIDER):
 		case(DIALOGELEMENTS::CUSTOM_GUI_GRADIENT):
-		case(DIALOGELEMENTS::CUSTOM_GUI_SPLINE):	
-		case(DIALOGELEMENTS::CUSTOM_GUI_PRIORITY):	
-		case(DIALOGELEMENTS::CUSTOM_GUI_INEXCLUDE):	
+		case(DIALOGELEMENTS::CUSTOM_GUI_SPLINE):
+		case(DIALOGELEMENTS::CUSTOM_GUI_PRIORITY):
+		case(DIALOGELEMENTS::CUSTOM_GUI_INEXCLUDE):
 		case(DIALOGELEMENTS::CUSTOM_GUI_DESCRIPTION):
 		case(DIALOGELEMENTS::CUSTOM_GUI_LINKBOX):
 		case(DIALOGELEMENTS::CUSTOM_GUI_DATETIME):
@@ -783,7 +783,7 @@ void ExampleDialog::AddDynamicElement(const int selection)
 		{
 			BaseContainer settings;
 			settings.SetBool(HYPERLINK_IS_LINK, true);
-			
+
 			HyperLinkCustomGui* linkGUI = (HyperLinkCustomGui*)AddCustomGui(ID_DYMAMIC_GADGET, CUSTOMGUI_HYPER_LINK_STATIC, "", BFH_SCALEFIT, 100, 50, settings);
 
 			if (linkGUI != nullptr)
@@ -941,7 +941,7 @@ void ExampleDialog::AddDynamicElement(const int selection)
 
 						AddUserArea(ID_DYMAMIC_GADGET, BFH_SCALEFIT | BFV_SCALEFIT, 400, 200);
 						AttachUserArea(*_nodeGUI->GetUserArea(), ID_DYMAMIC_GADGET, USERAREA_TABSTOP | USERAREA_HANDLEFOCUS);
-										
+
 						GroupEnd();
 					}
 				}
@@ -971,7 +971,7 @@ void ExampleDialog::AddDynamicElement(const int selection)
 			{
 				AddCheckbox(ID_DYMAMIC_GADGET + i, BFH_SCALEFIT | BFV_TOP, 0, 10, "Checkbox "+String::IntToString(i));
 			}
-			
+
 			GroupEnd();
 			GroupEnd();
 
@@ -1154,7 +1154,7 @@ void ExampleDialog::DataToConsole(const int id)
 		case(DIALOGELEMENTS::CUSTOM_GUI_SPLINE):
 		{
 			SplineCustomGui* splineGUI = (SplineCustomGui*)FindCustomGui(ID_DYMAMIC_GADGET, CUSTOMGUI_SPLINE);
-				
+
 			if (splineGUI)
 			{
 				SplineData* splineData = splineGUI->GetSplineData();
@@ -1205,9 +1205,9 @@ void ExampleDialog::DataToConsole(const int id)
 
 						output += String::VectorToString(color) + "\n";
 				}
-    
+
 				gradient->FreeRender();
-				
+
 				// print results
 				SetString(ID_CONSOLE, output);
 			}

@@ -421,13 +421,6 @@ Int32 AsyncDialog::Message(const BaseContainer& msg, BaseContainer& result)
 {
 	switch (msg.GetId())
 	{
-		case BFM_GETCURSORINFO:
-		{
-			// pluginprogrammers can return a help id in cursorinfo so that the onlinehelpsystem displays the help for a dialog
-			HandleHelpString(msg, result, "PLUGIN_CMD_???");
-			break;
-		}
-
 		case BFM_DRAGRECEIVE:
 		{
 			String prefix = "Dragging ";

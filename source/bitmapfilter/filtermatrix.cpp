@@ -489,7 +489,7 @@ Bool SmplMatrixDialog::InitValues(void)
 	SetInt32(GADGET_SMPL_MATRIX_TEXTURE_MODE, settings->tile_flags == TILE_REPEAT_BORDER ? 0 : 1);
 
 	SetPercent(GADGET_SMPL_MATRIX_SLIDER_MIX, settings->matrix_opacity, 0.0, 100.0, 0.1);
-	SetFloat(GADGET_SMPL_MATRIX_SLIDER_ANGLE, Rad(settings->angle), Rad(MIN_ANGLE), Rad(MAX_ANGLE), Rad(STEP_ANGLE), FORMAT_DEGREE);
+	SetFloat(GADGET_SMPL_MATRIX_SLIDER_ANGLE, DegToRad(settings->angle), DegToRad(MIN_ANGLE), DegToRad(MAX_ANGLE), DegToRad(STEP_ANGLE), FORMAT_DEGREE);
 	SetInt32(GADGET_SMPL_MATRIX_TYPE_POPUP, settings->type);
 
 	return true;
@@ -525,7 +525,7 @@ Bool SmplMatrixDialog::Command(Int32 id, const BaseContainer& msg)
 		{
 			Float32	slider_value;
 
-			slider_value = (Float32)Deg(msg.GetFloat(BFM_ACTION_VALUE));
+			slider_value = (Float32)RadToDeg(msg.GetFloat(BFM_ACTION_VALUE));
 			if (real_time || (msg.GetInt32(BFM_ACTION_INDRAG) == false))
 			{
 				if (settings->angle != slider_value)

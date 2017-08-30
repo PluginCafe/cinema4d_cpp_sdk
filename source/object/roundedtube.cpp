@@ -36,7 +36,7 @@ Bool RoundedTube::Message(GeListNode* node, Int32 type, void* t_data)
 	}
 	else if (type == MSG_MENUPREPARE)
 	{
-		((BaseObject*)node)->SetPhong(true, false, 0.0);
+		((BaseObject*)node)->SetPhong(true, false, DegToRad(40.0));
 	}
 	return true;
 }
@@ -141,7 +141,7 @@ static BaseObject* GenerateLathe(Vector* cpadr, Int32 cpcnt, Int32 sub, BaseThre
 	DeleteMem(uvadr);
 
 	op->Message(MSG_UPDATE);
-	op->SetPhong(true, true, Rad(80.0));
+	op->SetPhong(true, true, DegToRad(40.0));
 	return op;
 
 error:

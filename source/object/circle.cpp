@@ -45,7 +45,7 @@ Bool DoubleCircleData::Init(GeListNode* node)
 	data->SetBool(PRIM_REVERSE, false);
 	data->SetInt32(SPLINEOBJECT_INTERPOLATION, SPLINEOBJECT_INTERPOLATION_ADAPTIVE);
 	data->SetInt32(SPLINEOBJECT_SUB, 8);
-	data->SetFloat(SPLINEOBJECT_ANGLE, Rad(5.0));
+	data->SetFloat(SPLINEOBJECT_ANGLE, DegToRad(5.0));
 	data->SetFloat(SPLINEOBJECT_MAXIMUMLENGTH, 5.0);
 
 	return true;

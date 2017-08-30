@@ -226,6 +226,50 @@ Bool PluginStart(void)
 	if(!RegisterGetSetDParameterExample())
 		return false;
 
+	// ObjectData example demonstrating the use of HyperFile class in Read()/Write()
+	if (!RegisterObjectHyperFileExample())
+		return false;
+
+	// ObjectData example showing how to create a Greek temple starting from basic shapes
+	if (!RegisterGreekTemple())
+		return false;
+
+	// ObjectData example showing how to create a heart shape spline
+	if (!RegisterHeartShape())
+		return false;
+
+	// ObjectData example showing how to create a lattice plane modifier
+	if (!RegisterLatticePlane())
+		return false;
+
+	// ObjectData example showing how to create a lofted mesh
+	if (!RegisterLoftedMesh())
+		return false;
+
+	// ObjectData example showing how to create a shuffling particles modifier
+	if (!RegisterParticlesShuffling())
+		return false;
+
+	// ObjectData example showing how to create a simple plane made by polygons
+	if (!RegisterPlaneByPolygons())
+		return false;
+
+	// ObjectData example showing how to create a "porcupine-like" modifier
+	if (!RegisterPorcupine())
+		return false;
+
+	// ObjectData example showing how to create a revolved mesh
+	if (!RegisterRevolvedMesh())
+		return false;
+
+	// ObjectData example showing how to create a ruled mesh
+	if (!RegisterRuledMesh())
+		return false;
+
+	// ObjectData example showing how to create handles and drag vertex of a triangular polygon
+	if (!RegisterVertexHandle())
+		return false;
+
 	return true;
 }
 

@@ -333,9 +333,9 @@ void SDKGradientGadget::CalcImage(void)
 
 				GetBoxPosition(i, &x, &y);
 
-				rr = UInt16(g[i].col.x * COLOR);
-				gg = UInt16(g[i].col.y * COLOR);
-				bb = UInt16(g[i].col.z * COLOR);
+				rr = UInt16(g[i].col.x * COLORTOINT_MULTIPLIER);
+				gg = UInt16(g[i].col.y * COLORTOINT_MULTIPLIER);
+				bb = UInt16(g[i].col.z * COLORTOINT_MULTIPLIER);
 
 				if (pass == 2)
 					col->SetPen(255, 255, 255);
@@ -358,9 +358,9 @@ void SDKGradientGadget::CalcImage(void)
 	for (y = BOXRAD; y < ih - BOXRAD; y++)
 	{
 		v	 = CalcGradientPixel(YtoP(y), g, *count, *interpol);
-		rr = UInt16(v.x * COLOR);
-		gg = UInt16(v.y * COLOR);
-		bb = UInt16(v.z * COLOR);
+		rr = UInt16(v.x * COLORTOINT_MULTIPLIER);
+		gg = UInt16(v.y * COLORTOINT_MULTIPLIER);
+		bb = UInt16(v.z * COLORTOINT_MULTIPLIER);
 		col->SetPen(rr, gg, bb);
 		col->Line(xmin, y, iw - 1, y);
 	}

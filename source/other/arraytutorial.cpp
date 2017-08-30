@@ -227,12 +227,12 @@ public:
 		Example1(Example1&& src) : _data(std::move(src._data)) {}
 		MAXON_OPERATOR_MOVE_ASSIGNMENT(Example1);
 
-		maxon::Result<void> CopyFrom(const Example1& src)
+		Bool CopyFrom(const Example1& src)
 		{
-			if (_data.CopyFrom(src._data) == maxon::FAILED)
-				return maxon::OutOfMemoryError(CREATE);
+			if (_data.CopyFrom(src._data) == false)
+				return false;
 
-			return maxon::OK;
+			return true;
 		}
 
 	private:
@@ -242,7 +242,7 @@ public:
 	static maxon::Bool CopyFromExample()
 	{
 		maxon::BaseArray<Example1> test, test2;
-		if (test.CopyFrom(test2) == maxon::FAILED)
+		if (test.CopyFrom(test2) == false)
 			return false;
 
 		Example1 val;

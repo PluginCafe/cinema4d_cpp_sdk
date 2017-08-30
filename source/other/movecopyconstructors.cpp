@@ -75,7 +75,12 @@ private:
 	maxon::Int   _memorySize;
 };
 
-
+// Note: You can use the macro MAXON_MOVE_MEMBERS to make the code more readable and simplify things.
+// So instead
+// Example1(Example1&& src) : _memory(std::move(src._memory)), _memorySize(std::move(src._memorySize))
+// you could write
+// Example1b(Example1b&& src) : MAXON_MOVE_MEMBERS(_memory, _memorySize)
+//
 // The statement MAXON_OPERATOR_MOVE_ASSIGNMENT automatically defines the move operator based on the move constructor, so we don't have to write the same code twice.
 //
 // After defining the move constructor arrays or sorts can be used (otherwise you'd get a compile error in one of the header files):

@@ -1,0 +1,15 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDD_DIFF_DISTRI_DLG
+{
+  IDD_DIFF_DISTRI_DLG  "Diff Distributions";
+  IDS_BUTTON           "Add...";
+  IDS_BUTTON1          "Remove";
+  IDS_STATIC           "Old files";
+  IDS_STATIC1          "New Distribution";
+  IDS_STATIC2          "Static text";
+  IDS_STATIC3          "Group";
+  IDS_STATIC4          "Group";
+  IDS_STATIC5          "Destination path";
+  IDS_STATIC6          "Password";
+}

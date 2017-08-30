@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResEdit", "ResEdit.vcxproj", "{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cinema.framework", "..\..\frameworks\cinema.framework\project\cinema.framework.vcxproj", "{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Intel|Win32 = Intel|Win32
+		Intel|x64 = Intel|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Debug|Win32.Build.0 = Debug|Win32
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Debug|x64.ActiveCfg = Debug|x64
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Debug|x64.Build.0 = Debug|x64
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Intel|Win32.ActiveCfg = Intel|Win32
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Intel|Win32.Build.0 = Intel|Win32
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Intel|x64.ActiveCfg = Intel|x64
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Intel|x64.Build.0 = Intel|x64
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Release|Win32.ActiveCfg = Release|Win32
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Release|Win32.Build.0 = Release|Win32
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Release|x64.ActiveCfg = Release|x64
+		{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}.Release|x64.Build.0 = Release|x64
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Debug|Win32.Build.0 = Debug|Win32
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Debug|x64.ActiveCfg = Debug|x64
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Debug|x64.Build.0 = Debug|x64
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Intel|Win32.ActiveCfg = Intel|Win32
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Intel|Win32.Build.0 = Intel|Win32
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Intel|x64.ActiveCfg = Intel|x64
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Intel|x64.Build.0 = Intel|x64
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Release|Win32.ActiveCfg = Release|Win32
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Release|Win32.Build.0 = Release|Win32
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Release|x64.ActiveCfg = Release|x64
+		{B3E105E9-09BB-4DCA-B58D-3432EB8E88E5}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

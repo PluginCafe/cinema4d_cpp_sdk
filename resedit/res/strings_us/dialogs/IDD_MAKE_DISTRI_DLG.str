@@ -1,0 +1,54 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDD_MAKE_DISTRI_DLG
+{
+  IDS_BUTTON                        "Button";
+  IDS_BUTTON1                       "Button";
+  IDS_CHECK_VERSION                 "Check Version";
+  IDS_DIALOG                        "Make Distribution";
+  IDS_DISTRI_ACTION                 "Action";
+  IDS_DISTRI_ACTION_COMPILE         "Compile and include";
+  IDS_DISTRI_ACTION_COMPILE_KILL    "Compile, include and kill";
+  IDS_DISTRI_ACTION_EXCLUDE         "Exclude";
+  IDS_DISTRI_ACTION_FORCE_COPY      "Force copy";
+  IDS_DISTRI_ACTION_INCLUDE         "Include";
+  IDS_DISTRI_ACTION_MOVE_TO         "Move to";
+  IDS_DISTRI_ACTION_RENAME          "Rename";
+  IDS_DISTRI_CONDITION              "Condition";
+  IDS_DISTRI_COND_DIRECTORY_IS      "Directory is";
+  IDS_DISTRI_COND_FILENAME_IS       "Filename is";
+  IDS_DISTRI_COND_NAME_EXTENSION    "Filename extension ";
+  IDS_DISTRI_COND_PATH_CONTAINS     "Path contains";
+  IDS_DISTRI_COND_PATH_IS           "Path is";
+  IDS_DISTRI_FILTER                 "Filter";
+  IDS_DISTRI_FILTER_STRING          "Filter String";
+  IDS_DISTRI_PRESETS                "Presets";
+  IDS_DISTRI_PRESET_CLONE_BTN       "Clone";
+  IDS_DISTRI_PRESET_DEL_BTN         "Delete";
+  IDS_DISTRI_PRESET_NEW             "New";
+  IDS_DISTRI_ROOT_DIR               "Root Directory";
+  IDS_DISTRI_SAVE_BUTTONS           "Save Presets";
+  IDS_DISTRI_START_BATCH            "Start Batch";
+  IDS_DISTR_CREATE_BUILDINFO        "Create Build Infos";
+  IDS_DISTR_FILTER_FLAG_EXECUTABLE  "Set Executable Bit";
+  IDS_DISTR_GENERATE_ZIP            "Generate zip file / Compression:";
+  IDS_DISTR_REMOVE_SCM              "Remove Source Control Information from .dsp and .vcproj files";
+  IDS_DISTR_START                   "Start";
+  IDS_FILTER_DELETE                 "Delete";
+  IDS_FILTER_NEW                    "New";
+  IDS_PARSE_SYMBOLS                 "Parse Symbols";
+  IDS_STATIC10                      "Destination";
+  IDS_STATIC11                      "Destination";
+  IDS_STATIC14                      "Group";
+  IDS_STATIC15                      "Group";
+  IDS_STATIC16                      "";
+  IDS_STATIC17                      "Group";
+  IDS_STATIC18                      "Group";
+  IDS_STATIC19                      "Group";
+  IDS_STATIC2                       "Group";
+  IDS_STATIC20                      "Group";
+  IDS_STATIC21                      "Password:";
+  IDS_STATIC22                      "Group";
+  IDS_STATIC23                      "Build Information:";
+  IDS_STATIC6                       "Group";
+}

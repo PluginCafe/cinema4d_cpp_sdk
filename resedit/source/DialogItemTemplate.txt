@@ -1,0 +1,60 @@
+#include "stdafx.h"
+#include "globals.h"
+#include "DialogItem.h"
+#include "DialogItemSettings.h"
+
+#if (defined _DEBUG) && (defined USE_CPP_NEW_DELETE)
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
+CDialogSlider::CDialogSlider()
+{
+  m_strName = GeLoadString();
+  m_strDescr = m_strName;
+  m_type = ;
+  m_lFlags = BFH_LEFT | BFV_TOP;
+  m_lInitW = 0;
+  m_lInitH = 0;
+}
+
+void CDialogSlider::CreateElementBegin(LONG lID, GeDialog *pDlg)
+{
+  pDlg->
+}
+
+Bool CDialogSlider::Load(BaseContainer* bc)
+{
+  return CDialogItem::Load(bc);
+}
+
+Bool CDialogSlider::Save(BaseFile* pFile, String strFill)
+{
+  return TRUE;
+}
+
+
+
+CSliderSettings::CSliderSettings()
+{
+}
+
+CSliderSettings::~CSliderSettings()
+{
+}
+
+Bool CSliderSettings::CreateLayout(void)
+{
+  Bool bRes = GeDialog::CreateLayout();
+  return bRes;
+}
+
+void CSliderSettings::SetData()
+{
+}
+
+Bool CSliderSettings::Command(LONG lID, const BaseContainer &msg)
+{
+  return TRUE;
+}

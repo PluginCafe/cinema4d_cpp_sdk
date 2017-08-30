@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Intel|Win32">
+      <Configuration>Intel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Intel|x64">
+      <Configuration>Intel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{698DDEC0-CCC7-4F57-A927-B3A73C1941F9}</ProjectGuid>
+    <RootNamespace>resedit</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>Intel C++ Compiler XE 13.0</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>Intel C++ Compiler XE 13.0</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\frameworks\settings\ReleaseWin32.props" />
+    <Import Project="projectsettings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\frameworks\settings\IntelWin32.props" />
+    <Import Project="projectsettings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\frameworks\settings\DebugWin32.props" />
+    <Import Project="projectsettings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\frameworks\settings\ReleaseWin64.props" />
+    <Import Project="projectsettings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\frameworks\settings\IntelWin64.props" />
+    <Import Project="projectsettings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\frameworks\settings\DebugWin64.props" />
+    <Import Project="projectsettings.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">
+    <TargetExt>.cdl64</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetExt>.cdl64</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetExt>.cdl64</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">
+    <TargetExt>.cdl</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.cdl</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.cdl</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Link>
+      <OutputFile>ResEdit.cdl</OutputFile>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\source;.\res;.\res\description;$(C4D_API_PATH);$(C4D_API_PATH)\c4d_preview;$(C4D_API_PATH)\c4d_customgui;$(C4D_API_PATH)\c4d_libs;$(C4D_API_PATH)\c4d_gv</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Link>
+      <OutputFile>ResEdit.cdl64</OutputFile>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\source;.\res;.\res\description;$(C4D_API_PATH);$(C4D_API_PATH)\c4d_preview;$(C4D_API_PATH)\c4d_customgui;$(C4D_API_PATH)\c4d_libs;$(C4D_API_PATH)\c4d_gv</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN64;__PC;_DEBUG;_WINDOWS;__C4D_64BIT;_CRT_SECURE_NO_WARNINGS;PSAPI_VERSION=1</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">
+    <Link>
+      <OutputFile>ResEdit.cdl</OutputFile>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\source;.\res;.\res\description;$(C4D_API_PATH);$(C4D_API_PATH)\c4d_preview;$(C4D_API_PATH)\c4d_customgui;$(C4D_API_PATH)\c4d_libs;$(C4D_API_PATH)\c4d_gv</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">
+    <Link>
+      <OutputFile>ResEdit.cdl64</OutputFile>
+    </Link>
+    <ClCompile />
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\source;.\res;.\res\description;$(C4D_API_PATH);$(C4D_API_PATH)\c4d_preview;$(C4D_API_PATH)\c4d_customgui;$(C4D_API_PATH)\c4d_libs;$(C4D_API_PATH)\c4d_gv</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN64;__PC;NDEBUG;_WINDOWS;__C4D_64BIT;_CRT_SECURE_NO_WARNINGS;PSAPI_VERSION=1</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Link>
+      <OutputFile>ResEdit.cdl</OutputFile>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\source;.\res;.\res\description;$(C4D_API_PATH);$(C4D_API_PATH)\c4d_preview;$(C4D_API_PATH)\c4d_customgui;$(C4D_API_PATH)\c4d_libs;$(C4D_API_PATH)\c4d_gv</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Link>
+      <OutputFile>ResEdit.cdl64</OutputFile>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\source;.\res;.\res\description;$(C4D_API_PATH)\;$(C4D_API_PATH)\c4d_preview;$(C4D_API_PATH)\c4d_customgui;$(C4D_API_PATH)\c4d_libs;$(C4D_API_PATH)\c4d_gv</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN64;__PC;NDEBUG;_WINDOWS;__C4D_64BIT;_CRT_SECURE_NO_WARNINGS;PSAPI_VERSION=1</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="source\BrowserMenu.cpp" />
+    <ClCompile Include="source\coffeelib.cpp" />
+    <ClCompile Include="source\CompareMenu.cpp" />
+    <ClCompile Include="source\CompareTableDialog.cpp" />
+    <ClCompile Include="source\crc.cpp" />
+    <ClCompile Include="source\DialogArrow.cpp" />
+    <ClCompile Include="source\DialogButton.cpp" />
+    <ClCompile Include="source\DialogCheckBox.cpp" />
+    <ClCompile Include="source\DialogColor.cpp" />
+    <ClCompile Include="source\DialogComboBox.cpp" />
+    <ClCompile Include="source\DialogCustomElement.cpp" />
+    <ClCompile Include="source\DialogDlgGroup.cpp" />
+    <ClCompile Include="source\DialogDoc.cpp" />
+    <ClCompile Include="source\DialogEditBox.cpp" />
+    <ClCompile Include="source\DialogGroup.cpp" />
+    <ClCompile Include="source\DialogIO.cpp" />
+    <ClCompile Include="source\DialogIO8.cpp" />
+    <ClCompile Include="source\DialogItem.cpp" />
+    <ClCompile Include="source\DialogListBox.cpp" />
+    <ClCompile Include="source\DialogPreview.cpp" />
+    <ClCompile Include="source\DialogRadioBtn.cpp" />
+    <ClCompile Include="source\DialogSeparator.cpp" />
+    <ClCompile Include="source\DialogSettings.cpp" />
+    <ClCompile Include="source\DialogSlider.cpp" />
+    <ClCompile Include="source\DialogStatic.cpp" />
+    <ClCompile Include="source\DialogTemplate.cpp" />
+    <ClCompile Include="source\DialogUserArea.cpp" />
+    <ClCompile Include="source\DiffDistriDialog.cpp" />
+    <ClCompile Include="source\DirectListView.cpp" />
+    <ClCompile Include="Source\Distri.cpp" />
+    <ClCompile Include="source\DistriCompressProgr.cpp" />
+    <ClCompile Include="source\dynamicdata.cpp" />
+    <ClCompile Include="source\dynarray.cpp" />
+    <ClCompile Include="source\ExtractZipDialog.cpp" />
+    <ClCompile Include="source\globals.cpp" />
+    <ClCompile Include="source\HelpMenu.cpp" />
+    <ClCompile Include="source\ItemSettingsDialog.cpp" />
+    <ClCompile Include="source\LanguageList.cpp" />
+    <ClCompile Include="source\listnode.cpp" />
+    <ClCompile Include="source\MakeDistriDialog.cpp" />
+    <ClCompile Include="source\MakeDistriDialogParse.cpp" />
+    <ClCompile Include="source\Menu.cpp" />
+    <ClCompile Include="source\OptionsDialog.cpp" />
+    <ClCompile Include="source\Register.cpp" />
+    <ClCompile Include="source\res_textparser.cpp" />
+    <ClCompile Include="source\ResEdit.cpp" />
+    <ClCompile Include="source\ResEditBrowser.cpp" />
+    <ClCompile Include="source\ResEditMenu.cpp" />
+    <ClCompile Include="source\ResEditToolBar.cpp" />
+    <ClCompile Include="source\SearchDialog.cpp" />
+    <ClCompile Include="source\StringTable.cpp" />
+    <ClCompile Include="source\StringtableDialog.cpp" />
+    <ClCompile Include="source\StringTableTranslateDialog.cpp" />
+    <ClCompile Include="source\SubDialog.cpp" />
+    <ClCompile Include="source\system.cpp" />
+    <ClCompile Include="source\TreeDialog.cpp" />
+    <ClCompile Include="source\TreeView.cpp" />
+    <ClCompile Include="source\windowflags.cpp" />
+    <ClCompile Include="source\WizardDialog.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\BrowserMenu.h" />
+    <ClInclude Include="source\CompareMenu.h" />
+    <ClInclude Include="source\CompareTableDialog.h" />
+    <ClInclude Include="source\crc.h" />
+    <ClInclude Include="source\DialogDoc.h" />
+    <ClInclude Include="source\DialogIO.h" />
+    <ClInclude Include="source\DialogItem.h" />
+    <ClInclude Include="source\DialogItemSettings.h" />
+    <ClInclude Include="source\DialogPreview.h" />
+    <ClInclude Include="source\DialogTemplate.h" />
+    <ClInclude Include="source\DiffDistriDialog.h" />
+    <ClInclude Include="source\DirectListView.h" />
+    <ClInclude Include="source\DistriCompressProgr.h" />
+    <ClInclude Include="source\doublelinklist.h" />
+    <ClInclude Include="source\dynamicdata.h" />
+    <ClInclude Include="source\dynarray.h" />
+    <ClInclude Include="source\ExtractZipDialog.h" />
+    <ClInclude Include="source\globals.h" />
+    <ClInclude Include="source\HelpMenu.h" />
+    <ClInclude Include="source\ItemSettingsDialog.h" />
+    <ClInclude Include="source\LanguageList.h" />
+    <ClInclude Include="source\listnode.h" />
+    <ClInclude Include="source\MakeDistriDialog.h" />
+    <ClInclude Include="source\OptionsDialog.h" />
+    <ClInclude Include="source\res_textparser.h" />
+    <ClInclude Include="source\ResEditBrowser.h" />
+    <ClInclude Include="source\ResEditMenu.h" />
+    <ClInclude Include="source\ResEditToolBar.h" />
+    <ClInclude Include="source\stdafx.h" />
+    <ClInclude Include="source\StringTable.h" />
+    <ClInclude Include="source\StringtableDialog.h" />
+    <ClInclude Include="source\StringTableTranslateDialog.h" />
+    <ClInclude Include="source\TreeDialog.h" />
+    <ClInclude Include="source\TreeView.h" />
+    <ClInclude Include="source\WizardDialog.h" />
+    <ClInclude Include="res\c4d_symbols.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="res\strings_us\c4d_strings.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_CMP_RES_ST_TABLE.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_EXTRACT_ZIP_FILE.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_PROPERTIES_DIALOG.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_STRING_TRANS_DIALOG.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_DIFF_DISTRI_DLG.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_DISTRI_COMPR_DLG.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_MAKE_DISTRI_DLG.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_SEARCH_DIALOG.str">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="res\dialogs\IDC_CMP_RES_ST_TABLE.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_EXTRACT_ZIP_FILE.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_PROPERTIES_DIALOG.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_STRING_TRANS_DIALOG.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_DIFF_DISTRI_DLG.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_DISTRI_COMPR_DLG.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_MAKE_DISTRI_DLG.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_SEARCH_DIALOG.res">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\frameworks\cinema.framework\project\cinema.framework.vcxproj">
+      <Project>{b3e105e9-09bb-4dca-b58d-3432eb8e88e5}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

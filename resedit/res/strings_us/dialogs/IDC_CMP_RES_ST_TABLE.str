@@ -1,0 +1,13 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDC_CMP_RES_ST_TABLE
+{
+  IDS_BROWSE_BTN       "Browse...";
+  IDS_DIALOG           "Compare string tables";
+  IDS_ONLY_MOD_ST_CHK  "Display only modified string tables";
+  IDS_STATIC           "Group";
+  IDS_STATIC1          "Available string tables:";
+  IDS_STATIC2          "";
+  IDS_STATIC3          "Group";
+  IDS_STATIC4          "Contents:";
+}

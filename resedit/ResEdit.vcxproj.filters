@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{b040a377-aaf2-4bc7-b8bc-7e501eecf1cf}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="headers">
+      <UniqueIdentifier>{2c2d83a4-17a7-473c-8d70-c4377aa4cb8b}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{ee920157-7f5a-47ec-bcf8-53ab6bb6f052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Dialogs">
+      <UniqueIdentifier>{42b07f9b-3892-4d2e-860b-70bb1ee6c09e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\BrowserMenu.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\coffeelib.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CompareMenu.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CompareTableDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogArrow.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogButton.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogCheckBox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogColor.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogComboBox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogCustomElement.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogDlgGroup.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogDoc.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogEditBox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogGroup.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogIO.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogIO8.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogItem.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogListBox.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogPreview.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogRadioBtn.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogSeparator.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogSettings.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogSlider.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogStatic.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogTemplate.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DialogUserArea.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DiffDistriDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DirectListView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Distri.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DistriCompressProgr.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExtractZipDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\globals.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HelpMenu.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ItemSettingsDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LanguageList.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MakeDistriDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MakeDistriDialogParse.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Menu.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\OptionsDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Register.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\res_textparser.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResEdit.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResEditBrowser.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResEditMenu.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResEditToolBar.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SearchDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\StringTable.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\StringtableDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\StringTableTranslateDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SubDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TreeDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TreeView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\windowflags.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WizardDialog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\crc.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\dynamicdata.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\dynarray.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\listnode.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\system.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\BrowserMenu.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CompareMenu.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CompareTableDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DialogDoc.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DialogIO.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DialogItem.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DialogItemSettings.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DialogPreview.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DialogTemplate.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DiffDistriDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DirectListView.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DistriCompressProgr.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExtractZipDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\globals.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\HelpMenu.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ItemSettingsDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LanguageList.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MakeDistriDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\OptionsDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\res_textparser.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ResEditBrowser.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ResEditMenu.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ResEditToolBar.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\stdafx.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\StringTable.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\StringtableDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\StringTableTranslateDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TreeDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TreeView.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WizardDialog.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="res\c4d_symbols.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="source\crc.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\doublelinklist.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\dynamicdata.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\dynarray.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\listnode.h">
+      <Filter>source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="res\strings_us\c4d_strings.str">
+      <Filter>Resources</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_CMP_RES_ST_TABLE.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_CMP_RES_ST_TABLE.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_EXTRACT_ZIP_FILE.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_EXTRACT_ZIP_FILE.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_PROPERTIES_DIALOG.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_PROPERTIES_DIALOG.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDC_STRING_TRANS_DIALOG.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDC_STRING_TRANS_DIALOG.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_DIFF_DISTRI_DLG.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_DIFF_DISTRI_DLG.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_DISTRI_COMPR_DLG.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_DISTRI_COMPR_DLG.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_MAKE_DISTRI_DLG.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_MAKE_DISTRI_DLG.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\dialogs\IDD_SEARCH_DIALOG.res">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="res\strings_us\dialogs\IDD_SEARCH_DIALOG.str">
+      <Filter>Resources\Dialogs</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+</Project>

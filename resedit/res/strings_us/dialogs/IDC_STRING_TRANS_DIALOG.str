@@ -1,0 +1,36 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDC_STRING_TRANS_DIALOG
+{
+  IDC_STRING_TRANS_DIALOG             "String Translator";
+  IDS_BUTTON1                         "...";
+  IDS_BUTTON2                         "...";
+  IDS_CHECK1                          "Check box";
+  IDS_STATIC19                        "";
+  IDS_STATIC20                        "Group";
+  IDS_STATIC21                        "Group";
+  IDS_STATIC22                        "Group";
+  IDS_STATIC23                        "Group";
+  IDS_STATIC24                        "Base Language  ";
+  IDS_STATIC25                        "";
+  IDS_STATIC26                        "Group";
+  IDS_STATIC9                         " ";
+  IDS_STRING_TRANS_AVAIL_ST           "Available string tables:";
+  IDS_STRING_TRANS_CHANGELANG         "Change language";
+  IDS_STRING_TRANS_CLOSE              "Close";
+  IDS_STRING_TRANS_COMPARE            "Compare";
+  IDS_STRING_TRANS_COUNTRYSTRING      "Country string";
+  IDS_STRING_TRANS_COUNTRY_COMMAND    "Country string (Command)";
+  IDS_STRING_TRANS_CURRENT_DIR        "Old strings directory";
+  IDS_STRING_TRANS_DEL_UNUSED         "Delete unused tables";
+  IDS_STRING_TRANS_NEW_STRING_DIR     "New strings directory";
+  IDS_STRING_TRANS_SAVE_TABLE         "Save Stringtables";
+  IDS_STRING_TRANS_SEARCH             "Search...";
+  IDS_STRING_TRANS_STRINGS            "Strings:";
+  IDS_STRING_TRANS_US_COMMAND         "Base string (Command)";
+  IDS_STRING_TRANS_US_NEW             "Base string (new)";
+  IDS_ST_TRANS_US_NEW_STATIC          "";
+  IDS_TRANSLATE_LANG_GOTO_EMPTY       "Go to next empty string (this table)";
+  IDS_TRANSLATE_LANG_GOTO_EMPTY_ALL   "Go to next empty string (all tables)";
+  IDS_TRANSLATE_LANG_SKIP_EMPTY_BASE  "Skip empty base string";
+}

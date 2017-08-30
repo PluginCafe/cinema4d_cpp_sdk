@@ -1,0 +1,11 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDD_DISTRI_COMPR_DLG
+{
+  IDS_DIALOG   "Generating Distribution";
+  IDS_STATIC1  "";
+  IDS_STATIC2  "to";
+  IDS_STATIC3  "";
+  IDS_STATIC4  "Group";
+  IDS_STATIC   "Copying";
+}

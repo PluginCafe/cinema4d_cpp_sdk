@@ -1,0 +1,15 @@
+[Text]
+"Class name"=CLASSNAME
+"Dialog ID"=DIALOGID
+
+[Option]
+{
+	"Modal dialog"+=MODALDIALOG
+	"Non-modal dialog"=NONMODALDIALOG
+	"Sub dialog"=SUBDIALOG
+}
+CreateLayout+=CREATELAYOUT
+InitValues+=INITVALUES
+Command+=COMMAND
+Message+=MESSAGE
+AskClose=ASKCLOSE

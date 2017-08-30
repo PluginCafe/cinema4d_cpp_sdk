@@ -1,0 +1,10 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDD_SEARCH_DIALOG{  IDS_DIALOG                     "Find";
+  IDS_SEARCH_CASE_SENSITIVE      "Case Sensitive";
+  IDS_SEARCH_CLOSE               "Close";
+  IDS_SEARCH_FIND_NEXT           "Find next (current string table)";
+  IDS_SEARCH_FIND_NEXT_ALL       "Find next (all tables)";
+  IDS_SEARCH_REGULAR_EXPRESSION  "Regular expression";
+  IDS_SEARCH_STRING              "Search for:";
+}

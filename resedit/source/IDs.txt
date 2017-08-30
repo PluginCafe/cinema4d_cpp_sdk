@@ -1,0 +1,8 @@
+1007376 ResEdit_HelpItem
+1006667 ResEdit_CompareTablesMenuItem 
+1006445 ResEdit_BrowserDialog 
+1006046 ResEdit_ToolbarDialog 
+1006045 ResEdit_MenuItem 
+1006044 ResEdit_DialogPreview 
+1006043 ResEdit_ItemSetingsDialog 
+1006042 ResEdit_TreeDialog 

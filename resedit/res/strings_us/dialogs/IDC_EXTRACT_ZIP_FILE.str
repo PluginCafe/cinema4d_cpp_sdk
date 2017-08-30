@@ -1,0 +1,21 @@
+// C4D-DialogResource
+
+DIALOGSTRINGS IDC_EXTRACT_ZIP_FILE
+{
+  IDS_BUTTON            "Browse...";
+  IDS_BUTTON1           "Close";
+  IDS_BUTTON2           "Extract";
+  IDS_DIALOG            "Extract zip file";
+  IDS_EXTRACT_CHANGE    "Change...";
+  IDS_IGNORE_READ_ONLY  "Ignore Read-only flags";
+  IDS_STATIC            "Group";
+  IDS_STATIC1           "Static text";
+  IDS_STATIC2           "ZIP File:";
+  IDS_STATIC3           "Group";
+  IDS_STATIC4           "Static text";
+  IDS_STATIC5           "Static text";
+  IDS_STATIC6           "Group";
+  IDS_STATIC7           "Password";
+  IDS_STATIC8           "Group";
+  IDS_STATIC9           "";
+}

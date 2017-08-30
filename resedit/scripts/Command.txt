@@ -1,0 +1,9 @@
+[Text]
+"Class name"=CLASSNAME
+"Dialog ID"=PLUGINID
+
+[Option]
+GetState+=GETSTATE
+Execute+=EXECUTE
+RestoreLayout+=RESTORELAYOUT
+Register+=REGISTER

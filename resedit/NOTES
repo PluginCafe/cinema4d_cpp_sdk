@@ -1,0 +1,14 @@
+After several requests for ResEdit, MAXON decided to release the source code of ResEdit.
+Just like everything else released by MAXON on GitHub, the entire project is under Apache license.
+
+The source code is released as is. No special preparation was done prior to its release.
+There won't be any support. You may use it as is. Maybe you can learn from it.
+You may also improve it and fork from this project. If you feel like sharing your changes
+with MAXON for reintegration, MAXON would certainly be grateful. But this is by no means a must.
+
+The included project files are for VisualStudio 2012. The project got (superficially) tested
+in Cinema 4D R16. Simply put the project folder into Cinema 4D's plugins folder (in program
+directory) and load the ResEdit.sln into VisualStudio 2012.
+
+Sincerely,
+the MAXON SDK Support Team, 2015-08-13

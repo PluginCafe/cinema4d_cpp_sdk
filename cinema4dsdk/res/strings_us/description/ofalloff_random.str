@@ -1,6 +1,0 @@
-STRINGTABLE Ofalloff_random
-{
-	Ofalloff_random										"Falloff Random";
-	
-	RANDOMFALLOFF_SEED								"Seed";
-}

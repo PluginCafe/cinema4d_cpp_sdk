@@ -1,4 +1,0 @@
-CONTAINER Vphairsdkpost
-{
-	NAME Vphairsdkpost;
-}

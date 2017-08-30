@@ -1,5 +1,0 @@
-CONTAINER ToolSnap
-{
-  NAME ToolSnap;
-	
-}

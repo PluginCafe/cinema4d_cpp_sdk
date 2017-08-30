@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Intel|x64">
+      <Configuration>Intel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{21895B69-DE91-7035-0009-38CB8C5CDEA3}</ProjectGuid>
+    <RootNamespace>maxon</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>Intel C++ Compiler XE 15.0</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="./projectsettings.props" />
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(MAXON_ROOTDIR)\frameworks\settings\DebugWin64.props" />
+    <Import Project="$(MAXON_ROOTDIR)\frameworks\cinema.framework\project\cinema.framework.includes.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="./projectsettings.props" />
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(MAXON_ROOTDIR)\frameworks\settings\ReleaseWin64.props" />
+    <Import Project="$(MAXON_ROOTDIR)\frameworks\cinema.framework\project\cinema.framework.includes.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'" Label="PropertySheets">
+    <Import Project="./projectsettings.props" />
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(MAXON_ROOTDIR)\frameworks\settings\IntelWin64.props" />
+    <Import Project="$(MAXON_ROOTDIR)\frameworks\cinema.framework\project\cinema.framework.includes.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.cdl64</TargetExt>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.cdl64</TargetExt>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">.cdl64</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>./source;./res;./res/description;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <IgnoreSpecificDefaultLibraries />
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>./source;./res;./res/description;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <IgnoreSpecificDefaultLibraries />
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Intel|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalIncludeDirectories>./source;./res;./res/description;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <IgnoreSpecificDefaultLibraries />
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MAXON_ROOTDIR)\frameworks\cinema.framework\project\cinema.framework.vcxproj">
+      <Project>{69BF9B7D-7EB2-7FC5-0009-38CB8C5CDEA3}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\animation\blinker.cpp" />
+    <ClCompile Include="source\bitmapfilter\filtermatrix.cpp" />
+    <ClCompile Include="source\bitmapfilter\filterthreshold.cpp" />
+    <ClCompile Include="source\bitmapfilter\paint_saver_test.cpp" />
+    <ClCompile Include="source\datatype\datatype.cpp" />
+    <ClCompile Include="source\falloff\randomfalloff.cpp" />
+    <ClCompile Include="source\filter\bff.cpp" />
+    <ClCompile Include="source\filter\stl.cpp" />
+    <ClCompile Include="source\gui\activeobject.cpp" />
+    <ClCompile Include="source\gui\asynctest.cpp" />
+    <ClCompile Include="source\gui\customdata_customgui.cpp" />
+    <ClCompile Include="source\gui\customgui_string.cpp" />
+    <ClCompile Include="source\gui\gedialog_gadgets.cpp" />
+    <ClCompile Include="source\gui\gradientuserarea.cpp" />
+    <ClCompile Include="source\gui\layershaderbrowser.cpp" />
+    <ClCompile Include="source\gui\listview.cpp" />
+    <ClCompile Include="source\gui\memstat.cpp" />
+    <ClCompile Include="source\gui\menutest.cpp" />
+    <ClCompile Include="source\gui\objectdata_descriptions.cpp" />
+    <ClCompile Include="source\gui\objectdata_getsetdparameter.cpp" />
+    <ClCompile Include="source\gui\serial.cpp" />
+    <ClCompile Include="source\gui\serial_hook.cpp" />
+    <ClCompile Include="source\gui\subdialog.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\object\atom.cpp" />
+    <ClCompile Include="source\object\circle.cpp" />
+    <ClCompile Include="source\object\dropeffector.cpp" />
+    <ClCompile Include="source\object\gl_test_object.cpp" />
+    <ClCompile Include="source\object\gravitation.cpp" />
+    <ClCompile Include="source\object\hair_collision.cpp" />
+    <ClCompile Include="source\object\hair_constraint.cpp" />
+    <ClCompile Include="source\object\hair_deformer.cpp" />
+    <ClCompile Include="source\object\hair_force.cpp" />
+    <ClCompile Include="source\object\hair_generator.cpp" />
+    <ClCompile Include="source\object\hair_grass.cpp" />
+    <ClCompile Include="source\object\morphmixer.cpp" />
+    <ClCompile Include="source\object\noiseeffector.cpp" />
+    <ClCompile Include="source\object\roundedtube.cpp" />
+    <ClCompile Include="source\object\spherify.cpp" />
+    <ClCompile Include="source\object\triangulate.cpp" />
+    <ClCompile Include="source\other\arraytutorial.cpp" />
+    <ClCompile Include="source\other\commandlinerender.cpp" />
+    <ClCompile Include="source\other\misctest.cpp" />
+    <ClCompile Include="source\other\movecopyconstructors.cpp" />
+    <ClCompile Include="source\other\snapdata_nullsnap.cpp" />
+    <ClCompile Include="source\other\takeTest.cpp" />
+    <ClCompile Include="source\painting\advanced\paintbrushbase.cpp" />
+    <ClCompile Include="source\painting\advanced\paintbrushsculpt.cpp" />
+    <ClCompile Include="source\painting\advanced\paintchannels.cpp" />
+    <ClCompile Include="source\painting\advanced\paintundo.cpp" />
+    <ClCompile Include="source\painting\advanced\registeradvancedpaint.cpp" />
+    <ClCompile Include="source\pgp\pgp.cpp" />
+    <ClCompile Include="source\sculpting\cubesbrush.cpp" />
+    <ClCompile Include="source\sculpting\drawpoly.cpp" />
+    <ClCompile Include="source\sculpting\drawpolybrush.cpp" />
+    <ClCompile Include="source\sculpting\grabbrush.cpp" />
+    <ClCompile Include="source\sculpting\loadsave.cpp" />
+    <ClCompile Include="source\sculpting\pullbrush.cpp" />
+    <ClCompile Include="source\sculpting\sculptbrushmultistamp.cpp" />
+    <ClCompile Include="source\sculpting\sculptbrushtwist.cpp" />
+    <ClCompile Include="source\sculpting\sculptdeformer.cpp" />
+    <ClCompile Include="source\sculpting\sculptmodifier.cpp" />
+    <ClCompile Include="source\sculpting\selectionbrush.cpp" />
+    <ClCompile Include="source\sculpting\splinebrush.cpp" />
+    <ClCompile Include="source\shader\bitmapdistortionshader.cpp" />
+    <ClCompile Include="source\shader\gl_material.cpp" />
+    <ClCompile Include="source\shader\gradientshader.cpp" />
+    <ClCompile Include="source\shader\hair_shader.cpp" />
+    <ClCompile Include="source\shader\illumination.cpp" />
+    <ClCompile Include="source\shader\mandelbrotshader.cpp" />
+    <ClCompile Include="source\shader\particlevolume.cpp" />
+    <ClCompile Include="source\shader\simplematerial.cpp" />
+    <ClCompile Include="source\tag\hair_render.cpp" />
+    <ClCompile Include="source\tag\hair_styling.cpp" />
+    <ClCompile Include="source\tag\lookatcamera.cpp" />
+    <ClCompile Include="source\tool\edgecuttool.cpp" />
+    <ClCompile Include="source\tool\liquidtool.cpp" />
+    <ClCompile Include="source\tool\pickobject.cpp" />
+    <ClCompile Include="source\tool\reversenormals.cpp" />
+    <ClCompile Include="source\tool\sculpting.cpp" />
+    <ClCompile Include="source\tool\snaptool.cpp" />
+    <ClCompile Include="source\videopost\hair_videopost.cpp" />
+    <ClCompile Include="source\videopost\visualize_channel.cpp" />
+    <ClCompile Include="source\videopost\vpcolorize.cpp" />
+    <ClCompile Include="source\videopost\vpinvertimage.cpp" />
+    <ClCompile Include="source\videopost\vpreconstructimage.cpp" />
+    <ClCompile Include="source\videopost\vpstereo.cpp" />
+    <ClCompile Include="source\videopost\vpvisualizenormals.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\gui\gradientuserarea.h" />
+    <ClInclude Include="source\gui\layershaderbrowser.h" />
+    <ClInclude Include="source\main.h" />
+    <ClInclude Include="source\painting\advanced\paintbrushbase.h" />
+    <ClInclude Include="source\painting\advanced\paintbrushids.h" />
+    <ClInclude Include="source\painting\advanced\paintchannels.h" />
+    <ClInclude Include="source\painting\advanced\paintundo.h" />
+    <ClInclude Include="source\painting\advanced\rasterize_bary.h" />
+    <ClInclude Include="source\painting\advanced\registeradvancedpaint.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

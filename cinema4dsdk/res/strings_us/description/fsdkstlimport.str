@@ -1,5 +1,0 @@
-STRINGTABLE Fsdkstlimport
-{
-	Fsdkstlimport	"STL Import";
-	SDKSTLIMPORTFILTER_SCALE	"Scale";
-}

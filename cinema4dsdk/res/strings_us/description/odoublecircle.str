@@ -1,6 +1,0 @@
-STRINGTABLE Odoublecircle
-{
-	Odoublecircle "Double Circle";
-
-	CIRCLEOBJECT_RAD	"Radius";
-}

@@ -21,7 +21,7 @@ public:
 	virtual	INITRENDERRESULT InitRender(BaseShader* sh, const InitRenderStruct& irs);
 	virtual	void FreeRender(BaseShader* sh);
 
-	static NodeData* Alloc(void) { return NewObjClear(MandelbrotData); }
+	static NodeData* Alloc() { return NewObjClear(MandelbrotData); }
 };
 
 Bool MandelbrotData::Init(GeListNode* node)
@@ -110,7 +110,7 @@ Vector MandelbrotData::Output(BaseShader* chn, ChannelData* cd)
 		t = 1.0 - (r + s);
 		r = FMin(r, s);
 		r = FMin(r, t);
-		r = Smoothstep((Float) 0.0, (Float) 0.3, r);
+		r = Smoothstep(0.0_f, 0.3_f, r);
 
 		col *= r + (1.0 - r) * 0.5 * (Turbulence((Vector)cd->vd->p * 0.1, 4.0, false) + 1.0);
 	}
@@ -120,7 +120,7 @@ Vector MandelbrotData::Output(BaseShader* chn, ChannelData* cd)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_MANDELBROT	1001162
 
-Bool RegisterMandelbrot(void)
+Bool RegisterMandelbrot()
 {
 	return RegisterShaderPlugin(ID_MANDELBROT, GeLoadString(IDS_MANDELBROT), 0, MandelbrotData::Alloc, "Xmandelbrot", 0);
 }

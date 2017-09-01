@@ -16,7 +16,7 @@ public:
 	virtual EXECUTIONRESULT Execute(BaseTag* tag, BaseDocument* doc, BaseObject* op, BaseThread* bt, Int32 priority, EXECUTIONFLAGS flags);
 	virtual Bool GetDDescription(GeListNode* node, Description* description, DESCFLAGS_DESC& flags);
 
-	static NodeData* Alloc(void) { return NewObjClear(LookAtCamera); }
+	static NodeData* Alloc() { return NewObjClear(LookAtCamera); }
 };
 
 Bool LookAtCamera::Init(GeListNode* node)
@@ -116,7 +116,7 @@ EXECUTIONRESULT LookAtCamera::Execute(BaseTag* tag, BaseDocument* doc, BaseObjec
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_LOOKATCAMERATAG 1001165
 
-Bool RegisterLookAtCamera(void)
+Bool RegisterLookAtCamera()
 {
 	return RegisterTagPlugin(ID_LOOKATCAMERATAG, GeLoadString(IDS_LOOKATCAMERA), TAG_EXPRESSION | TAG_VISIBLE, LookAtCamera::Alloc, "Tlookatcameraexp", AutoBitmap("lookatcamera.tif"), 0);
 }

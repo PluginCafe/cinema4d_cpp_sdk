@@ -4,7 +4,7 @@
 #include "lib_sculptbrush.h"
 #include "main.h"
 
-Int32 ID_SCULPT_BRUSH_PULL_MODIFIER = 1030505;
+static const Int32 ID_SCULPT_BRUSH_PULL_MODIFIER = 1030505;
 
 class SculptDeformer : public ObjectData
 {
@@ -15,7 +15,7 @@ public:
 	virtual Bool ModifyObject   (BaseObject* op, BaseDocument* doc, BaseObject* mod, const Matrix& op_mg, const Matrix& mod_mg, Float lod, Int32 flags, BaseThread* thread);
 	virtual Bool GetDDescription(GeListNode *node, Description *description, DESCFLAGS_DESC &flags);
 
-	static NodeData* Alloc(void) { return NewObjClear(SculptDeformer); }
+	static NodeData* Alloc() { return NewObjClear(SculptDeformer); }
 
 private:
 	AutoAlloc<SculptModifierInterface> _brushInterface;
@@ -84,7 +84,8 @@ Bool SculptDeformer::GetDDescription(GeListNode *node, Description *description,
 		return false;
 
 	Bool bRes = node->GetDescription(description, DESCFLAGS_DESC_RECURSIONLOCK);
-	if (!bRes) return false;
+	if (!bRes) 
+		return false;
 
 	flags |= DESCFLAGS_DESC_LOADED;
 
@@ -117,7 +118,7 @@ static void InitSpline(BaseContainer &data, Int32 id)
 	SplineData* p = (SplineData*)d.GetCustomDataType(CUSTOMDATATYPE_SPLINE);
 	if (p)
 	{
-		p->MakeLinearSplineBezier(2);  //create spline
+		p->MakeLinearSplineBezier(2);  // create spline
 		p->Flip();
 
 		Int32 count = p->GetKnotCount();
@@ -163,7 +164,7 @@ Bool SculptDeformer::Init(GeListNode* node)
 
 #define ID_SCULPTDEFORMER 1030705
 
-Bool RegisterSculptDeformer(void)
+Bool RegisterSculptDeformer()
 {
 	return RegisterObjectPlugin(ID_SCULPTDEFORMER, GeLoadString(IDS_SCULPT_DEFORMER), OBJECT_MODIFIER, SculptDeformer::Alloc, "Osculptdeformer", nullptr, 0);
 }

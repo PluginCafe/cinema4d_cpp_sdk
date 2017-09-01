@@ -16,7 +16,7 @@ public:
 	virtual	void FreeRender(BaseShader* sh);
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 
-	static NodeData* Alloc(void) { return NewObjClear(HairSDKShader); }
+	static NodeData* Alloc() { return NewObjClear(HairSDKShader); }
 
 	HairPluginObjectData m_FnTable;
 };

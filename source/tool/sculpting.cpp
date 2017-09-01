@@ -288,7 +288,7 @@ void SculptingTool::UpdateObject(Vector* pvPoints, Float rMouseX, Float rMouseY,
 			if (rSqrDist > rRadSqr)
 				continue;
 
-			ViewportPixel* pPixel = m_pViewportSelect->GetPixelInfoPoint(x, y);
+			const ViewportPixel* pPixel = m_pViewportSelect->GetPixelInfoPoint(x, y);
 			while (pPixel)
 			{
 				if (pPixel->op == m_pLastObject)

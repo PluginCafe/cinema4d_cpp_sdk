@@ -16,7 +16,7 @@ The brush will also use all the symmetry options.
 class SculptCubesBrush : public SculptBrushToolData
 {
 public:
-	SculptCubesBrush(SculptBrushParams* pParams) : SculptBrushToolData(pParams) { }
+	explicit SculptCubesBrush(SculptBrushParams* pParams) : SculptBrushToolData(pParams) { }
 	~SculptCubesBrush() { }
 
 	virtual Int32 GetToolPluginId();
@@ -29,8 +29,8 @@ public:
 	static Bool MovePointsFunc(BrushDabData* dab);
 
 public:
-	BaseDocument* _doc;					//Used to store the current document during a brush stroke.
-	BaseObject*		_nullObject;	//Used to store a null object that all the cubes will be placed under. A new null object is created on each mouse down.
+	BaseDocument* _doc;					// Used to store the current document during a brush stroke.
+	BaseObject*		_nullObject;	// Used to store a null object that all the cubes will be placed under. A new null object is created on each mouse down.
 };
 
 Int32 SculptCubesBrush::GetToolPluginId()
@@ -40,85 +40,85 @@ Int32 SculptCubesBrush::GetToolPluginId()
 
 const String SculptCubesBrush::GetResourceSymbol()
 {
-	//Return the name of the .res file, in the res/description and res/strings folder, for this tool.
+	// Return the name of the .res file, in the res/description and res/strings folder, for this tool.
 	return String("toolsculptcubesbrush");
 }
 
 
 void SculptCubesBrush::PostInitDefaultSettings(BaseDocument* doc, BaseContainer& data)
 {
-	//When the brush is first initialized we will turn on stamp spacing and set its value to 75%. Otherwise the cubes will be too close together.
+	// When the brush is first initialized we will turn on stamp spacing and set its value to 75%. Otherwise the cubes will be too close together.
 	data.SetBool(MDATA_SCULPTBRUSH_SETTINGS_STAMPSPACING, true);
 	data.SetFloat(MDATA_SCULPTBRUSH_SETTINGS_STAMPSPACING_VALUE, 75);
 }
 
 void SculptCubesBrush::StartStroke(Int32 strokeCount, const BaseContainer& data)
 {
-	//At the start of the brush stroke we get the active document and call StartUndo on it since we are handling Undo ourselves.
+	// At the start of the brush stroke we get the active document and call StartUndo on it since we are handling Undo ourselves.
 	_doc = GetActiveDocument();
 	_doc->StartUndo();
 
-	//Create a null object to store all the cubes under.
+	// Create a null object to store all the cubes under.
 	_nullObject = BaseObject::Alloc(Onull);
 
-	//Add the null object to the document.
+	// Add the null object to the document.
 	_doc->InsertObject(_nullObject, nullptr, nullptr);
 
-	//Add an undo event for this null object.
+	// Add an undo event for this null object.
 	_doc->AddUndo(UNDOTYPE_NEW, _nullObject);
 }
 
 void SculptCubesBrush::EndStroke()
 {
-	//When the stroke ends (which happens on mouse up) we end the Undo for this brush stroke.
+	// When the stroke ends (which happens on mouse up) we end the Undo for this brush stroke.
 	_doc->EndUndo();
 	_doc = nullptr;
 }
 
-//This is the method that will place a single cube down on the underlying PolygonObject for each dab.
+// This is the method that will place a single cube down on the underlying PolygonObject for each dab.
 Bool SculptCubesBrush::MovePointsFunc(BrushDabData* dab)
 {
-	//Since we have enabled brush access via the call to EnableBrushAccess(true) we can now access the brush directly from this static MovePointFunc method.
-	//This lets us access the member variables of the brush.
+	// Since we have enabled brush access via the call to EnableBrushAccess(true) we can now access the brush directly from this static MovePointFunc method.
+	// This lets us access the member variables of the brush.
 	SculptCubesBrush* pBrush = (SculptCubesBrush*)dab->GetBrush();
 	if (!pBrush)
 		return false;
 
-	//Get pointers to the doc and null object.
+	// Get pointers to the doc and null object.
 	BaseDocument* pDoc = pBrush->_doc;
 	BaseObject*		pNullObj = pBrush->_nullObject;
 
-	//Get the normal for this brush dab.
+	// Get the normal for this brush dab.
 	Vector normal = dab->GetNormal();
 
-	//Get the world matrix of the PolygonObject.
+	// Get the world matrix of the PolygonObject.
 	PolygonObject* pPolyObject = dab->GetPolygonObject();
 	Matrix				 polyMat = pPolyObject->GetMg();
 
-	//Create a new cube to place on the surface of the object.
+	// Create a new cube to place on the surface of the object.
 	BaseObject* pCube = BaseObject::Alloc(Ocube);
 
-	//We will adjust the size of the cube based on the size of the brush dab.
+	// We will adjust the size of the cube based on the size of the brush dab.
 	Float dist = dab->GetBrushRadius() * 0.01;
 
-	//Create a matrix to position and resize the cube.
+	// Create a matrix to position and resize the cube.
 	Matrix m;
-	m.Scale(dist);	//Set its size using the brush size.
+	m.Scale(dist);	// Set its size using the brush size.
 
-	//Set the location of the cube so that it is sitting ontop of the underlying PolygonObject we are drawing onto.
+	// Set the location of the cube so that it is sitting ontop of the underlying PolygonObject we are drawing onto.
 	m.off += dab->GetHitPoint() + dist * normal * 100 + polyMat.off;
 
-	//Set the matrix for the cube. Currently we are just ignoring the rotation and scale of the PolygonObject.
+	// Set the matrix for the cube. Currently we are just ignoring the rotation and scale of the PolygonObject.
 	pCube->SetMg(m);
 
-	//Now we need to figure out the correct rotation of the cube so that it is aligned to the surface of the PolygonObject.
-	//We do this by creating a rotation vector using the normal of the dab.
+	// Now we need to figure out the correct rotation of the cube so that it is aligned to the surface of the PolygonObject.
+	// We do this by creating a rotation vector using the normal of the dab.
 	Vector hpb = VectorToHPB(normal);
 
-	//Now we can set the correct rotation of the object.
+	// Now we can set the correct rotation of the object.
 	pCube->SetRelRot(hpb);
 
-	//Insert the cube underneath the null object and then add an undo event for this cube.
+	// Insert the cube underneath the null object and then add an undo event for this cube.
 	pDoc->InsertObject(pCube, pNullObj, nullptr);
 	pDoc->AddUndo(UNDOTYPE_NEW, pCube);
 	return true;
@@ -130,22 +130,22 @@ Bool RegisterSculptCubesBrush()
 	if (!pParams)
 		return false;
 
-	//This brush does not use stencils
+	// This brush does not use stencils
 	pParams->EnableStencil(false);
 
-	//This brush does not use stamps
+	// This brush does not use stamps
 	pParams->EnableStamp(false);
 
-	//Since we are using StartStroke/EndStroke calls, and also because we need access to the brush
-	//itself from within the MovePointFunc (dab->GetBrush()), we need to set this to true.
+	// Since we are using StartStroke/EndStroke calls, and also because we need access to the brush
+	// itself from within the MovePointFunc (dab->GetBrush()), we need to set this to true.
 	pParams->EnableBrushAccess(true);
 
-	//We want to handle undo/redo ourselves so we tell the Sculpting System that should not do anything with its Undo System.
+	// We want to handle undo/redo ourselves so we tell the Sculpting System that should not do anything with its Undo System.
 	pParams->SetUndoType(SCULPTBRUSHDATATYPE_NONE);
 
-	//Set the MovePointFunc to call for each dab.
+	// Set the MovePointFunc to call for each dab.
 	pParams->SetMovePointFunc(&SculptCubesBrush::MovePointsFunc);
 
-	//Register the tool with Cinema4D.
+	// Register the tool with Cinema4D.
 	return RegisterToolPlugin(SCULPTCUBESBRUSH_SDK_EXAMPLE, GeLoadString(IDS_SCULPTCUBESBRUSH_TOOL), PLUGINFLAG_TOOL_SCULPTBRUSH | PLUGINFLAG_TOOL_NO_OBJECTOUTLINE, nullptr, GeLoadString(IDS_SCULPTCUBESBRUSH_TOOL), NewObjClear(SculptCubesBrush, pParams));
 }

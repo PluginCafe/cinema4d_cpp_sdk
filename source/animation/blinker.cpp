@@ -5,7 +5,7 @@
 #include "ckblinker.h"
 #include "main.h"
 
-static Int32 auto_id = 0;
+static Int32 g_autoId = 0;
 
 class BlinkerTrack : public CTrackData
 {
@@ -21,14 +21,14 @@ public:
 	virtual Bool KeyGetDDescription(CTrack* track, CKey* node, Description* description, DESCFLAGS_DESC& flags);
 	virtual Bool KeyGetDEnabling(CTrack* track, CKey* node, const DescID& id, const GeData& t_data, DESCFLAGS_ENABLE flags, const BaseContainer* itemdesc);
 
-	static NodeData* Alloc(void) { return NewObjClear(BlinkerTrack); }
+	static NodeData* Alloc() { return NewObjClear(BlinkerTrack); }
 };
 
 Bool BlinkerTrack::KeyGetDDescription(CTrack* track, CKey* node, Description* description, DESCFLAGS_DESC& flags)
 {
 	if (!(flags & DESCFLAGS_DESC_LOADED))
 	{
-		if (description->LoadDescription(auto_id))
+		if (description->LoadDescription(g_autoId))
 			flags |= DESCFLAGS_DESC_LOADED;
 	}
 	return flags & DESCFLAGS_DESC_LOADED;
@@ -110,9 +110,9 @@ Bool BlinkerTrack::Animate(CTrack* track, const CAnimInfo* info, Bool* chg, void
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_BLINKERANIMATION	1001152
 
-Bool RegisterBlinker(void)
+Bool RegisterBlinker()
 {
-	if (GeRegistryGetAutoID(&auto_id) && !RegisterDescription(auto_id, "CKblinker"))
+	if (GeRegistryGetAutoID(&g_autoId) && !RegisterDescription(g_autoId, "CKblinker"))
 		return false;
 
 	return RegisterCTrackPlugin(ID_BLINKERANIMATION, GeLoadString(IDS_BLINKER), 0, BlinkerTrack::Alloc, "CTblinker", 0);

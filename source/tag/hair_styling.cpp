@@ -19,7 +19,7 @@ public:
 
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 
-	static NodeData* Alloc(void) { return NewObjClear(HairStylingTag); }
+	static NodeData* Alloc() { return NewObjClear(HairStylingTag); }
 
 	//////////////////////////////////////////////////////////////////////////
 

@@ -8,8 +8,8 @@
 
 struct PVRender
 {
-	PVRender(void);
-	~PVRender(void);
+	PVRender();
+	~PVRender();
 
 	Vector* mp;
 	Int32		count;
@@ -32,7 +32,7 @@ public:
 	virtual Bool Init(GeListNode* node);
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 
-	static NodeData* Alloc(void) { return NewObjClear(ParticleVolume); }
+	static NodeData* Alloc() { return NewObjClear(ParticleVolume); }
 
 protected:
 	Bool highDensity;
@@ -51,13 +51,13 @@ VOLUMEINFO ParticleVolume::GetRenderInfo(BaseMaterial* mat)
 
 #define MAX_PARTICLES 10000
 
-PVRender::PVRender(void)
+PVRender::PVRender()
 {
 	mp = nullptr;
 	count = 0;
 }
 
-PVRender::~PVRender(void)
+PVRender::~PVRender()
 {
 	DeleteMem(mp);
 }
@@ -339,7 +339,7 @@ Bool ParticleVolume::Message(GeListNode* node, Int32 type, void* data)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_PARTICLEVOLUME	1001163
 
-Bool RegisterParticleVolume(void)
+Bool RegisterParticleVolume()
 {
 	String name = GeGetDefaultFilename(DEFAULTFILENAME_SHADER_VOLUME) + GeLoadString(IDS_PARTICLEVOLUME);	// place in default Shader section
 	return RegisterMaterialPlugin(ID_PARTICLEVOLUME, name, 0, ParticleVolume::Alloc, "MParticleVolume", 0);

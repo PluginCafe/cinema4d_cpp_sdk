@@ -10,7 +10,7 @@
 
 class MySubDialog1 : public SubDialog
 {
-	virtual Bool CreateLayout(void)
+	virtual Bool CreateLayout()
 	{
 		GroupBegin(0, BFH_SCALEFIT | BFV_SCALEFIT, 2, 0, "", BFV_GRIDGROUP_ALLOW_WEIGHTS);
 		AddButton(1000, BFH_SCALEFIT | BFV_SCALEFIT, 0, 0, "SubDialog1");
@@ -27,7 +27,7 @@ class MySubDialog1 : public SubDialog
 		GroupEnd();
 		return true;
 	}
-	virtual Bool InitValues(void)
+	virtual Bool InitValues()
 	{
 		SetInt32(1006, Int32(0), 0, 10);
 
@@ -77,7 +77,7 @@ public:
 		weights_saved = false;
 	}
 
-	virtual Bool CreateLayout(void)
+	virtual Bool CreateLayout()
 	{
 		GroupBegin(999, BFH_SCALEFIT | BFV_SCALEFIT, 3, 0, "", BFV_GRIDGROUP_ALLOW_WEIGHTS);
 
@@ -129,7 +129,7 @@ public:
 		}
 		return SubDialog::Message(msg, result);
 	}
-	virtual Bool InitValues(void)
+	virtual Bool InitValues()
 	{
 		SetInt32(1006, Int32(0), 0, 10);
 		return true;
@@ -149,25 +149,25 @@ private:
 	SubDialog*	 lastdlg;
 
 public:
-	MainDialog(void);
-	virtual ~MainDialog(void);
+	MainDialog();
+	virtual ~MainDialog();
 
-	virtual Bool CreateLayout(void);
-	virtual Bool InitValues(void);
+	virtual Bool CreateLayout();
+	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 	virtual Int32 Message(const BaseContainer& msg, BaseContainer& result);
 };
 
-MainDialog::MainDialog(void)
+MainDialog::MainDialog()
 {
 	lastdlg = nullptr;
 }
 
-MainDialog::~MainDialog(void)
+MainDialog::~MainDialog()
 {
 }
 
-Bool MainDialog::CreateLayout(void)
+Bool MainDialog::CreateLayout()
 {
 	// first call the parent instance
 	Bool res = GeDialog::CreateLayout();
@@ -183,7 +183,7 @@ Bool MainDialog::CreateLayout(void)
 	return res;
 }
 
-Bool MainDialog::InitValues(void)
+Bool MainDialog::InitValues()
 {
 	// first call the parent instance
 	if (!GeDialog::InitValues())
@@ -252,7 +252,7 @@ Bool SubDialogTest::RestoreLayout(void* secret)
 	return dlg.RestoreLayout(ID_SUBDIALOGTEST, 0, secret);
 }
 
-Bool RegisterSubDialog(void)
+Bool RegisterSubDialog()
 {
 	return RegisterCommandPlugin(ID_SUBDIALOGTEST, GeLoadString(IDS_SUBDIALOG), 0, nullptr, String(), NewObjClear(SubDialogTest));
 }

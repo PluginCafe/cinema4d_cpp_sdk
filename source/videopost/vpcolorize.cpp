@@ -21,7 +21,7 @@ private:
 
 public:
 	virtual Bool Init(GeListNode* node);
-	static NodeData* Alloc(void) { return NewObjClear(ColorizeData); }
+	static NodeData* Alloc() { return NewObjClear(ColorizeData); }
 
 	virtual void AllocateBuffers(BaseVideoPost* node, Render* render, BaseDocument* doc);
 	virtual RENDERRESULT Execute(BaseVideoPost* node, VideoPostStruct* vps);
@@ -164,7 +164,7 @@ Bool ColorizeData::RenderEngineCheck(BaseVideoPost* node, Int32 id)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_COLORIZEVIDEOPOST 1000968
 
-Bool RegisterVPTest(void)
+Bool RegisterVPTest()
 {
 	return RegisterVideoPostPlugin(ID_COLORIZEVIDEOPOST, GeLoadString(IDS_VIDEOPOST), PLUGINFLAG_VIDEOPOST_MULTIPLE, ColorizeData::Alloc, "VPcolorize", 0, 0);
 }

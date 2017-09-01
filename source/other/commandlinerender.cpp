@@ -52,52 +52,52 @@ fi
 
 #include "main.h"
 
-Float lastProgressValue = -1.0;
-RENDERPROGRESSTYPE lastProgressType = RENDERPROGRESSTYPE_AFTERRENDERING;
+Float g_lastProgressValue = -1.0;
+RENDERPROGRESSTYPE g_lastProgressType = RENDERPROGRESSTYPE_AFTERRENDERING;
 
 static void RenderProgressHook(Float p, RENDERPROGRESSTYPE progress_type, void* context)
 {
-	if (Abs(p - lastProgressValue) > 0.01 || progress_type != lastProgressType)
+	if (Abs(p - g_lastProgressValue) > 0.01 || progress_type != g_lastProgressType)
 	{
-		if (progress_type != lastProgressType)
+		if (progress_type != g_lastProgressType)
 		{
 			switch (progress_type)
 			{
 				case RENDERPROGRESSTYPE_AFTERRENDERING:
-					lastProgressValue = 1.0; // no further output necessary
+					g_lastProgressValue = 1.0; // no further output necessary
 					GeConsoleOut("Rendering Phase: Finalize");
 					break;
 
 				case RENDERPROGRESSTYPE_BEFORERENDERING:
-					lastProgressValue = -1.0;	// output new percent value
+					g_lastProgressValue = -1.0;	// output new percent value
 					GeConsoleOut("Rendering Phase: Setup");
 					break;
 
 				case RENDERPROGRESSTYPE_DURINGRENDERING:
-					lastProgressValue = -1.0;	// output new percent value
+					g_lastProgressValue = -1.0;	// output new percent value
 					GeConsoleOut("Rendering Phase: Main Render");
 					break;
 
 				case RENDERPROGRESSTYPE_GLOBALILLUMINATION:
-					lastProgressValue = -1.0;	// output new percent value
+					g_lastProgressValue = -1.0;	// output new percent value
 					GeConsoleOut("Rendering Phase: Global Illumination");
 					break;
 
 				case RENDERPROGRESSTYPE_AMBIENTOCCLUSION:
-					lastProgressValue = -1.0;	// output new percent value
+					g_lastProgressValue = -1.0;	// output new percent value
 					GeConsoleOut("Rendering Phase: Ambient Occlusion");
 					break;
 			}
 
 		}
 
-		if (Abs(p - lastProgressValue) > 0.01)
+		if (Abs(p - g_lastProgressValue) > 0.01)
 		{
 			GeConsoleOut(String("Progress: ") + String::IntToString(Int32(p * 100.0)) + String("%"));
 		}
 
-		lastProgressValue = p;
-		lastProgressType	= progress_type;
+		g_lastProgressValue = p;
+		g_lastProgressType	= progress_type;
 	}
 }
 
@@ -428,6 +428,7 @@ void CommandLineRendering(C4DPL_CommandLineArgs* args)
 					break;
 				default:
 					GeConsoleOut("Rendering failed: Unknown error");
+					break;
 			}
 
 			if (res != RENDERRESULT_OK)

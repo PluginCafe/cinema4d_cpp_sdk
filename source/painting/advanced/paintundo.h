@@ -94,7 +94,7 @@ public:
 	virtual Bool Message(GeListNode *node, Int32 type, void *data);
 
 public:
-	static NodeData *Alloc();
+	static NodeData *Alloc(void);
 
 	Bool AddUndoRedo(PaintLayerBmp *pBitmap, Int x, Int y);
 	Bool Undo();
@@ -111,7 +111,7 @@ private:
 	PaintUndoRedo *m_pUndoRedo;
 	Bool undoEvent;
 
-	GeSpinlock m_lock; // Avoid multiple calls to Undo or Redo
+	GeSpinlock m_lock; //Avoid multiple calls to Undo or Redo
 };
 
 PaintUndoSystem *GetPaintUndoSystem(BaseDocument *doc);

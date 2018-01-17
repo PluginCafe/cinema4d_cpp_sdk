@@ -16,7 +16,7 @@ public:
 	virtual Bool Identify(BaseSceneLoader* node, const Filename& name, UChar* probe, Int32 size);
 	virtual FILEERROR Load(BaseSceneLoader* node, const Filename& name, BaseDocument* doc, SCENEFILTER filterflags, String* error, BaseThread* bt);
 
-	static NodeData* Alloc() { return NewObjClear(SculptLoaderData); }
+	static NodeData* Alloc(void) { return NewObjClear(SculptLoaderData); }
 };
 
 Bool SculptLoaderData::Init(GeListNode* node)
@@ -30,7 +30,7 @@ public:
 	virtual Bool Init(GeListNode* node);
 	virtual FILEERROR Save(BaseSceneSaver* node, const Filename& name, BaseDocument* doc, SCENEFILTER filterflags);
 
-	static NodeData* Alloc() { return NewObjClear(SculptSaverData); }
+	static NodeData* Alloc(void) { return NewObjClear(SculptSaverData); }
 };
 
 Bool SculptSaverData::Init(GeListNode* node)
@@ -92,7 +92,7 @@ FILEERROR SculptLoaderData::Load(BaseSceneLoader* node, const Filename& name, Ba
 	Vector* pPoints = pPoly->GetPointW();
 	for (a = 0; a < pointCount; a++)
 	{
-		// Using real instead of vector to match the Melange library
+		//Using real instead of vector to match the Melange library
 		if (!file->ReadFloat64(&pPoints[a].x))
 			return file->GetError();
 		if (!file->ReadFloat64(&pPoints[a].y))
@@ -128,12 +128,12 @@ FILEERROR SculptLoaderData::Load(BaseSceneLoader* node, const Filename& name, Ba
 			if (layerPointCount != pBaseLayer->GetPointCount())
 				return FILEERROR_INVALID;
 
-			// First read in the baselayer data for this level
+			//First read in the baselayer data for this level
 			Int32 b;
 			for (b = 0; b < layerPointCount; b++)
 			{
 				Vector p;
-				// Using Float instead of Vector to match the Melange Library
+				//Using Float instead of Vector to match the Melange Library
 				if (!file->ReadFloat64(&p.x))
 					return file->GetError();
 				if (!file->ReadFloat64(&p.y))
@@ -218,7 +218,7 @@ FILEERROR SculptLoaderData::Load(BaseSceneLoader* node, const Filename& name, Ba
 				for (b = 0; b < layerPointCount; b++)
 				{
 					Vector p;
-					// Using Float instead of Vector to match the Melange Library
+					//Using Float instead of Vector to match the Melange Library
 					if (!file->ReadFloat64(&p.x))
 						return file->GetError();
 					if (!file->ReadFloat64(&p.y))
@@ -309,7 +309,7 @@ FILEERROR SculptSaverData::Save(BaseSceneSaver* node, const Filename& name, Base
 				Int32					a;
 				for (a = 0; a < pointCount; a++)
 				{
-					// Using Float instead of Vector to match the Melange Library
+					//Using Float instead of Vector to match the Melange Library
 					if (!file->WriteFloat64(pPoints[a].x))
 						return file->GetError();
 					if (!file->WriteFloat64(pPoints[a].y))
@@ -348,7 +348,7 @@ FILEERROR SculptSaverData::Save(BaseSceneSaver* node, const Filename& name, Base
 						Vector offset;
 						pLayerData->GetOffset(b, offset);
 
-						// Using real instead of vector to match the melange library
+						//Using real instead of vector to match the melange library
 						if (!file->WriteFloat64(offset.x))
 							return file->GetError();
 						if (!file->WriteFloat64(offset.y))
@@ -373,8 +373,8 @@ FILEERROR SculptSaverData::Save(BaseSceneSaver* node, const Filename& name, Base
 				}
 			}
 
-			// Save data for all other layers that have information at this level
-			// First count how many layers we have at this level (currently not recursing to children but this should be done).
+			//Save data for all other layers that have information at this level
+			//First count how many layers we have at this level (currently not recursing to children but this should be done).
 			Int32 layerCount = 0;
 			SculptLayerBase* pLayer = pSculpt->GetFirstLayer();
 			while (pLayer)
@@ -393,11 +393,11 @@ FILEERROR SculptSaverData::Save(BaseSceneSaver* node, const Filename& name, Base
 				pLayer = (SculptLayerBase*)pLayer->GetNext();
 			}
 
-			// Write out how many layers we have at this level
+			//Write out how many layers we have at this level
 			if (!file->WriteInt32(layerCount))
 				return file->GetError();
 
-			// Write out the layer data
+			//Write out the layer data
 			pLayer = pSculpt->GetFirstLayer();
 			while (pLayer)
 			{
@@ -435,7 +435,7 @@ FILEERROR SculptSaverData::Save(BaseSceneSaver* node, const Filename& name, Base
 							Vector offset;
 							pData->GetOffset(b, offset);
 
-							// Using real instead of vector to match the melange library
+							//Using real instead of vector to match the melange library
 							if (!file->WriteFloat64(offset.x))
 								return file->GetError();
 							if (!file->WriteFloat64(offset.y))
@@ -471,7 +471,7 @@ FILEERROR SculptSaverData::Save(BaseSceneSaver* node, const Filename& name, Base
 	return file->GetError();
 }
 
-Bool RegisterSculpt()
+Bool RegisterSculpt(void)
 {
 	String name = GeLoadString(IDS_SCULPT);
 	if (!RegisterSceneLoaderPlugin(1027977, name, 0, SculptLoaderData::Alloc, "", nullptr))

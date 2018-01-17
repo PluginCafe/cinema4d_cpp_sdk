@@ -24,7 +24,7 @@ static Int32 filter_start(FI_REF fi, BM_REF bm, FILTER_PARAM settings);
 static Int32 filter_end(FI_REF fi, BM_REF bm, FILTER_PARAM settings);
 static Int32 filter_run(FI_REF fi, BM_REF bm, FILTER_PARAM settings, Bool use_gui);
 
-static BITMAP_FILTER g_ThresholdFilter =
+static BITMAP_FILTER threshold_filter =
 {
 	BITMAPFILTER_MAGIC_V3,
 
@@ -82,12 +82,12 @@ class ThresholdDialog : public GeModalDialog
 	Bool							document_preview;
 
 public:
-	ThresholdDialog();
+	ThresholdDialog(void);
 	~ThresholdDialog();
 
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
-	virtual Bool CreateLayout();
-	virtual Bool InitValues();
+	virtual Bool CreateLayout(void);
+	virtual Bool InitValues(void);
 
 	Bool Init(BM_REF bm, PRIVATE_SETTINGS* settings);
 };
@@ -97,14 +97,14 @@ public:
 // Register filter
 // Function result:		true/false
 //----------------------------------------------------------------------------------------
-Bool RegisterThreshold()
+Bool RegisterThreshold(void)
 {
 	String name = GeLoadString(IDS_THRESHOLD);
 	if (!name.Content())
 		return true;
 
 	// be sure to use a unique ID obtained from www.plugincafe.com
-	return GeRegisterPlugin(PLUGINTYPE_BITMAPFILTER, 1000691, name, &g_ThresholdFilter, sizeof(g_ThresholdFilter));
+	return GeRegisterPlugin(PLUGINTYPE_BITMAPFILTER, 1000691, name, &threshold_filter, sizeof(threshold_filter));
 }
 
 //----------------------------------------------------------------------------------------
@@ -439,7 +439,8 @@ static Int32 apply_effect(BM_REF bm, const RECT32* src_rect, BM_TILE* dt, BM_FIL
 			}
 		}
 
-	exit_filter:
+exit_filter:
+
 		BfProgressDelete(bm, pid);
 	}
 
@@ -594,7 +595,7 @@ static Int32 do_effect32(BM_REF bm, const RECT32* src_rect, BM_TILE* dst, PRIVAT
 	return FILTER_MEM_ERR;
 }
 
-ThresholdDialog::ThresholdDialog()
+ThresholdDialog::ThresholdDialog(void)
 {
 	bm = nullptr;
 	real_time = BfpGetRealTimeFlag();
@@ -621,7 +622,7 @@ Bool ThresholdDialog::Init(BM_REF _bm, PRIVATE_SETTINGS* _settings)
 	return false;
 }
 
-Bool ThresholdDialog::CreateLayout()
+Bool ThresholdDialog::CreateLayout(void)
 {
 	LoadDialogResource(DLG_THRESHOLD, nullptr, 0);
 	preview.Create(this, GADGET_THRESHOLD_PREVIEWGROUP);
@@ -631,7 +632,7 @@ Bool ThresholdDialog::CreateLayout()
 	return true;
 }
 
-Bool ThresholdDialog::InitValues()
+Bool ThresholdDialog::InitValues(void)
 {
 	SetInt32(GADGET_THRESHOLD_DOCUMENT_PREVIEW, document_preview);
 	SetFloat(GADGET_THRESHOLD_SLIDER_LEVELS, settings->no_levels, MIN_LEVELS, MAX_LEVELS, STEP_LEVELS, FORMAT_FLOAT, 0.0, 0.0, true);

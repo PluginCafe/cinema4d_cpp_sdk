@@ -19,7 +19,7 @@ public:
 	virtual SplineObject* GetContour(BaseObject* op, BaseDocument* doc, Float lod, BaseThread* bt);
 	virtual Bool GetDEnabling(GeListNode* node, const DescID& id, const GeData& t_data, DESCFLAGS_ENABLE flags, const BaseContainer* itemdesc);
 
-	static NodeData* Alloc() { return NewObjClear(DoubleCircleData); }
+	static NodeData* Alloc(void) { return NewObjClear(DoubleCircleData); }
 };
 
 Bool DoubleCircleData::Message(GeListNode* node, Int32 type, void* data)
@@ -87,7 +87,7 @@ void DoubleCircleData::SetHandle(BaseObject* op, Int32 i, Vector p, const Handle
 
 	Float val = Dot(p, info.direction);
 
-	data->SetFloat(CIRCLEOBJECT_RAD, ClampValue(val, 0.0_f, (Float) MAXRANGE));
+	data->SetFloat(CIRCLEOBJECT_RAD, ClampValue(val, (Float) 0.0, (Float) MAXRANGE));
 }
 
 static SplineObject* GenerateCircle(Float rad)
@@ -243,7 +243,7 @@ Bool DoubleCircleData::GetDEnabling(GeListNode* node, const DescID& id, const Ge
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_CIRCLEOBJECT 1001154
 
-Bool RegisterCircle()
+Bool RegisterCircle(void)
 {
 	return RegisterObjectPlugin(ID_CIRCLEOBJECT, GeLoadString(IDS_CIRCLE), OBJECT_GENERATOR | OBJECT_ISSPLINE, DoubleCircleData::Alloc, "Odoublecircle", AutoBitmap("circle.tif"), 0);
 }

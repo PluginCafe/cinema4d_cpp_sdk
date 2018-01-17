@@ -91,14 +91,14 @@ inline void DoLineBary(BrushDabData *dab, PaintChannels *channels, const SpanBar
 		Int32 bpp = (bitdepth / 8) * numChannels;
 		const Vector &defaultColor = channels->fgColor;
 
-		Float32 tempBuff[4]; // Use a buffer big enough for 4 32bit values
+		Float32 tempBuff[4]; //Use a buffer big enough for 4 32bit values
 		tempBuff[0] = (Float32)defaultColor.x;
 		tempBuff[1] = (Float32)defaultColor.y;
 		tempBuff[2] = (Float32)defaultColor.z;
 		tempBuff[3] = 1.0f;
 
 
-		UChar colBuffer[16]; // Use a buffer big enough for 4 32bit values
+		UChar colBuffer[16]; //Use a buffer big enough for 4 32bit values
 		if (!PaintBitmap::ConvertBits(1, (PIX*)tempBuff, 1, COLORMODE_RGBf, (PIX*)colBuffer, 1, colorMode, NOTOK, NOTOK))
 		{
 			return;
@@ -151,7 +151,7 @@ inline void DoTextureLineBary(BrushDabData *dab, PaintChannels *channels, const 
 		COLORMODE colorMode = (COLORMODE)paintBmp->GetColorMode();
 		Bool supported = GetChannelInfo(paintBmp, bitdepth, numChannels);
 		if (!supported)
-			return;
+				return;
 
 		Int32 bpp = (bitdepth / 8) * numChannels;
 		Int32 numBytes = (span.X2 - span.X1) * bpp;
@@ -159,7 +159,7 @@ inline void DoTextureLineBary(BrushDabData *dab, PaintChannels *channels, const 
 		if (!pBuffer)
 			return;
 
-		UChar colBuffer[16]; // Use a buffer big enough for 4 32bit values
+		UChar colBuffer[16]; //Use a buffer big enough for 4 32bit values
 
 		paintBmp->GetPixelCnt(span.X1, y, span.X2-span.X1, pBuffer, colorMode, PIXELCNT_0);
 
@@ -176,7 +176,7 @@ inline void DoTextureLineBary(BrushDabData *dab, PaintChannels *channels, const 
 
 			Vector pos = span.point1 + (posDiff * factor);
 
-			// Skip the stamp if it is outside of it.
+			//Skip the stamp if it is outside of it.
 			Bool skip = false;
 			if (sourcePos.x < 0 || sourcePos.x >= sourceWidth || sourcePos.y < 0 || sourcePos.y >= sourceHeight)
 			{
@@ -188,10 +188,8 @@ inline void DoTextureLineBary(BrushDabData *dab, PaintChannels *channels, const 
 				{
 					if (stencilTileX)
 					{
-						if (sourcePos.x < 0) 
-							sourcePos.x = sourceWidth + sourcePos.x;
-						if (sourcePos.x >= sourceWidth) 
-							sourcePos.x = sourcePos.x - sourceWidth;
+						if (sourcePos.x < 0) sourcePos.x = sourceWidth + sourcePos.x;
+						if (sourcePos.x >= sourceWidth) sourcePos.x = sourcePos.x - sourceWidth;
 					}
 					else
 					{
@@ -199,10 +197,8 @@ inline void DoTextureLineBary(BrushDabData *dab, PaintChannels *channels, const 
 					}
 					if (stencilTileY)
 					{
-						if (sourcePos.y < 0) 
-							sourcePos.y = sourceHeight + sourcePos.y;
-						if (sourcePos.y >= sourceHeight) 
-							sourcePos.y = sourcePos.y - sourceHeight;
+						if (sourcePos.y < 0) sourcePos.y = sourceHeight + sourcePos.y;
+						if (sourcePos.y >= sourceHeight) sourcePos.y = sourcePos.y - sourceHeight;
 					}
 					else
 					{

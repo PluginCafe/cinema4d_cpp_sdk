@@ -45,7 +45,7 @@ Bool PickObjectTool::MouseInput(BaseDocument* doc, BaseContainer& data, BaseDraw
 	Int32						mode = data.GetInt32(MDATA_PICKOBJECT_MODE);
 	Int32						x, y, l, xr = 0, yr = 0, wr = 0, hr = 0;
 	Matrix4d				m;
-	const ViewportPixel*const* pix = nullptr;
+	ViewportPixel** pix = nullptr;
 	String					str;
 	char ch[200];
 	Bool ret = false;

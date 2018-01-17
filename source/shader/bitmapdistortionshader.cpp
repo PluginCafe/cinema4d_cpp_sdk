@@ -24,7 +24,7 @@ public:
 	virtual	SHADERINFO GetRenderInfo(BaseShader* sh);
 	virtual BaseShader*	GetSubsurfaceShader(BaseShader* sh, Float& bestmpl);
 
-	static NodeData* Alloc() { return NewObjClear(BitmapData); }
+	static NodeData* Alloc(void) { return NewObjClear(BitmapData); }
 };
 
 SHADERINFO BitmapData::GetRenderInfo(BaseShader* sh)
@@ -121,7 +121,7 @@ Bool BitmapData::Message(GeListNode* node, Int32 type, void* msgdat)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_BITMAPDISTORTION 1001160
 
-Bool RegisterBitmap()
+Bool RegisterBitmap(void)
 {
 	return RegisterShaderPlugin(ID_BITMAPDISTORTION, GeLoadString(IDS_BITMAPDISTORTION), 0, BitmapData::Alloc, "Xbitmapdistortion", 0);
 }

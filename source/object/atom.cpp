@@ -18,7 +18,7 @@ public:
 	virtual BaseObject* GetVirtualObjects(BaseObject* op, HierarchyHelp* hh);
 	virtual Bool Message(GeListNode* node, Int32 type, void* t_data);
 
-	static NodeData* Alloc() { return NewObjClear(AtomObject); }
+	static NodeData* Alloc(void) { return NewObjClear(AtomObject); }
 };
 
 // initialize settings
@@ -523,7 +523,7 @@ static Bool AtomObjectHelpDelegate(const String& opType, const String& baseType,
 	return false;
 }
 
-Bool RegisterAtomObject()
+Bool RegisterAtomObject(void)
 {
 	if (RegisterPluginHelpDelegate(ID_ATOMOBJECT, AtomObjectHelpDelegate) == false)
 		return false;

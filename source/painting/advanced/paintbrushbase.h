@@ -11,7 +11,7 @@
 class PaintBrushBase : public SculptBrushToolData
 {
 public:
-	explicit PaintBrushBase(SculptBrushParams *pParams) : SculptBrushToolData(pParams) { }
+	PaintBrushBase(SculptBrushParams *pParams) : SculptBrushToolData(pParams) { }
 	virtual ~PaintBrushBase() { }
 
 	virtual Int32 GetToolPluginId();

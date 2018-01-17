@@ -15,35 +15,39 @@
 #define ID_GRADIENT 1001
 #define ID_LINK     1002
 
-static const Int32 SPLINE_SC_KNOT_POS_X = 0; // Float
-static const Int32 SPLINE_SC_KNOT_POS_Y = 1; // Float
-static const Int32 SPLINE_SC_KNOT_TANGENT_LEFT_X = 2; // Float
-static const Int32 SPLINE_SC_KNOT_TANGENT_LEFT_Y = 3; // Float
-static const Int32 SPLINE_SC_KNOT_TANGENT_RIGHT_X = 4; // Float
-static const Int32 SPLINE_SC_KNOT_TANGENT_RIGHT_Y = 5; // Float
-static const Int32 SPLINE_SC_KNOT_TANGENT_BREAK = 6; // Bool
-static const Int32 SPLINE_SC_KNOT_INTERPOLATIOM = 7; // CustomSplineKnotInterpolation / Int32
-static const Int32 SPLINE_SC_KNOT_LOCK_X = 8; // Bool
-static const Int32 SPLINE_SC_KNOT_LOCK_Y = 9; // Bool
-static const Int32 SPLINE_SC_KNOT_LOCK_TANGENT_ANGLE = 10; // Bool
-static const Int32 SPLINE_SC_KNOT_LOCK_TANGENT_LENGTH = 11; // Bool
+enum SPLINE_SUBCHANNEL_IDS
+{
+	SPLINE_SC_KNOT_POS_X = 0, // Float
+	SPLINE_SC_KNOT_POS_Y = 1, // Float
+	SPLINE_SC_KNOT_TANGENT_LEFT_X = 2, // Float
+	SPLINE_SC_KNOT_TANGENT_LEFT_Y = 3, // Float
+	SPLINE_SC_KNOT_TANGENT_RIGHT_X = 4, // Float
+	SPLINE_SC_KNOT_TANGENT_RIGHT_Y = 5, // Float
+	SPLINE_SC_KNOT_TANGENT_BREAK = 6, // Bool
+	SPLINE_SC_KNOT_INTERPOLATIOM = 7, // CustomSplineKnotInterpolation / Int32
+	SPLINE_SC_KNOT_LOCK_X = 8, // Bool
+	SPLINE_SC_KNOT_LOCK_Y = 9, // Bool
+	SPLINE_SC_KNOT_LOCK_TANGENT_ANGLE = 10, // Bool
+	SPLINE_SC_KNOT_LOCK_TANGENT_LENGTH = 11, // Bool
 
-static const Int32 SPLINE_SC_TENSION = 1000; // Float
-static const Int32 SPLINE_SC_KNOT_BASE = 10100; // if >=, decode subchannels
-
+	SPLINE_SC_TENSION = 1000, // Float
+	SPLINE_SC_KNOT_BASE = 10100, // if >=, decode subchannels
+};
 #define SPLINE_MAX_IDS_PER_KNOT 100
 #define SPLINE_DECODE_KNOT_INDEX(id)       ((id - (SPLINE_SC_KNOT_BASE + SPLINE_SC_TENSION)) / SPLINE_MAX_IDS_PER_KNOT)
 #define SPLINE_DECODE_KNOT_SUBCHANNEL(id)  (id % SPLINE_MAX_IDS_PER_KNOT)
 
-static const Int32 GRADIENT_SC_KNOT_COLOR = 0; // Vector
-static const Int32 GRADIENT_SC_KNOT_INTENSITY = 1; // Float
-static const Int32 GRADIENT_SC_KNOT_POSITION = 2; // 
-static const Int32 GRADIENT_SC_KNOT_BIAS = 3; // Float
+enum GRADIENT_SUBCHANNEL_IDS
+{
+	GRADIENT_SC_KNOT_COLOR = 0, // Vector
+	GRADIENT_SC_KNOT_INTENSITY = 1, // Float
+	GRADIENT_SC_KNOT_POSITION = 2, // Float
+	GRADIENT_SC_KNOT_BIAS = 3, // Float
 
-static const Int32 GRADIENT_SC_INTERPOLATION = 1000; // Int32
-static const Int32 GRADIENT_SC_KNOT_BASE = 10000; // if >=, decode subchannels
-static const Int32 GRADIENT_SC_ALPHAGRADIENT_OFFSET = 1000000000; // if id >=, it's a knot of an alpha gradient is addressed
-
+	GRADIENT_SC_INTERPOLATION = 1000, // Int32
+	GRADIENT_SC_KNOT_BASE = 10000, // if >=, decode subchannels
+	GRADIENT_SC_ALPHAGRADIENT_OFFSET = 1000000000, // if id >=, it's a knot of an alpha gradient is addressed
+};
 #define GRADIENT_MAX_IDS_PER_KNOT 100
 #define GRADIENT_DECODE_KNOT_INDEX(id)       ((id - GRADIENT_SC_KNOT_BASE) / GRADIENT_MAX_IDS_PER_KNOT)
 #define GRADIENT_DECODE_KNOT_SUBCHANNEL(id)  (id % GRADIENT_MAX_IDS_PER_KNOT)
@@ -59,7 +63,7 @@ public:
 	virtual Bool SetDParameter(GeListNode* node, const DescID& id, const GeData& t_data, DESCFLAGS_SET& flags);
 	virtual BaseObject* GetVirtualObjects(BaseObject* op, HierarchyHelp* hh);
 
-	static NodeData* Alloc() { return NewObjClear(GetSetDParameterExample); }
+	static NodeData* Alloc(void) { return NewObjClear(GetSetDParameterExample); }
 
 private:
 	void SplineInit(BaseContainer* const data);
@@ -206,42 +210,42 @@ Bool GetSetDParameterExample::SplineGetDParameter(GeListNode* node, const DescID
 		{
 			switch (subchannelIdx)
 			{
-				case SPLINE_SC_KNOT_POS_X:
-					t_data.SetFloat(knot->vPos.x);
-					break;
-				case SPLINE_SC_KNOT_POS_Y:
-					t_data.SetFloat(knot->vPos.y);
-					break;
-				case SPLINE_SC_KNOT_TANGENT_LEFT_X:
-					t_data.SetFloat(knot->vTangentLeft.x);
-					break;
-				case SPLINE_SC_KNOT_TANGENT_LEFT_Y:
-					t_data.SetFloat(knot->vTangentLeft.y);
-					break;
-				case SPLINE_SC_KNOT_TANGENT_RIGHT_X:
-					t_data.SetFloat(knot->vTangentRight.x);
-					break;
-				case SPLINE_SC_KNOT_TANGENT_RIGHT_Y:
-					t_data.SetFloat(knot->vTangentRight.y);
-					break;
-				case SPLINE_SC_KNOT_TANGENT_BREAK:
-					t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_T_BREAK);
-					break;
-				case SPLINE_SC_KNOT_INTERPOLATIOM:
-					t_data.SetInt32(knot->interpol);
-					break;
-				case SPLINE_SC_KNOT_LOCK_X:
-					t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_LOCK_X);
-					break;
-				case SPLINE_SC_KNOT_LOCK_Y:
-					t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_LOCK_Y);
-					break;
-				case SPLINE_SC_KNOT_LOCK_TANGENT_ANGLE:
-					t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_T_LOCK_A);
-					break;
-				case SPLINE_SC_KNOT_LOCK_TANGENT_LENGTH:
-					t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_T_LOCK_L);
-					break;
+			case SPLINE_SC_KNOT_POS_X:
+				t_data.SetFloat(knot->vPos.x);
+				break;
+			case SPLINE_SC_KNOT_POS_Y:
+				t_data.SetFloat(knot->vPos.y);
+				break;
+			case SPLINE_SC_KNOT_TANGENT_LEFT_X:
+				t_data.SetFloat(knot->vTangentLeft.x);
+				break;
+			case SPLINE_SC_KNOT_TANGENT_LEFT_Y:
+				t_data.SetFloat(knot->vTangentLeft.y);
+				break;
+			case SPLINE_SC_KNOT_TANGENT_RIGHT_X:
+				t_data.SetFloat(knot->vTangentRight.x);
+				break;
+			case SPLINE_SC_KNOT_TANGENT_RIGHT_Y:
+				t_data.SetFloat(knot->vTangentRight.y);
+				break;
+			case SPLINE_SC_KNOT_TANGENT_BREAK:
+				t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_T_BREAK);
+				break;
+			case SPLINE_SC_KNOT_INTERPOLATIOM:
+				t_data.SetInt32(knot->interpol);
+				break;
+			case SPLINE_SC_KNOT_LOCK_X:
+				t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_LOCK_X);
+				break;
+			case SPLINE_SC_KNOT_LOCK_Y:
+				t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_LOCK_Y);
+				break;
+			case SPLINE_SC_KNOT_LOCK_TANGENT_ANGLE:
+				t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_T_LOCK_A);
+				break;
+			case SPLINE_SC_KNOT_LOCK_TANGENT_LENGTH:
+				t_data.SetInt32(knot->lFlagsSettings & FLAG_KNOT_T_LOCK_L);
+				break;
 			}
 		}
 		flags |= DESCFLAGS_GET_PARAM_GET;
@@ -285,57 +289,57 @@ Bool GetSetDParameterExample::SplineSetDParameter(GeListNode* node, const DescID
 
 		switch (subchannelIdx)
 		{
-			case SPLINE_SC_KNOT_POS_X:
-				knot->vPos.x = t_data.GetFloat();
-				break;
-			case SPLINE_SC_KNOT_POS_Y:
-				knot->vPos.y = t_data.GetFloat();
-				break;
-			case SPLINE_SC_KNOT_TANGENT_LEFT_X:
-				knot->vTangentLeft.x = t_data.GetFloat();
-				break;
-			case SPLINE_SC_KNOT_TANGENT_LEFT_Y:
-				knot->vTangentLeft.y = t_data.GetFloat();
-				break;
-			case SPLINE_SC_KNOT_TANGENT_RIGHT_X:
-				knot->vTangentRight.x = t_data.GetFloat();
-				break;
-			case SPLINE_SC_KNOT_TANGENT_RIGHT_Y:
-				knot->vTangentRight.y = t_data.GetFloat();
-				break;
-			case SPLINE_SC_KNOT_TANGENT_BREAK:
-				if (t_data.GetBool())
-					knot->lFlagsSettings |= FLAG_KNOT_T_BREAK;
-				else
-					knot->lFlagsSettings &= ~FLAG_KNOT_T_BREAK;
-				break;
-			case SPLINE_SC_KNOT_INTERPOLATIOM:
-				knot->interpol = (CustomSplineKnotInterpolation)t_data.GetInt32();
-				break;
-			case SPLINE_SC_KNOT_LOCK_X:
-				if (t_data.GetBool())
-					knot->lFlagsSettings |= FLAG_KNOT_LOCK_X;
-				else
-					knot->lFlagsSettings &= ~FLAG_KNOT_LOCK_X;
-				break;
-			case SPLINE_SC_KNOT_LOCK_Y:
-				if (t_data.GetBool())
-					knot->lFlagsSettings |= FLAG_KNOT_LOCK_Y;
-				else
-					knot->lFlagsSettings &= ~FLAG_KNOT_LOCK_Y;
-				break;
-			case SPLINE_SC_KNOT_LOCK_TANGENT_ANGLE:
-				if (t_data.GetBool())
-					knot->lFlagsSettings |= FLAG_KNOT_T_LOCK_A;
-				else
-					knot->lFlagsSettings &= ~FLAG_KNOT_T_LOCK_A;
-				break;
-			case SPLINE_SC_KNOT_LOCK_TANGENT_LENGTH:
-				if (t_data.GetBool())
-					knot->lFlagsSettings |= FLAG_KNOT_T_LOCK_L;
-				else
-					knot->lFlagsSettings &= ~FLAG_KNOT_T_LOCK_L;
-				break;
+		case SPLINE_SC_KNOT_POS_X:
+			knot->vPos.x = t_data.GetFloat();
+			break;
+		case SPLINE_SC_KNOT_POS_Y:
+			knot->vPos.y = t_data.GetFloat();
+			break;
+		case SPLINE_SC_KNOT_TANGENT_LEFT_X:
+			knot->vTangentLeft.x = t_data.GetFloat();
+			break;
+		case SPLINE_SC_KNOT_TANGENT_LEFT_Y:
+			knot->vTangentLeft.y = t_data.GetFloat();
+			break;
+		case SPLINE_SC_KNOT_TANGENT_RIGHT_X:
+			knot->vTangentRight.x = t_data.GetFloat();
+			break;
+		case SPLINE_SC_KNOT_TANGENT_RIGHT_Y:
+			knot->vTangentRight.y = t_data.GetFloat();
+			break;
+		case SPLINE_SC_KNOT_TANGENT_BREAK:
+			if (t_data.GetBool())
+				knot->lFlagsSettings |= FLAG_KNOT_T_BREAK;
+			else
+				knot->lFlagsSettings &= ~FLAG_KNOT_T_BREAK;
+			break;
+		case SPLINE_SC_KNOT_INTERPOLATIOM:
+			knot->interpol = (CustomSplineKnotInterpolation)t_data.GetInt32();
+			break;
+		case SPLINE_SC_KNOT_LOCK_X:
+			if (t_data.GetBool())
+				knot->lFlagsSettings |= FLAG_KNOT_LOCK_X;
+			else
+				knot->lFlagsSettings &= ~FLAG_KNOT_LOCK_X;
+			break;
+		case SPLINE_SC_KNOT_LOCK_Y:
+			if (t_data.GetBool())
+				knot->lFlagsSettings |= FLAG_KNOT_LOCK_Y;
+			else
+				knot->lFlagsSettings &= ~FLAG_KNOT_LOCK_Y;
+			break;
+		case SPLINE_SC_KNOT_LOCK_TANGENT_ANGLE:
+			if (t_data.GetBool())
+				knot->lFlagsSettings |= FLAG_KNOT_T_LOCK_A;
+			else
+				knot->lFlagsSettings &= ~FLAG_KNOT_T_LOCK_A;
+			break;
+		case SPLINE_SC_KNOT_LOCK_TANGENT_LENGTH:
+			if (t_data.GetBool())
+				knot->lFlagsSettings |= FLAG_KNOT_T_LOCK_L;
+			else
+				knot->lFlagsSettings &= ~FLAG_KNOT_T_LOCK_L;
+			break;
 		}
 		data->SetData(id[0].id, d);  // store changed spline in container
 		flags |= DESCFLAGS_SET_PARAM_SET;
@@ -405,7 +409,7 @@ Bool GetSetDParameterExample::GradientGetDParameter(GeListNode* node, const Desc
 	GeData d = data->GetData(id[0].id);
 	Gradient* gradient = static_cast<Gradient*>(d.GetCustomDataType(CUSTOMDATATYPE_GRADIENT));
 
-	if (id[1].id == 0)  // if second level id is zero, the complete custom datatype is requested
+		if (id[1].id == 0)  // if second level id is zero, the complete custom datatype is requested
 	{
 		t_data.SetCustomDataType(CUSTOMDATATYPE_GRADIENT, *gradient);
 		flags |= DESCFLAGS_GET_PARAM_GET;
@@ -453,32 +457,32 @@ Bool GetSetDParameterExample::GradientGetDParameter(GeListNode* node, const Desc
 
 		switch (subchannelIdx)
 		{
-			case GRADIENT_SC_KNOT_COLOR:
-				switch (id[2].id) // this switch does the same as HandleDescGetVector, just one description level deeper
-				{
-					case 0:
-						t_data.SetVector(knot.col);
-						break;
-					case 1000:
-						t_data.SetFloat(knot.col.x);
-						break;
-					case 1001:
-						t_data.SetFloat(knot.col.y);
-						break;
-					case 1002:
-						t_data.SetFloat(knot.col.z);
-						break;
-				}
+		case GRADIENT_SC_KNOT_COLOR:
+			switch(id[2].id) // this switch does the same as HandleDescGetVector, just one description level deeper
+			{
+			case 0:
+				t_data.SetVector(knot.col);
 				break;
-			case GRADIENT_SC_KNOT_INTENSITY:
-				t_data.SetFloat(knot.brightness);
+			case 1000:
+				t_data.SetFloat(knot.col.x);
 				break;
-			case GRADIENT_SC_KNOT_POSITION:
-				t_data.SetFloat(knot.pos);
+			case 1001:
+				t_data.SetFloat(knot.col.y);
 				break;
-			case GRADIENT_SC_KNOT_BIAS:
-				t_data.SetFloat(knot.bias);
+			case 1002:
+				t_data.SetFloat(knot.col.z);
 				break;
+			}
+			break;
+		case GRADIENT_SC_KNOT_INTENSITY:
+			t_data.SetFloat(knot.brightness);
+			break;
+		case GRADIENT_SC_KNOT_POSITION:
+			t_data.SetFloat(knot.pos);
+			break;
+		case GRADIENT_SC_KNOT_BIAS:
+			t_data.SetFloat(knot.bias);
+			break;
 		}
 		flags |= DESCFLAGS_GET_PARAM_GET;
 	}
@@ -552,32 +556,32 @@ Bool GetSetDParameterExample::GradientSetDParameter(GeListNode* node, const Desc
 
 		switch (subchannelIdx)
 		{
-			case GRADIENT_SC_KNOT_COLOR:
-				switch (id[2].id) // this switch does the same as HandleDescSetVector, just one description level deeper
-				{
-					case 0:
-						knot.col = t_data.GetVector();
-						break;
-					case 1000:
-						knot.col = Vector(t_data.GetFloat(), knot.col.y, knot.col.z);
-						break;
-					case 1001:
-						knot.col = Vector(knot.col.x, t_data.GetFloat(), knot.col.z);
-						break;
-					case 1002:
-						knot.col = Vector(knot.col.x, knot.col.y, t_data.GetFloat());
-						break;
-				}
+		case GRADIENT_SC_KNOT_COLOR:
+			switch(id[2].id) // this switch does the same as HandleDescSetVector, just one description level deeper
+			{
+			case 0:
+				knot.col = t_data.GetVector();
 				break;
-			case GRADIENT_SC_KNOT_INTENSITY:
-				knot.brightness = t_data.GetFloat();
+			case 1000:
+				knot.col = Vector(t_data.GetFloat(), knot.col.y, knot.col.z);
 				break;
-			case GRADIENT_SC_KNOT_POSITION:
-				knot.pos = t_data.GetFloat();
+			case 1001:
+				knot.col = Vector(knot.col.x, t_data.GetFloat(), knot.col.z);
 				break;
-			case GRADIENT_SC_KNOT_BIAS:
-				knot.bias = t_data.GetFloat();
+			case 1002:
+				knot.col = Vector(knot.col.x, knot.col.y, t_data.GetFloat());
 				break;
+			}
+			break;
+		case GRADIENT_SC_KNOT_INTENSITY:
+			knot.brightness = t_data.GetFloat();
+			break;
+		case GRADIENT_SC_KNOT_POSITION:
+			knot.pos = t_data.GetFloat();
+			break;
+		case GRADIENT_SC_KNOT_BIAS:
+			knot.bias = t_data.GetFloat();
+			break;
 		}
 		gradient->SetKnot(idx, knot);
 		data->SetData(id[0].id, d);  // store changed gradient in container
@@ -750,8 +754,7 @@ Bool GetSetDParameterExample::GetDParameter(GeListNode* node, const DescID& id, 
 			break;
 		}
 		default:
-			CriticalOutput("Unknown description ID (@)!", id[0].id);
-			break;
+			CriticalOutput("Unknown description ID (%d)!", id[0].id);
 	}
 	return SUPER::GetDParameter(node, id, t_data, flags);
 }
@@ -782,8 +785,7 @@ Bool GetSetDParameterExample::SetDParameter(GeListNode* node, const DescID& id, 
 			break;
 		}
 		default:
-			CriticalOutput("Unknown description ID (@)!", id[0].id);
-			break;
+			CriticalOutput("Unknown description ID (%d)!", id[0].id);
 	}
 	return SUPER::SetDParameter(node, id, t_data, flags);
 }

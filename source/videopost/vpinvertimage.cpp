@@ -11,7 +11,7 @@
 class InvertData : public VideoPostData
 {
 public:
-	static NodeData* Alloc() { return NewObjClear(InvertData); }
+	static NodeData* Alloc(void) { return NewObjClear(InvertData); }
 	virtual RENDERRESULT Execute(BaseVideoPost* node, VideoPostStruct* vps);
 	virtual void Free(GeListNode* node);
 	virtual VIDEOPOSTINFO GetRenderInfo(BaseVideoPost* node) { return VIDEOPOSTINFO_0; }
@@ -242,7 +242,7 @@ Bool InvertData::RenderEngineCheck(BaseVideoPost* node, Int32 id)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_INVERTVIDEOPOST 1000455
 
-Bool RegisterVPInvertImage()
+Bool RegisterVPInvertImage(void)
 {
 	return RegisterVideoPostPlugin(ID_INVERTVIDEOPOST, GeLoadString(IDS_VPINVERTIMAGE), PLUGINFLAG_VIDEOPOST_GL, InvertData::Alloc, "", 0, 0);
 }

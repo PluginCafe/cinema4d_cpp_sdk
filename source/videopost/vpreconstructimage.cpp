@@ -8,7 +8,7 @@
 class ReconstructData : public VideoPostData
 {
 public:
-	static NodeData* Alloc() { return NewObjClear(ReconstructData); }
+	static NodeData* Alloc(void) { return NewObjClear(ReconstructData); }
 	virtual RENDERRESULT Execute(BaseVideoPost* node, VideoPostStruct* vps);
 	virtual VIDEOPOSTINFO GetRenderInfo(BaseVideoPost* node) { return VIDEOPOSTINFO_STOREFRAGMENTS; }
 	virtual Bool RenderEngineCheck(BaseVideoPost* node, Int32 id);
@@ -92,7 +92,7 @@ Bool ReconstructData::RenderEngineCheck(BaseVideoPost* node, Int32 id)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_VPRECONSTRUCT 1001054
 
-Bool RegisterVPReconstruct()
+Bool RegisterVPReconstruct(void)
 {
 	return RegisterVideoPostPlugin(ID_VPRECONSTRUCT, GeLoadString(IDS_VPRECONSTRUCT), 0, ReconstructData::Alloc, "", 0, 0);
 }

@@ -18,22 +18,19 @@ public:
 
 	virtual Bool ApplyModifier(BrushDabData *dab, const BaseContainer &modifierData)
 	{
-		if (dab->GetBrushStrength() == 0) 
-			return true;
+		if (dab->GetBrushStrength() == 0) return true;
 
 		Int32 a;
 
 		Bool usePreview = dab->IsPreviewDab();
 
 		Float brushRadius = dab->GetBrushRadius();
-		if (brushRadius <= 0) 
-			return false;
+		if (brushRadius <= 0) return false;
 
 		PolygonObject *polyObj = dab->GetPolygonObject();
-		if (!polyObj) 
-			return false;
+		if (!polyObj) return false;
 
-		// Start Gravity Code
+		//Start Gravity Code
 		Float val = dab->GetBrushStrength();
 		Vector gravity = Vector(0, -1, 0) * val;
 
@@ -43,8 +40,7 @@ public:
 		{
 			Int32 pointIndex = pPointData[a].pointIndex;
 			Float fallOff = dab->GetBrushFalloff(a);
-			if (fallOff == 0) 
-				continue;
+			if (fallOff == 0) continue;
 			Vector res = fallOff * gravity;
 			if (!usePreview)
 				dab->OffsetPoint(pointIndex, res, nullptr);
@@ -57,11 +53,10 @@ public:
 
 Bool RegisterSculptModifiers()
 {
-	// This modifier is not useful for the pull brush or the grab brush. So we will filter them out so they do not show up on these brushes.
+	//This modifier is not useful for the pull brush or the grab brush. So we will filter them out so they do not show up on these brushes.
 	maxon::BaseArray<Int32> filters;
 	filters.Append(SCULPTBRUSHID_PULL);
 	filters.Append(SCULPTBRUSHID_GRAB);
-	if (!RegisterBrushModifier(ID_SCULPT_BRUSH_EXAMPLE_MODIFIER, GeLoadString(IDS_SCULPT_BRUSH_EXAMPLE_MODIFIER),  ExampleSculptModifier::Alloc, SCULPTBRUSHMODE_NORMAL, SCULPTBRUSHDATATYPE_POINT, "bmexample", false, &filters)) 
-		return false;
+	if (!RegisterBrushModifier(ID_SCULPT_BRUSH_EXAMPLE_MODIFIER, GeLoadString(IDS_SCULPT_BRUSH_EXAMPLE_MODIFIER),  ExampleSculptModifier::Alloc, SCULPTBRUSHMODE_NORMAL, SCULPTBRUSHDATATYPE_POINT, "bmexample", false, &filters)) return false;
 	return true;
 }

@@ -20,7 +20,7 @@ public:
 	virtual Bool MoveHandle			(BaseObject* op, BaseObject* undo, const Vector& mouse_pos, Int32 hit_id, QUALIFIER qualifier, BaseDraw* bd);
 	virtual Bool ModifyObject   (BaseObject* op, BaseDocument* doc, BaseObject* mod, const Matrix& op_mg, const Matrix& mod_mg, Float lod, Int32 flags, BaseThread* thread);
 
-	static NodeData* Alloc() { return NewObjClear(Spherify); }
+	static NodeData* Alloc(void) { return NewObjClear(Spherify); }
 };
 
 Bool Spherify::Message(GeListNode* node, Int32 type, void* data)
@@ -140,15 +140,11 @@ void Spherify::GetHandle(BaseObject* op, Int32 i, HandleInfo& info)
 			info.direction.x = 1.0;
 			info.type = HANDLECONSTRAINTTYPE_LINEAR;
 			break;
-
 		case 1:
 			info.position.x	 = data->GetFloat(SPHERIFYDEFORMER_STRENGTH) * 1000.0;
 			info.direction.x = 1.0;
 			info.type = HANDLECONSTRAINTTYPE_LINEAR;
-			break;
-
-		default: 
-			break;
+		default: break;
 	}
 }
 
@@ -194,7 +190,7 @@ Bool Spherify::MoveHandle(BaseObject* op, BaseObject* undo, const Vector& mouse_
 	switch (hit_id)
 	{
 		case 0:
-			dst->SetFloat(SPHERIFYDEFORMER_RADIUS, ClampValue(val, 0.0_f, (Float) MAXRANGE));
+			dst->SetFloat(SPHERIFYDEFORMER_RADIUS, ClampValue(val, (Float) 0.0, (Float) MAXRANGE));
 			break;
 
 		case 1:
@@ -221,7 +217,7 @@ Bool Spherify::Init(GeListNode* node)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_SPHERIFYOBJECT 1001158
 
-Bool RegisterSpherify()
+Bool RegisterSpherify(void)
 {
 	return RegisterObjectPlugin(ID_SPHERIFYOBJECT, GeLoadString(IDS_SPHERIZE), OBJECT_MODIFIER, Spherify::Alloc, "Ospherifydeformer", AutoBitmap("spherify.tif"), 0);
 }

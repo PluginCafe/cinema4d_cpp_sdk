@@ -11,7 +11,7 @@ Vector CalcGradientMix(const Vector& g1, const Vector& g2, Float per, Int32 inte
 		case 1: return g1 + (g2 - g1) * per; break;
 		case 2: return g1 + (g2 - g1) * Ln(per * 1.7182819 + 1.0); break;
 		case 3: return g1 + (g2 - g1) * (1.0 - Ln((1.0 - per) * 1.7182819 + 1.0)); break;
-		case 4: return g1 + (g2 - g1) * Smoothstep(0.0_f, 1.0_f, per); break;
+		case 4: return g1 + (g2 - g1) * Smoothstep((Float) 0.0, (Float) 1.0, per); break;
 	}
 }
 
@@ -41,12 +41,12 @@ static Vector CalcGradientPixel(Float y, SDKGradient* g, Int32 count, Int32 inte
 	}
 }
 
-SDKGradientGadget::SDKGradientGadget()
+SDKGradientGadget::SDKGradientGadget(void)
 {
 	col = BaseBitmap::Alloc();
 }
 
-SDKGradientGadget::~SDKGradientGadget()
+SDKGradientGadget::~SDKGradientGadget(void)
 {
 	BaseBitmap::Free(col);
 }
@@ -252,7 +252,7 @@ void SDKGradientGadget::GetBoxPosition(Int32 num, Int32* x, Int32* y)
 	*x -= (2 * BOXRAD + 1) * pos;
 }
 
-Int32 SDKGradientGadget::FindID()
+Int32 SDKGradientGadget::FindID(void)
 {
 	Int32 i, id;
 	Char* used = nullptr;
@@ -303,7 +303,7 @@ void SDKGradientGadget::RemoveBox(Int32 num)
 	count[0]--;
 }
 
-void SDKGradientGadget::CalcImage()
+void SDKGradientGadget::CalcImage(void)
 {
 	if (!col)
 		return;

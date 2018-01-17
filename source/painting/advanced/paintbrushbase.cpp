@@ -20,20 +20,16 @@ const String PaintBrushBase::GetResourceSymbol()
 
 Bool PaintBrushBase::MovePointsFunc(BrushDabData *dab)
 {
-	if (dab->GetBrushStrength() == 0) 
-		return true;
+	if (dab->GetBrushStrength() == 0) return true;
 
 	PolygonObject *pPoly = dab->GetPolygonObject();
-	if (!pPoly) 
-		return false;
+	if (!pPoly) return false;
 
 	UVWTag *pUVs = (UVWTag*)pPoly->GetTag(Tuvw);
-	if (!pUVs) 
-		return false;
+	if (!pUVs) return false;
 
 	BaseDocument *pDoc = pPoly->GetDocument();
-	if (!pDoc) 
-		return false;
+	if (!pDoc) return false;
 
 	Filename docpath = pDoc->GetDocumentPath();
 
@@ -52,7 +48,7 @@ Bool PaintBrushBase::MovePointsFunc(BrushDabData *dab)
 		return false;
 	}
 
-	// Get the color for the currently selected channel.
+	//Get the color for the currently selected channel.
 	BPSingleColorSettings *colorSettings = BPColorSettingsHelpers::GetSelectedSingleColorSettings(false);
 	if (colorSettings)
 	{
@@ -77,8 +73,7 @@ Bool PaintBrushBase::MovePointsFunc(BrushDabData *dab)
 	Int32 drawMode = dab->GetData()->GetInt32(MDATA_SCULPTBRUSH_SETTINGS_DRAWMODE);
 	channels.fillTool = (drawMode == MDATA_SCULPTBRUSH_SETTINGS_DRAWMODE_LASSO_FILL || drawMode == MDATA_SCULPTBRUSH_SETTINGS_DRAWMODE_POLY_FILL || drawMode == MDATA_SCULPTBRUSH_SETTINGS_DRAWMODE_RECTANGLE_FILL);
 
-	if (!channels.Init()) 
-		return false;
+	if (!channels.Init()) return false;
 
 	for (Int32 a = 0; a < count; ++a)
 	{
@@ -119,8 +114,7 @@ void PaintBrushBase::EndStroke()
 Bool RegisterPaintBrushBase()
 {
 	SculptBrushParams *pParams = SculptBrushParams::Alloc();
-	if (!pParams) 
-		return false;
+	if (!pParams) return false;
 
 	pParams->EnableInvertCheckbox(false);
 	pParams->EnableBrushAccess(true);
@@ -128,8 +122,6 @@ Bool RegisterPaintBrushBase()
 	pParams->SetUndoType(SCULPTBRUSHDATATYPE_NONE);
 	pParams->SetMovePointFunc(&PaintBrushBase::MovePointsFunc);
 
-	String name = GeLoadString(IDS_PAINT_BRUSH_BASE); 
-	if (!name.Content()) 
-		return true;
+	String name = GeLoadString(IDS_PAINT_BRUSH_BASE); if (!name.Content()) return true;
 	return RegisterToolPlugin(ID_PAINT_BRUSH_BASE, name, PLUGINFLAG_TOOL_SCULPTBRUSH|PLUGINFLAG_TOOL_NO_OBJECTOUTLINE, nullptr, GeLoadString(IDS_PAINT_BRUSH_BASE_HELP), NewObjClear(PaintBrushBase, pParams));
 }

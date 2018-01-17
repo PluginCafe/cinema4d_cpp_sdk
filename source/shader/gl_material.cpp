@@ -153,7 +153,7 @@ GL_MESSAGE FunkyGlMaterial::GlMessage(BaseMaterial* mat, Int32 type, void* data)
 			p->pFactory->AddLine(FragmentProgram, "ocolor.a = 1.0;");
 
 			// just a line to test the error handler
-			// p->pFactory->AddLine(FragmentProgram, "I will cause an error");
+			//p->pFactory->AddLine(FragmentProgram, "I will cause an error");
 
 			return GL_MESSAGE_OK;
 		}
@@ -235,7 +235,7 @@ Bool FunkyGlMaterial::InitGLImage(BaseMaterial* mat, BaseDocument* doc, BaseThre
 	return true;
 }
 
-Bool RegisterGLTestMaterial()
+Bool RegisterGLTestMaterial(void)
 {
 	String name = GeGetDefaultFilename(DEFAULTFILENAME_SHADER_VOLUME) + GeLoadString(IDS_FUNKY_GL_MATERIAL);	// place in default Shader section
 

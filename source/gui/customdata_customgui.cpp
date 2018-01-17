@@ -44,11 +44,12 @@ public:
 class DotsUserArea : public GeUserArea
 {
 public:
-	DotsUserArea();
+
+	DotsUserArea(void);
 	virtual ~DotsUserArea();
 
-  virtual Bool Init();
-  virtual Bool InitValues();
+  virtual Bool Init(void);
+  virtual Bool InitValues(void);
   virtual Bool GetMinSize(Int32& w, Int32& h);
 
   virtual void DrawMsg(Int32 x1, Int32 y1, Int32 x2, Int32 y2, const BaseContainer& msg);
@@ -59,7 +60,7 @@ public:
 };
 
 
-DotsUserArea::DotsUserArea()
+DotsUserArea::DotsUserArea(void)
 {
 	_data = nullptr;
 }
@@ -69,12 +70,12 @@ DotsUserArea::~DotsUserArea()
 	
 }
 
-Bool DotsUserArea::Init()
+Bool DotsUserArea::Init(void)
 {
 	return true;
 }
 
-Bool DotsUserArea::InitValues()
+Bool DotsUserArea::InitValues(void)
 {
 	return true;
 }
@@ -92,15 +93,15 @@ void DotsUserArea::DrawMsg(Int32 x1, Int32 y1, Int32 x2, Int32 y2, const BaseCon
 	this->OffScreenOn();
 
 	// drawing the white background
-	this->DrawSetPen(Vector(1.0));
-	this->DrawRectangle(0, 0, 400, 300);
+	this->DrawSetPen(Vector(1,1,1));
+	this->DrawRectangle(0,0,400,300);
 
 	// if the data is defined for each dot a rectangle is drawn
-	if (_data)
+	if(_data)
 	{
-		this->DrawSetPen(Vector(0.0));
+		this->DrawSetPen(Vector(0,0,0));
 
-		for (Int32 i = 0; i < _data->_points.GetCount(); ++i)
+		for(Int32 i = 0; i < _data->_points.GetCount(); ++i)
 		{
 			const Vector vec = _data->_points[i];
 			this->DrawRectangle(SAFEINT32(vec.x)-5, SAFEINT32(vec.y)-5, SAFEINT32(vec.x) + 5, SAFEINT32(vec.y) + 5);
@@ -122,7 +123,7 @@ Bool DotsUserArea::InputEvent(const BaseContainer& msg)
 			Global2Local(&mx, &my);
 
 			// add the new position to the data
-			_data->_points.Append(Vector(mx, my, 0));
+			_data->_points.Append(Vector(mx,my,0));
 
 			// inform the parent that the data has changed
 			BaseContainer m(BFM_ACTION);
@@ -155,7 +156,7 @@ private:
 public:
 	
 	iExampleCustomGUIDots(const BaseContainer &settings, CUSTOMGUIPLUGIN *plugin);
-	virtual Bool CreateLayout();
+	virtual Bool CreateLayout (void);
 	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer &msg);
 	virtual Bool SetData(const TriState<GeData> &tristate);
@@ -168,7 +169,7 @@ iExampleCustomGUIDots::iExampleCustomGUIDots(const BaseContainer &settings, CUST
 	_tristate = false;
 };
 
-Bool iExampleCustomGUIDots::CreateLayout()
+Bool iExampleCustomGUIDots::CreateLayout (void)
 {
 	BaseContainer bc;
 
@@ -177,8 +178,8 @@ Bool iExampleCustomGUIDots::CreateLayout()
 		GroupSpace(0, 0);
 
 		// creating the GeUserArea
-		C4DGadget* userarea = this->AddUserArea(ID_USERAREA, BFH_LEFT, 400, 300);
-		this->AttachUserArea(_dotsUserArea, userarea);	
+		C4DGadget* userarea = this->AddUserArea(ID_USERAREA,BFH_LEFT,400,300);
+		this->AttachUserArea(_dotsUserArea,userarea);	
 
 		// assigning the data
 		_dotsUserArea._data = &_data;
@@ -196,14 +197,14 @@ Bool iExampleCustomGUIDots::InitValues()
 Bool iExampleCustomGUIDots::Command(Int32 id, const BaseContainer &msg)
 {
 
-	if (id == ID_USERAREA)
+	if(id == ID_USERAREA)
 	{
 		// a message from the user area was received
 		// inform the parent that the data has changed
 
 		BaseContainer m(msg);
 		m.SetInt32(BFM_ACTION_ID, GetId());
-		m.SetData(BFM_ACTION_VALUE, this->GetData().GetValue());
+		m.SetData(BFM_ACTION_VALUE,this->GetData().GetValue());
 		SendParentMessage(m);
 
 		// redrawing the user area
@@ -221,7 +222,7 @@ Bool iExampleCustomGUIDots::SetData(const TriState<GeData> &tristate)
 
 	const iCustomDataTypeDots* const data = static_cast<const iCustomDataTypeDots*>(tristate.GetValue().GetCustomDataType(ID_SDK_EXAMPLE_CUSTOMDATATYPE_DOTS));
 
-	if (data)
+	if(data)
 	{
 		_data._points.Flush();
 		_data._points.CopyFrom(data->_points);
@@ -244,7 +245,7 @@ TriState<GeData> iExampleCustomGUIDots::GetData()
 /// custom GUI data
 //---------------------
 
-static Int32 g_stringtable[] = { ID_SDK_EXAMPLE_CUSTOMDATATYPE_DOTS };
+static Int32 stringtable[] = { ID_SDK_EXAMPLE_CUSTOMDATATYPE_DOTS };
 
 class SDKExampleCustomGUIDots : public CustomGuiData
 {
@@ -308,8 +309,8 @@ CustomProperty* SDKExampleCustomGUIDots::GetProperties()
 Int32 SDKExampleCustomGUIDots::GetResourceDataType(Int32*& table)
 {
 	// returns the list of datatypes this GUI can work with
-	table = g_stringtable; 
-	return sizeof(g_stringtable)/sizeof(Int32);
+	table = stringtable; 
+	return sizeof(stringtable)/sizeof(Int32);
 };
 
 
@@ -372,12 +373,9 @@ public:
 		const maxon::Int countd1 = s->_points.GetCount();
 		const maxon::Int countd2 = d->_points.GetCount();
 
-		if (countd1 == countd2) 
-			return 0;
-		if (countd1 < countd2) 
-			return -1;
-		if (countd1 > countd2) 
-			return 1;
+		if (countd1 == countd2) return 0;
+		if (countd1 < countd2) return -1;
+		if (countd1 > countd2) return 1;
 
 		return 0;
 	}
@@ -393,7 +391,7 @@ public:
 		hf->WriteInt64((Int64)length);
 
 		// save points
-		for (Int64 i = 0; i < length; ++i)
+		for(Int64 i = 0; i < length; ++i)
 		{
 			hf->WriteVector(d->_points[i]);
 		}
@@ -411,13 +409,13 @@ public:
 		{
 			// get number of points
 			Int64 length = 0;
-			if (hf->ReadInt64(&length))
+			if(hf->ReadInt64(&length))
 			{
 				// read points
-				for (Int64 i = 0; i < length; ++i)
+				for(Int64 i = 0; i < length; ++i)
 				{
 					Vector vec;
-					if (hf->ReadVector(&vec))
+					if(hf->ReadVector(&vec))
 					{
 						d->_points.Append(vec);
 					}
@@ -439,7 +437,7 @@ public:
 		// the default values of this datatype
 
 		// use the custom GUI as default
-		data.SetInt32(DESC_CUSTOMGUI, ID_SDK_EXAMPLE_CUSTOMGUI_DOTS);
+		data.SetInt32(DESC_CUSTOMGUI,ID_SDK_EXAMPLE_CUSTOMGUI_DOTS);
 		data.SetInt32(DESC_ANIMATE, DESC_ANIMATE_ON);
 	}
 };
@@ -448,7 +446,7 @@ public:
 //---------------------------
 /// Register
 //---------------------------
-Bool RegisterCustomDatatypeCustomGUI()
+Bool RegisterCustomDatatypeCustomGUI(void)
 {
 	
 	// register custom datatype
@@ -465,14 +463,14 @@ Bool RegisterCustomDatatypeCustomGUI()
 	// dummy library for custom GUI
 	static BaseCustomGuiLib myDotCustomGUI;
 
-	ClearMem(&myDotCustomGUI, sizeof(myDotCustomGUI));
+	ClearMem(&myDotCustomGUI,sizeof(myDotCustomGUI));
 	FillBaseCustomGui(myDotCustomGUI);
 
 	if (!InstallLibrary(ID_SDK_EXAMPLE_CUSTOMGUI_DOTS, &myDotCustomGUI, 1000, sizeof(myDotCustomGUI))) 
 		return false;
 
 	// register custom GUI
-	if (!RegisterCustomGuiPlugin(GeLoadString(IDS_CUSTOMGUI_DOTS), 0, NewObjClear(SDKExampleCustomGUIDots)))
+	if(!RegisterCustomGuiPlugin(GeLoadString(IDS_CUSTOMGUI_DOTS), 0, NewObjClear(SDKExampleCustomGUIDots)))
 		return false;
 
 

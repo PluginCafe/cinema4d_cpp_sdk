@@ -12,9 +12,9 @@ private:
 	void CheckMaxMemory(Int32 mbblocks);
 
 public:
-	MemStatDialog();
-	virtual Bool CreateLayout();
-	virtual Bool InitValues();
+	MemStatDialog(void);
+	virtual Bool CreateLayout(void);
+	virtual Bool InitValues(void);
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 	virtual Int32 Message(const BaseContainer& msg, BaseContainer& result);
 	virtual Bool CoreMessage  (Int32 id, const BaseContainer& msg);
@@ -42,11 +42,11 @@ enum
 	IDC_MEMORY_STAT_
 };
 
-MemStatDialog::MemStatDialog()
+MemStatDialog::MemStatDialog(void)
 {
 }
 
-Bool MemStatDialog::CreateLayout()
+Bool MemStatDialog::CreateLayout(void)
 {
 	// first call the parent instance
 	Bool res = GeDialog::CreateLayout();
@@ -94,7 +94,7 @@ static String GetNoOfAllocationsString(Int64 amount)
 	return amount <= 0 ? "unknown" : String::IntToString(amount);
 }
 
-Bool MemStatDialog::InitValues()
+Bool MemStatDialog::InitValues(void)
 {
 	// first call the parent instance
 	if (!GeDialog::InitValues())
@@ -224,7 +224,7 @@ Bool MemStatCommand::RestoreLayout(void* secret)
 	return dlg.RestoreLayout(ID_MEMSTAT, 0, secret);
 }
 
-Bool RegisterMemoryStat()
+Bool RegisterMemoryStat(void)
 {
 	return RegisterCommandPlugin(ID_MEMSTAT, String("C++ SDK - Memory Statistics"), 0, nullptr, String(), NewObjClear(MemStatCommand));
 }

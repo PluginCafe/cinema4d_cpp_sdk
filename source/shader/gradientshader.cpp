@@ -30,7 +30,7 @@ public:
 	virtual	INITRENDERRESULT InitRender(BaseShader* sh, const InitRenderStruct& irs);
 	virtual	void FreeRender(BaseShader* sh);
 
-	static NodeData* Alloc() { return NewObjClear(SDKGradientClass); }
+	static NodeData* Alloc(void) { return NewObjClear(SDKGradientClass); }
 };
 
 Bool SDKGradientClass::Init(GeListNode* node)
@@ -143,18 +143,18 @@ Vector SDKGradientClass::Output(BaseShader* sh, ChannelData* sd)
 	{
 		if (sd->texflag & TEX_MIRROR)
 		{
-			p.x = Modulo(p.x, 2.0_f);
+			p.x = Modulo(p.x, (Float) 2.0);
 			if (p.x >= 1.0)
 				p.x = 2.0 - p.x;
 
-			p.y = Modulo(p.y, 2.0_f);
+			p.y = Modulo(p.y, (Float) 2.0);
 			if (p.y >= 1.0)
 				p.y = 2.0 - p.y;
 		}
 		else
 		{
-			p.x = Modulo(p.x, 1.0_f);
-			p.y = Modulo(p.y, 1.0_f);
+			p.x = Modulo(p.x, (Float) 1.0);
+			p.y = Modulo(p.y, (Float) 1.0);
 		}
 	}
 
@@ -221,7 +221,7 @@ Vector SDKGradientClass::Output(BaseShader* sh, ChannelData* sd)
 	return gdata.gradient->CalcGradientPixel(Clamp01(r));
 }
 
-Bool RegisterGradient()
+Bool RegisterGradient(void)
 {
 	Filename fn = GeGetPluginResourcePath() + "gradienttypes.tif";
 	AutoAlloc<BaseBitmap> bmp;

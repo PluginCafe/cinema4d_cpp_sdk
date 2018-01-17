@@ -28,14 +28,14 @@ private:
 	Int32 PtoY(Float pos);
 	void GetBoxPosition(Int32 num, Int32* x, Int32* y);
 	Int32 InsertBox(Vector col, Float per, Int32 id);
-	Int32 FindID();
+	Int32 FindID(void);
 	void RemoveBox(Int32 num);
 
 public:
 	BaseBitmap* col;
 
-	SDKGradientGadget();
-	~SDKGradientGadget();
+	SDKGradientGadget(void);
+	~SDKGradientGadget(void);
 
 	void Init(GeUserArea* a_ua, SDKGradient* a_g, Int32* a_count, Int32* a_interpol, Int32 a_maxgrad);
 	Bool InitDim(Int32 x, Int32 y);
@@ -46,7 +46,7 @@ public:
 	void SetPosition(Float per);
 	Bool GetPosition(Float* per);
 
-	void CalcImage();
+	void CalcImage(void);
 };
 
 Vector CalcGradientMix(const Vector& g1, const Vector& g2, Float per, Int32 interpol);

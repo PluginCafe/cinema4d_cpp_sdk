@@ -23,7 +23,7 @@ public:
 	virtual Bool AddToExecution(BaseObject* op, PriorityList* list);
 	virtual EXECUTIONRESULT Execute(BaseObject* op, BaseDocument* doc, BaseThread* bt, Int32 priority, EXECUTIONFLAGS flags);
 
-	static NodeData* Alloc() { return NewObjClear(HairGeneratorObject); }
+	static NodeData* Alloc(void) { return NewObjClear(HairGeneratorObject); }
 };
 
 //////////////////////////////////////////////////////////////////////////

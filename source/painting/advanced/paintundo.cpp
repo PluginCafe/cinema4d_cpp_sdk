@@ -77,7 +77,7 @@ Bool PaintUndoTile::Init(PaintLayerBmp *pBitmap, Int x, Int y)
 	if (!m_pData)
 		return false;
 
-	// Copy the data across
+	//Copy the data across;
 	UChar *pos = m_pData;
 	for (Int32 yy = 0; yy < PAINTTILESIZE; yy++)
 	{
@@ -107,7 +107,7 @@ void PaintUndoTile::Apply()
 	COLORMODE colorMode = (COLORMODE)pBitmap->GetColorMode();
 	Int32 bitsPerPixel = (bitdepth / 8) * numChannels;
 
-	// Copy the data across
+	//Copy the data across;
 	UChar *pos = m_pData;
 	for (Int32 y = 0; y < PAINTTILESIZE; y++)
 	{
@@ -324,8 +324,7 @@ NodeData *PaintUndoSystem::Alloc()
 Bool PaintUndoSystem::Init(GeListNode* node)
 {
 	m_pUndoRedo = NewObjClear(PaintUndoRedo);
-	if (!m_pUndoRedo) 
-		return false;
+	if (!m_pUndoRedo) return false;
 	return true;
 }
 
@@ -338,15 +337,13 @@ Bool PaintUndoSystem::Message(GeListNode *node, Int32 type, void *data)
 			StringUndo *su = (StringUndo*)data;
 			if (su && su->str == SCULPTPAINTUNDOSTRING)
 			{
-				if (su->redo) 
-					Redo();
-				else 
-					Undo();
+				if (su->redo) Redo();
+				else Undo();
 			}
-			break;
 		}
-		default:
-			break;
+		break;
+	default:
+		break;
 	}
 
 	return SceneHookData::Message(node, type, data);
@@ -433,10 +430,7 @@ Bool FreePaintUndoSystem()
 
 PaintUndoSystem *GetPaintUndoSystem(BaseDocument *doc)
 {
-	if (!doc)  
-	{ 
-		return nullptr; 
-	}
+	if (!doc)  { return nullptr; }
 
 	PaintUndoSystem *pUndoRedo = nullptr;
 	BaseSceneHook *pUndoRedoHook = doc->FindSceneHook(ID_PAINT_UNDOREDO_SCENEHOOK);

@@ -18,7 +18,7 @@ public:
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 	virtual DRAWRESULT Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, BaseDrawHelp* bh);
 
-	static NodeData* Alloc() { return NewObjClear(HairConstraintObject); }
+	static NodeData* Alloc(void) { return NewObjClear(HairConstraintObject); }
 
 	HairPluginObjectData m_FnTable;
 };

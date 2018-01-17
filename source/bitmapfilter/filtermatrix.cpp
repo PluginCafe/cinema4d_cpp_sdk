@@ -30,7 +30,7 @@ static Int32 filter_start(FI_REF fi, BM_REF bm, FILTER_PARAM settings);
 static Int32 filter_end(FI_REF fi, BM_REF bm, FILTER_PARAM settings);
 static Int32 filter_run(FI_REF fi, BM_REF bm, FILTER_PARAM settings, Bool use_gui);
 
-static BITMAP_FILTER g_smplMatrixFilter =
+static BITMAP_FILTER smpl_matrix_filter =
 {
 	BITMAPFILTER_MAGIC_V3,
 
@@ -75,7 +75,7 @@ struct PRIVATE_SETTINGS : public BM_FILTER_SETTINGS
 static Bool	change_effect_matrix(PRIVATE_SETTINGS* settings, BM_REF bm);
 static Int32 apply_effect(BM_REF bm, const RECT32* src_rect, BM_TILE* dt, BM_FILTER_SETTINGS* settings, Bool update_view, BaseThread* thread);
 
-static WEIGHT_FMATRIX_5x5	g_Astrange_triangle_matrix_5x5 =
+static WEIGHT_FMATRIX_5x5	Astrange_triangle_matrix_5x5 =
 {
 	5,
 	5,
@@ -90,7 +90,7 @@ static WEIGHT_FMATRIX_5x5	g_Astrange_triangle_matrix_5x5 =
 	}
 };
 
-static WEIGHT_FMATRIX_5x5	g_Bstrange_triangle_matrix_5x5 =
+static WEIGHT_FMATRIX_5x5	Bstrange_triangle_matrix_5x5 =
 {
 	5,
 	5,
@@ -105,10 +105,10 @@ static WEIGHT_FMATRIX_5x5	g_Bstrange_triangle_matrix_5x5 =
 	}
 };
 
-static WEIGHT_FMATRIX* g_matrixTab[] =
+static WEIGHT_FMATRIX* matrix_tab[] =
 {
-	(WEIGHT_FMATRIX*) &g_Astrange_triangle_matrix_5x5,
-	(WEIGHT_FMATRIX*) &g_Bstrange_triangle_matrix_5x5,
+	(WEIGHT_FMATRIX*) &Astrange_triangle_matrix_5x5,
+	(WEIGHT_FMATRIX*) &Bstrange_triangle_matrix_5x5,
 
 	0
 };
@@ -125,12 +125,12 @@ class SmplMatrixDialog : public GeModalDialog
 	Bool							document_preview;
 
 public:
-	SmplMatrixDialog();
+	SmplMatrixDialog(void);
 	~SmplMatrixDialog();
 
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
-	virtual Bool CreateLayout();
-	virtual Bool InitValues();
+	virtual Bool CreateLayout(void);
+	virtual Bool InitValues(void);
 
 	Bool Init(BM_REF bm, PRIVATE_SETTINGS* settings);
 };
@@ -139,14 +139,14 @@ public:
 // Register filter
 // Function result:		true/false
 //----------------------------------------------------------------------------------------
-Bool RegisterSampleMatrix()
+Bool RegisterSampleMatrix(void)
 {
 	String name = GeLoadString(IDS_MATRIX);
 	if (!name.Content())
 		return true;
 
 	// be sure to use a unique ID obtained from www.plugincafe.com
-	return GeRegisterPlugin(PLUGINTYPE_BITMAPFILTER, 1000690, name, &g_smplMatrixFilter, sizeof(g_smplMatrixFilter));
+	return GeRegisterPlugin(PLUGINTYPE_BITMAPFILTER, 1000690, name, &smpl_matrix_filter, sizeof(smpl_matrix_filter));
 }
 
 
@@ -346,7 +346,7 @@ static Bool	change_effect_matrix(PRIVATE_SETTINGS* settings, BM_REF bm)
 	r /= 180.0;
 	r *= PI;
 
-	settings->emr = new_effect_matrix(g_matrixTab[settings->type], bm->image_color_space, bm->image_px_format, settings->matrix_opacity, settings->scale_matrix, r);
+	settings->emr = new_effect_matrix(matrix_tab[settings->type], bm->image_color_space, bm->image_px_format, settings->matrix_opacity, settings->scale_matrix, r);
 	if (settings->emr)
 		return true;
 	else
@@ -444,7 +444,7 @@ static Int32 apply_effect(BM_REF bm, const RECT32* src_rect, BM_TILE* dt, BM_FIL
 	return err;
 }
 
-SmplMatrixDialog::SmplMatrixDialog()
+SmplMatrixDialog::SmplMatrixDialog(void)
 {
 	bm = nullptr;
 	real_time = BfpGetRealTimeFlag();
@@ -473,7 +473,7 @@ Bool SmplMatrixDialog::Init(BM_REF _bm, PRIVATE_SETTINGS* _settings)
 	return false;
 }
 
-Bool SmplMatrixDialog::CreateLayout()
+Bool SmplMatrixDialog::CreateLayout(void)
 {
 	LoadDialogResource(DLG_SMPL_MATRIX, nullptr, 0);
 	preview.Create(this, GADGET_SMPL_MATRIX_PREVIEWGROUP);
@@ -483,7 +483,7 @@ Bool SmplMatrixDialog::CreateLayout()
 	return true;
 }
 
-Bool SmplMatrixDialog::InitValues()
+Bool SmplMatrixDialog::InitValues(void)
 {
 	SetInt32(GADGET_SMPL_MATRIX_DOCUMENT_PREVIEW, document_preview);
 	SetInt32(GADGET_SMPL_MATRIX_TEXTURE_MODE, settings->tile_flags == TILE_REPEAT_BORDER ? 0 : 1);

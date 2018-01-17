@@ -80,19 +80,19 @@ Bool SculptDrawPolyTool::GetCursorInfo(BaseDocument* pDoc, BaseContainer& data, 
 		{
 			m_pLastObject = pSculpt;
 
-			// Unfreeze the object so that we can use collision detection
+			//Unfreeze the object so that we can use collision detection
 			if (m_pLastObject->IsFrozen())
 			{
 				m_pLastObject->SetFrozen(false);
 			}
 
-			// Request a collision update
+			//Request a collision update
 			m_pLastObject->NeedCollisionUpdate();
 		}
 
 		if (m_pLastObject)
 		{
-			// Update the collision data
+			//Update the collision data
 			m_pLastObject->UpdateCollision();
 		}
 	}

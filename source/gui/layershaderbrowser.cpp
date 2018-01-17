@@ -109,11 +109,12 @@ class MyTreeViewFunctions : public TreeViewFunctions
 	{
 		((LayerShaderBrowser*)userdata)->ShowInfo((LayerShaderLayer*)obj);
 	}
-};
 
-MyTreeViewFunctions g_tvf;
+} tvf;
 
-// LayerShaderBrowser
+/************************************************************************/
+/* LayerShaderBrowser                                                   */
+/************************************************************************/
 LayerShaderBrowser::LayerShaderBrowser()
 {
 	lastselected = nullptr;
@@ -124,7 +125,7 @@ LayerShaderBrowser::~LayerShaderBrowser()
 {
 }
 
-Bool LayerShaderBrowser::CreateLayout()
+Bool LayerShaderBrowser::CreateLayout(void)
 {
 	if (!GeDialog::CreateLayout())
 		return false;
@@ -139,12 +140,12 @@ Bool LayerShaderBrowser::CreateLayout()
 	BaseContainer layout;
 	layout.SetInt32('tree', LV_USERTREE);
 	tree->SetLayout(1, layout);
-	tree->SetRoot(linkbox, &g_tvf, this);
+	tree->SetRoot(linkbox, &tvf, this);
 
 	return true;
 }
 
-Bool LayerShaderBrowser::InitValues()
+Bool LayerShaderBrowser::InitValues(void)
 {
 	return true;
 }

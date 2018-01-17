@@ -22,7 +22,7 @@ public:
 	virtual BaseObject* GetVirtualObjects(BaseObject* op, HierarchyHelp* hh);
 	virtual Bool Message(GeListNode* node, Int32 type, void* t_data);
 
-	static NodeData* Alloc() { return NewObjClear(RoundedTube); }
+	static NodeData* Alloc(void) { return NewObjClear(RoundedTube); }
 };
 
 Bool RoundedTube::Message(GeListNode* node, Int32 type, void* t_data)
@@ -397,7 +397,7 @@ void RoundedTube::SetHandle(BaseObject* op, Int32 i, Vector p, const HandleInfo&
 		case 1: data->SetFloat(TUBEOBJECT_IRADX, ClampValue(data->GetFloat(TUBEOBJECT_IRADX) + val, data->GetFloat(TUBEOBJECT_ROUNDRAD), data->GetFloat(TUBEOBJECT_RAD))); break;
 		case 2: data->SetFloat(TUBEOBJECT_IRADY, ClampValue(data->GetFloat(TUBEOBJECT_IRADY) + val, data->GetFloat(TUBEOBJECT_ROUNDRAD), (Float) MAXRANGE)); break;
 		case 3:
-		case 4: data->SetFloat(TUBEOBJECT_ROUNDRAD, ClampValue(data->GetFloat(TUBEOBJECT_ROUNDRAD) + val, 0.0_f, FMin(data->GetFloat(TUBEOBJECT_IRADX), data->GetFloat(TUBEOBJECT_IRADY)))); break;
+		case 4: data->SetFloat(TUBEOBJECT_ROUNDRAD, ClampValue(data->GetFloat(TUBEOBJECT_ROUNDRAD) + val, (Float) 0.0, FMin(data->GetFloat(TUBEOBJECT_IRADX), data->GetFloat(TUBEOBJECT_IRADY)))); break;
 		default: break;
 	}
 }
@@ -431,7 +431,7 @@ DRAWRESULT RoundedTube::Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, Ba
 			bd->SetPen(GetViewColor(VIEWCOLOR_ACTIVEPOINT));
 		bd->DrawHandle(info.position, DRAWHANDLE_BIG, 0);
 
-		// Draw lines to the handles
+		//Draw lines to the handles
 		bd->SetPen(GetViewColor(VIEWCOLOR_ACTIVEPOINT));
 		switch (i)
 		{
@@ -460,7 +460,7 @@ DRAWRESULT RoundedTube::Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, Ba
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_ROUNDEDTUBEOBJECT 1001157
 
-Bool RegisterRoundedTube()
+Bool RegisterRoundedTube(void)
 {
 	return RegisterObjectPlugin(ID_ROUNDEDTUBEOBJECT, GeLoadString(IDS_ROUNDED_TUBE), OBJECT_GENERATOR, RoundedTube::Alloc, "Oroundedtube", AutoBitmap("roundedtube.tif"), 0);
 }

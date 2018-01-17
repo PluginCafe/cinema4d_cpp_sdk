@@ -270,7 +270,7 @@ public:
 	}
 };
 
-Bool RegisterPGPTest()
+Bool RegisterPGPTest(void)
 {
 	// be sure to use a unique ID obtained from www.plugincafe.com
 	return RegisterCommandPlugin(450000266, GeLoadString(IDS_PGPTEST), 0, nullptr, String("C++ SDK PGP test"), NewObjClear(PGPTest));

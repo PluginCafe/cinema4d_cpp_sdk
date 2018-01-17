@@ -13,7 +13,7 @@ private:
 public:
 	virtual BaseObject* GetVirtualObjects(BaseObject* op, HierarchyHelp* hh);
 
-	static NodeData* Alloc() { return NewObjClear(TriangulateData); }
+	static NodeData* Alloc(void) { return NewObjClear(TriangulateData); }
 };
 
 LineObject* TriangulateData::PrepareSingleSpline(BaseObject* generator, BaseObject* op, Matrix* ml, HierarchyHelp* hh, Bool* dirty)
@@ -82,7 +82,7 @@ BaseObject* TriangulateData::GetVirtualObjects(BaseObject* op, HierarchyHelp* hh
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_TRIANGULATEOBJECT 1001159
 
-Bool RegisterTriangulate()
+Bool RegisterTriangulate(void)
 {
 	return RegisterObjectPlugin(ID_TRIANGULATEOBJECT, GeLoadString(IDS_TRIANGULATE), OBJECT_GENERATOR | OBJECT_INPUT, TriangulateData::Alloc, "", AutoBitmap("triangulate.tif"), 0);
 }

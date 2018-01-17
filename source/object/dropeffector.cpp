@@ -31,7 +31,7 @@ public:
 	virtual void InitPoints(BaseObject* op, BaseObject* gen, BaseDocument* doc, EffectorDataStruct* data, MoData* md, BaseThread* thread);
 	virtual void ModifyPoints(BaseObject* op, BaseObject* gen, BaseDocument* doc, EffectorDataStruct* data, MoData* md, BaseThread* thread);
 
-	static NodeData* Alloc() { return NewObjClear(DropEffector); }
+	static NodeData* Alloc(void) { return NewObjClear(DropEffector); }
 };
 
 Bool DropEffector::InitEffector(GeListNode* node)
@@ -72,10 +72,10 @@ void DropEffector::InitPoints(BaseObject* op, BaseObject* gen, BaseDocument* doc
 	ed.genmg	= gen->GetMg();
 	ed.igenmg = ~ed.genmg;
 
-	// Add a dependency so that the effector will update if the target changes
+	//Add a dependency so that the effector will update if the target changes
 	AddEffectorDependence(ed.target);
 
-	// Can't init raycollider or the target isn't polygonal, then skip
+	//Can't init raycollider or the target isn't polygonal, then skip
 	if (!rcol->Init(ed.target))
 		ed.target = nullptr;
 	else if (!ed.target->IsInstanceOf(Opolygon))
@@ -107,20 +107,20 @@ void DropEffector::ModifyPoints(BaseObject* op, BaseObject* gen, BaseDocument* d
 	Int32 mdcount = (Int32)md->GetCount();
 	for (i = 0; i < mdcount; i++)
 	{
-		// If the particle isn't visible, don't calculate
+		//If the particle isn't visible, don't calculate
 		if (!(flag_array[i] & MOGENFLAG_CLONE_ON) || (flag_array[i] & MOGENFLAG_DISABLE))
 			continue;
 
-		// Multiply into global space
+		//Multiply into global space
 		off = mat_array[i].off;
 		off = ed.genmg * off;
 
-		// Sample the falloff
+		//Sample the falloff
 		falloff->Sample(off, &fall, true, weight_array[i]);
 		if (fall == 0.0)
 			continue;
 
-		// Set up the ray for the collision
+		//Set up the ray for the collision
 		ray_p = ed.itargmg * off;
 		switch (ed.mode)
 		{
@@ -138,7 +138,7 @@ void DropEffector::ModifyPoints(BaseObject* op, BaseObject* gen, BaseDocument* d
 		}
 		ray_dir = ed.itargmg.TransformVector(ray_dir);
 
-		// Calculate an intersection
+		//Calculate an intersection
 		if (rcol->Intersect(ray_p, !ray_dir, ed.maxdist, false))
 		{
 			if (rcol->GetNearestIntersection(&rcolres))
@@ -158,7 +158,7 @@ void DropEffector::ModifyPoints(BaseObject* op, BaseObject* gen, BaseDocument* d
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_DROPEFFECTOR 1019571
 
-Bool RegisterDropEffector()
+Bool RegisterDropEffector(void)
 {
 	return RegisterEffectorPlugin(ID_DROPEFFECTOR, GeLoadString(IDS_DROPEFFECTOR), OBJECT_CALL_ADDEXECUTION, DropEffector::Alloc, "oedrop", AutoBitmap("dropeffector.tif"), 0);
 }

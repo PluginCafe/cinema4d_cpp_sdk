@@ -8,7 +8,7 @@
 class VisualizePostData : public VideoPostData
 {
 public:
-	static NodeData* Alloc() { return NewObjClear(VisualizePostData); }
+	static NodeData* Alloc(void) { return NewObjClear(VisualizePostData); }
 	virtual Bool RenderEngineCheck(BaseVideoPost* node, Int32 id);
 	virtual RENDERRESULT Execute(BaseVideoPost* node, VideoPostStruct* vps);
 	virtual VIDEOPOSTINFO GetRenderInfo(BaseVideoPost* node) { return VIDEOPOSTINFO_STOREFRAGMENTS; }
@@ -90,7 +90,7 @@ Bool VisualizePostData::RenderEngineCheck(BaseVideoPost* node, Int32 id)
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_VISUALIZENORMALS 1000986
 
-Bool RegisterVPVisualizeNormals()
+Bool RegisterVPVisualizeNormals(void)
 {
 	return RegisterVideoPostPlugin(ID_VISUALIZENORMALS, GeLoadString(IDS_VPVISUALIZEPOST), 0, VisualizePostData::Alloc, "", 0, 0);
 }

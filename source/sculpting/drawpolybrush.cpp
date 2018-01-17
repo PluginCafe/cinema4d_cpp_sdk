@@ -36,7 +36,7 @@ struct StrokeData
 class ExampleSculptDrawPolyBrush : public SculptBrushToolData
 {
 public:
-	explicit ExampleSculptDrawPolyBrush(SculptBrushParams* pParams) : SculptBrushToolData(pParams) { }
+	ExampleSculptDrawPolyBrush(SculptBrushParams* pParams) : SculptBrushToolData(pParams) { }
 	~ExampleSculptDrawPolyBrush() { }
 
 	virtual Int32 GetToolPluginId();
@@ -65,7 +65,7 @@ Int32 ExampleSculptDrawPolyBrush::GetToolPluginId()
 
 const String ExampleSculptDrawPolyBrush::GetResourceSymbol()
 {
-	// Return the name of the .res file, in the res/description and res/strings folder, for this tool.
+	//Return the name of the .res file, in the res/description and res/strings folder, for this tool.
 	return String("toolsculptdrawpolybrush");
 }
 
@@ -75,16 +75,16 @@ void ExampleSculptDrawPolyBrush::StartStroke(Int32 strokeCount, const BaseContai
 	_strokeCounter = 0;
 
 	_strokeData.ReSize(strokeCount);
-	// At the start of the brush stroke we get the active document and call StartUndo on it since we are handling Undo ourselves.
+	//At the start of the brush stroke we get the active document and call StartUndo on it since we are handling Undo ourselves.
 	_doc = GetActiveDocument();
 	_doc->StartUndo();
 
 	_poly = PolygonObject::Alloc(0, 0);
 
-	// Add the null object to the document.
+	//Add the null object to the document.
 	_doc->InsertObject(_poly, nullptr, nullptr);
 
-	// Add an undo event for this null object.
+	//Add an undo event for this null object.
 	_doc->AddUndo(UNDOTYPE_NEW, _poly);
 
 	if (!_mod || !_mod->InitObject(_poly))
@@ -96,7 +96,7 @@ void ExampleSculptDrawPolyBrush::StartStroke(Int32 strokeCount, const BaseContai
 void ExampleSculptDrawPolyBrush::EndStroke()
 {
 	_strokeData.FreeArray();
-	// When the stroke ends (which happens on mouse up) we end the Undo for this brush stroke.
+	//When the stroke ends (which happens on mouse up) we end the Undo for this brush stroke.
 	_doc->EndUndo();
 	_doc = nullptr;
 }
@@ -111,20 +111,20 @@ void ExampleSculptDrawPolyBrush::StartStrokeInstance(Int32 strokeInstanceID)
 
 void ExampleSculptDrawPolyBrush::EndStrokeInstance(Int32 strokeInstanceID)
 {
-	// Nothing to do here.
+	//Nothing to do here.
 }
 
-// This method does all the work for the brush. Every time a dab is placed down on the surface this method is called. It will
-// be called for every symmetrical dab as well, but you do not need to worry about them at all.
+//This method does all the work for the brush. Every time a dab is placed down on the surface this method is called. It will
+//be called for every symmetrical dab as well, but you do not need to worry about them at all.
 Bool ExampleSculptDrawPolyBrush::MovePointsFunc(BrushDabData* dab)
 {
-	// Since we have enabled brush access via the call to EnableBrushAccess(true) we can now access the brush directly from this static MovePointFunc method.
-	// This lets us access the member variables of the brush.
+	//Since we have enabled brush access via the call to EnableBrushAccess(true) we can now access the brush directly from this static MovePointFunc method.
+	//This lets us access the member variables of the brush.
 	ExampleSculptDrawPolyBrush* pBrush = (ExampleSculptDrawPolyBrush*)dab->GetBrush();
 	if (!pBrush)
 		return false;
 
-	// Get the correct StrokeData for this dab
+	//Get the correct StrokeData for this dab
 	StrokeData* pData = nullptr;
 	Int32				count = (Int32)pBrush->_strokeData.GetCount();
 	Int32				i;
@@ -196,22 +196,22 @@ Bool RegisterSculptDrawPolyBrush()
 	if (!pParams)
 		return false;
 
-	// This brush does not use stencils
+	//This brush does not use stencils
 	pParams->EnableStencil(false);
 
-	// This brush does not use stamps
+	//This brush does not use stamps
 	pParams->EnableStamp(false);
 
-	// Since we are using StartStroke/EndStroke calls, and also because we need access to the brush
-	// itself from within the MovePointFunc (dab->GetBrush()), we need to set this to true.
+	//Since we are using StartStroke/EndStroke calls, and also because we need access to the brush
+	//itself from within the MovePointFunc (dab->GetBrush()), we need to set this to true.
 	pParams->EnableBrushAccess(true);
 
-	// Tell the system we are going to handle undo ourselves
+	//Tell the system we are going to handle undo ourselves
 	pParams->SetUndoType(SCULPTBRUSHDATATYPE_NONE);
 
-	// Pass in the pointer to the static MovePointsFunc. This will get called for every dab.
+	//Pass in the pointer to the static MovePointsFunc. This will get called for every dab.
 	pParams->SetMovePointFunc(&ExampleSculptDrawPolyBrush::MovePointsFunc);
 
-	// Register the tool with Cinema4D.
+	//Register the tool with Cinema4D.
 	return RegisterToolPlugin(SCULPTDRAWPOLYBRUSH_SDK_EXAMPLE, GeLoadString(IDS_SCULPTDRAWPOLYBRUSH_TOOL), PLUGINFLAG_TOOL_SCULPTBRUSH | PLUGINFLAG_TOOL_NO_OBJECTOUTLINE, nullptr, GeLoadString(IDS_SCULPTDRAWPOLYBRUSH_TOOL), NewObjClear(ExampleSculptDrawPolyBrush, pParams));
 }

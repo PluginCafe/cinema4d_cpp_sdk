@@ -10,7 +10,7 @@
 class GLTestObject : public ObjectData
 {
 public:
-	static NodeData* Alloc() { return NewObjClear(GLTestObject); }
+	static NodeData* Alloc(void) { return NewObjClear(GLTestObject); }
 
 protected:
 	virtual Bool Init(GeListNode* node);
@@ -262,8 +262,7 @@ Bool GLTestObject::DrawParticles(BaseObject* pObject, BaseDraw* bd, BaseDrawHelp
 			pFactory->UnlockFactory();
 
 			bEOGL = true;
-		_no_eogl:
-			;
+_no_eogl:;
 		}
 		if (!bEOGL)
 		{

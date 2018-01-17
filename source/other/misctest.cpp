@@ -14,11 +14,11 @@
 
 namespace maxon
 {
-static void	BaseArrayDemo();
-static void GenericArrayDemo();
-static void	PointerArraySpecificDemo();
-static void	SortedArrayDemo();
-static void	ListGetNextDemo();
+	static void	BaseArrayDemo();
+	static void GenericArrayDemo();
+	static void	PointerArraySpecificDemo();
+	static void	SortedArrayDemo();
+	static void	ListGetNextDemo();
 }
 
 void MiscTest()
@@ -71,7 +71,7 @@ static void	BaseArrayDemo()
 class DemoElement
 {
 public:
-	explicit DemoElement(Int32 a = 1, Int32 b = 2, Int32 c = 3, Int32 d = 4) : _a(a), _b(b), _c(c), _d(d)
+	DemoElement(Int32 a = 1, Int32 b = 2, Int32 c = 3, Int32 d = 4) : _a(a), _b(b), _c(c), _d(d)
 	{
 	}
 	bool operator !=(const DemoElement& x) const
@@ -82,7 +82,7 @@ public:
 };
 
 // Template method that works for BaseArray, BlockArray, PointerArray or BaseList
-template <typename ARRAY, typename T> static void GenericSample(ARRAY& test, const T& aValue, const T& bValue)
+template <class ARRAY, typename T> static void GenericSample(ARRAY& test, const T& aValue, const T& bValue)
 {
 	const maxon::Int	ARRAY_TEST_SIZE = 1024;
 	maxon::Int	i;

@@ -87,7 +87,7 @@ Bool LiquidToolData::MouseInput(BaseDocument* doc, BaseContainer& data, BaseDraw
 		if (bc.GetInt32(BFM_INPUT_CHANNEL) == BFM_INPUT_MOUSEWHEEL)
 		{
 			rad += bc.GetFloat(BFM_INPUT_VALUE) / 120.0;
-			rad	 = ClampValue(rad, 0.1_f, (Float) MAXRANGE);
+			rad	 = ClampValue(rad, (Float) 0.1, (Float) MAXRANGE);
 			GePrint(String::FloatToString(rad));
 		}
 
@@ -159,14 +159,14 @@ TOOLDRAW LiquidToolData::Draw(BaseDocument* doc, BaseContainer& data, BaseDraw* 
 class LiquidToolDialog : public SubDialog
 {
 public:
-	virtual Bool CreateLayout();
-	virtual Bool InitValues();
+	virtual Bool CreateLayout(void);
+	virtual Bool InitValues(void);
 
-	virtual Bool InitDialog();
+	virtual Bool InitDialog(void);
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 };
 
-Bool LiquidToolDialog::CreateLayout()
+Bool LiquidToolDialog::CreateLayout(void)
 {
 	GroupBegin(0, BFH_SCALEFIT, 1, 0, "", 0);
 	GroupBegin(0, BFH_SCALEFIT, 2, 0, "", 0);
@@ -186,12 +186,12 @@ Bool LiquidToolDialog::CreateLayout()
 	return true;
 }
 
-Bool LiquidToolDialog::InitValues()
+Bool LiquidToolDialog::InitValues(void)
 {
 	return InitDialog();
 }
 
-Bool LiquidToolDialog::InitDialog()
+Bool LiquidToolDialog::InitDialog(void)
 {
 	BaseContainer* bc = GetToolData(GetActiveDocument(), ID_LIQUIDTOOL);
 	if (!bc)
@@ -210,7 +210,7 @@ SubDialog* LiquidToolData::AllocSubDialog(BaseContainer* bc)
 	return NewObjClear(LiquidToolDialog);
 }
 
-Bool RegisterPrimitiveTool()
+Bool RegisterPrimitiveTool(void)
 {
 	return RegisterToolPlugin(ID_LIQUIDTOOL, GeLoadString(IDS_PRIMITIVETOOL), 0, AutoBitmap("liquid.tif"), "C++ SDK Liquid Painting Tool", NewObjClear(LiquidToolData));
 }

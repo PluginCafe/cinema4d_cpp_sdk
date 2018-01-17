@@ -17,7 +17,7 @@ static Int32 GetOGLVersion()
 class VisualizeChannelVideoPost : public VideoPostData
 {
 public:
-	static NodeData* Alloc() { return NewObjClear(VisualizeChannelVideoPost); }
+	static NodeData* Alloc(void) { return NewObjClear(VisualizeChannelVideoPost); }
 
 	virtual Bool Init(GeListNode* node);
 	virtual void Free(GeListNode* node);
@@ -138,6 +138,7 @@ Bool VisualizeChannelVideoPost::GlDraw(BaseVideoPost* node, BaseDraw* bd, GlFram
 		case VP_VISUALIZE_CHANNEL_CHN_MAT_ID: lTexture = C4D_FRAMEBUFFER_MATERIAL_ID; break;
 		case VP_VISUALIZE_CHANNEL_CHN_WORLD_COORDINATES: lTexture = C4D_FRAMEBUFFER_WORLDCOORD; break;
 		case VP_VISUALIZE_CHANNEL_CHN_OBJECTID: lTexture = C4D_FRAMEBUFFER_OBJECT_MAT_ID; break;
+			break;
 	}
 
 	GlFBAdditionalTextureInfo* tex = nullptr;
@@ -321,7 +322,7 @@ Bool VisualizeChannelVideoPost::GlDraw(BaseVideoPost* node, BaseDraw* bd, GlFram
 
 		return true;
 
-	displayError:
+displayError:
 		if (pFactory && bFactoryBound)
 		{
 			pFactory->UnbindPrograms();
@@ -346,7 +347,7 @@ Bool VisualizeChannelVideoPost::RenderEngineCheck(BaseVideoPost* node, Int32 id)
 }
 
 #define ID_VISUALIZE_CHANNEL_VIDEOPOST 450000227
-Bool RegisterVPVisualizeChannel()
+Bool RegisterVPVisualizeChannel(void)
 {
 	// decide by name if the plugin shall be registered - just for user convenience
 	String name = GeLoadString(IDS_VPVISUALIZE_CHANNEL);

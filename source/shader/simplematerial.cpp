@@ -26,7 +26,7 @@ public:
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 	virtual Bool CopyTo(NodeData* dest, GeListNode* snode, GeListNode* dnode, COPYFLAGS flags, AliasTrans* trn);
 
-	static NodeData* Alloc() { return NewObjClear(SimpleMaterial); }
+	static NodeData* Alloc(void) { return NewObjClear(SimpleMaterial); }
 
 	Int32 updatecount;
 };
@@ -251,7 +251,7 @@ Bool SimpleMaterial::CopyTo(NodeData* dest, GeListNode* snode, GeListNode* dnode
 }
 
 
-Bool RegisterSimpleMaterial()
+Bool RegisterSimpleMaterial(void)
 {
 	String name = GeGetDefaultFilename(DEFAULTFILENAME_SHADER_VOLUME) + GeLoadString(IDS_SIMPLEMATERIAL);	// place in default Shader section
 

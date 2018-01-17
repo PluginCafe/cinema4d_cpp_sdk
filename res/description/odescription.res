@@ -29,7 +29,7 @@ CONTAINER Odescription
 
 		}
 
-		GROUP ID_GROUP_DYNAMIC
+		GROUP ID_GROUP_DYAMIC
 		{
 			DEFAULT 1; SCALE_H;
 		}

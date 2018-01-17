@@ -46,20 +46,22 @@ private:
 
 Bool NullSnap::InitSnap(const SnapStruct& ss)
 {
-	if (!_nullObjects)
+	if(!_nullObjects)
 		return false;
 
+
 	// reset system
+
 	_targetObject = nullptr;
 	_nullObjects->Flush();
 
 	// search for null objects in the list of elements in the current view (ss.object_list) 
 
-	for (Int32 i = 0; i < ss.object_list->GetCount(); ++i)
+	for(Int32 i = 0; i < ss.object_list->GetCount(); ++i)
 	{
 		BaseObject* object = static_cast<BaseObject*>(ss.object_list->GetIndex(i));
 
-		if (object && (object->GetType() == Onull))
+		if(object && (object->GetType() == Onull))
 		{
 			_nullObjects->Append(object);
 		}
@@ -70,19 +72,19 @@ Bool NullSnap::InitSnap(const SnapStruct& ss)
 
 Bool NullSnap::Snap(const Vector& p, const SnapStruct& ss, SnapPoint& result)
 {
-	if (!_nullObjects)
+	if(!_nullObjects)
 		return false;
 
 	// I don't want to snap when the active object is a null object
 	const BaseObject* const activeObject = ss.doc->GetActiveObject();
 
-	if (activeObject && activeObject->GetType() == Onull)
+	if(activeObject && activeObject->GetType() == Onull)
 		return false;
 
 	// if there are no null objects this snap mode can't find anything
 	const Int32 nullObjectCount = _nullObjects->GetCount();
 	
-	if (nullObjectCount == 0)
+	if(nullObjectCount == 0)
 		return false;
 
 
@@ -97,11 +99,11 @@ Bool NullSnap::Snap(const Vector& p, const SnapStruct& ss, SnapPoint& result)
 	_targetObject = nullptr;
 
 
-	for (Int32 i = 0; i < nullObjectCount; ++i)
+	for(Int32 i = 0; i < nullObjectCount; ++i)
 	{
 		BaseObject* nullObject = static_cast<BaseObject*>(_nullObjects->GetIndex(i));
 
-		if (nullObject)
+		if(nullObject)
 		{
 			// I calculate the screen space distance between the given screen space position 
 			// and the screen space position of the given null object
@@ -116,7 +118,7 @@ Bool NullSnap::Snap(const Vector& p, const SnapStruct& ss, SnapPoint& result)
 			// I use GetSquaredLength() as this is faster than calculating the real length and I don't need the actual value
 			const Float64 screenSpaceDistance = difference.GetSquaredLength();
 
-			if (screenSpaceDistance < minDistance)
+			if(screenSpaceDistance < minDistance)
 			{
 				minDistance = screenSpaceDistance;
 				_targetObject = nullObject;
@@ -125,7 +127,7 @@ Bool NullSnap::Snap(const Vector& p, const SnapStruct& ss, SnapPoint& result)
 	}
 
 	// nothing found
-	if (_targetObject == nullptr)
+	if(_targetObject == nullptr)
 		return false;
 
 	// define result
@@ -141,16 +143,17 @@ void NullSnap::FreeSnap(const SnapStruct& ss)
 	// reset system
 	_targetObject = nullptr;
 
-	if (_nullObjects)
+	if(_nullObjects)
 		_nullObjects->Flush();
+
 }
 
 Bool NullSnap::Draw(const SnapStruct& ss, BaseDocument* doc, BaseDraw* bd, BaseDrawHelp* bh, BaseThread* bt)
 {
-	if (_targetObject == nullptr)
+	if(_targetObject == nullptr)
 		return true;
 
-	bd->SetPen(Vector(1.0));
+	bd->SetPen(Vector(1,1,1));
 	bd->SetMatrix_Screen();  
 
 	// get the screen space position of the target object
@@ -161,8 +164,8 @@ Bool NullSnap::Draw(const SnapStruct& ss, BaseDocument* doc, BaseDraw* bd, BaseD
 	const Int32 xpos = SAFEINT32(screenSpacePosition.x);
 	const Int32 ypos = SAFEINT32(screenSpacePosition.y);
 
-	bd->DrawCircle2D(xpos, ypos, ss.snap_radius);
-	bd->DrawCircle2D(xpos, ypos, ss.snap_radius + 4);
+	bd->DrawCircle2D(xpos,ypos,ss.snap_radius);
+	bd->DrawCircle2D(xpos,ypos,ss.snap_radius+4);
 
 	return true;
 }
@@ -173,5 +176,5 @@ Bool RegisterSnapDataNullSnap()
 	const Int32 pluginID = 1033848; 
 	const String help = "Snap to null objects";
 	
-	return RegisterSnapPlugin(pluginID, GeLoadString(IDS_NULLSNAP), help, PLUGINFLAG_SNAP_INFERRED_POINT | PLUGINFLAG_SNAP_INFERRED_AXIS, NullSnap::Alloc, nullptr, SNAPPRIORITY_0);
+	return RegisterSnapPlugin(pluginID,GeLoadString(IDS_NULLSNAP),help,PLUGINFLAG_SNAP_INFERRED_POINT|PLUGINFLAG_SNAP_INFERRED_AXIS,NullSnap::Alloc,nullptr,SNAPPRIORITY_0);
 }

@@ -13,7 +13,7 @@ public:
 	virtual Bool InitFalloff(BaseContainer* bc, FalloffDataData& falldata);
 	virtual void Sample(const Vector& p, const FalloffDataData& data, Float* res);
 
-	static FalloffData* Alloc() { return NewObjClear(RandomFalloff); }
+	static FalloffData* Alloc(void) { return NewObjClear(RandomFalloff); }
 };
 
 Bool RandomFalloff::Init(FalloffDataData& falldata, BaseContainer* bc)
@@ -45,7 +45,7 @@ void RandomFalloff::Sample(const Vector& p, const FalloffDataData& data, Float* 
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_RANDOMFALLOFF 1019569
 
-Bool RegisterRandomFalloff()
+Bool RegisterRandomFalloff(void)
 {
 	return RegisterFalloffPlugin(ID_RANDOMFALLOFF, GeLoadString(IDS_RANDOMFALLOFF), 0, RandomFalloff::Alloc, "ofalloff_random");
 }

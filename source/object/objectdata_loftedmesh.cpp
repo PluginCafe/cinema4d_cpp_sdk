@@ -29,15 +29,15 @@ namespace LoftedMeshHelpers
 /// @param[in] closedT						The reference to the boolean closure status along T-direction.
 /// @return												@trueIfOtherwiseFalse{successful}
 //------------------------------------------------------------------------------------------------
-const Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS = false, const Bool& closedT = false);
-const Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS/*= false*/, const Bool& closedT/*= false*/)
+static Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS = false, const Bool& closedT = false);
+static Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS/*= false*/, const Bool& closedT/*= false*/)
 {
 	Vector* verticesArrayW = polyObj.GetPointW();
-	if (nullptr == verticesArrayW)
+	if (!verticesArrayW)
 		return false;
 
 	CPolygon* polysIdxArrayW = polyObj.GetPolygonW();
-	if (nullptr == polysIdxArrayW)
+	if (!polysIdxArrayW)
 		return false;
 
 	const Int32 polysAlongS = verticesAlongS - 1;
@@ -126,8 +126,8 @@ const Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAl
 /// @param[in] closedB						The reference to the boolean closure status along T-direction.
 /// @return												@trueIfOtherwiseFalse{successful}
 //------------------------------------------------------------------------------------------------
-Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA = false, const Bool& closedB = false);
-Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA/*= false*/, const Bool& closedB/*= false*/)
+static Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA = false, const Bool& closedB = false);
+static Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA/*= false*/, const Bool& closedB/*= false*/)
 {
 	Int32 sizeA_ = sizeA;
 	if (closedA)
@@ -161,8 +161,8 @@ Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& vertice
 /// @param[in] computeRight		The reference to the flag to compute the tangent at the right side.
 /// @return										The computed tangent.
 //------------------------------------------------------------------------------------------------
-Tangent ComputeTangents(const Vector& direction, const Float& weight, const Bool& computeLeft, const Bool& computeRight);
-Tangent ComputeTangents(const Vector& direction, const Float& weight, const Bool& computeLeft, const Bool& computeRight)
+static Tangent ComputeTangents(const Vector& direction, const Float& weight, const Bool& computeLeft, const Bool& computeRight);
+static Tangent ComputeTangents(const Vector& direction, const Float& weight, const Bool& computeLeft, const Bool& computeRight)
 {
 	Tangent res;
 	res.vl = Vector(0, 0, 0);
@@ -196,9 +196,6 @@ Tangent ComputeTangents(const Vector& direction, const Float& weight, const Bool
 /// input objects and connecting via linear, cubic or B-Spline interpolation.
 /// Mesh creation is controlled by specifying S/T curves segmentations and interpolation type.
 //------------------------------------------------------------------------------------------------
-
-/*! \brief A simple object generator creating a lofted mesh from two or more curves.
-*/
 class LoftedMesh : public ObjectData
 {
 	INSTANCEOF(LoftedMesh, ObjectData)
@@ -220,7 +217,7 @@ private:
 	/// @param[out] isDLChanged		The reference to the boolean proving if dependency list has changed.
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool PrepareDependencyList(BaseObject* op, HierarchyHelp* hh, const BaseDocument* doc, Bool& isDLChanged);
+	Bool PrepareDependencyList(BaseObject* op, HierarchyHelp* hh, const BaseDocument* doc, Bool& isDLChanged);
 
 	//------------------------------------------------------------------------------------------------
 	/// Method filling the 2-dim BaseArray responsible for storing the vertices position.
@@ -231,7 +228,7 @@ private:
 	/// @param[in] interpType			The reference to the type of interpolation to be used for section
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const SPLINETYPE& interpType);
+	Bool FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const SPLINETYPE& interpType);
 
 	//------------------------------------------------------------------------------------------------
 	/// Method checking and setting the Phong tag for the returned PolygonObject.
@@ -240,14 +237,14 @@ private:
 	/// @param[in] polyObj				The pointer to the PolygonOjbect instance. @callerOwnsPointed{polygon object}.
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj);
+	Bool CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj);
 
 	//------------------------------------------------------------------------------------------------
 	/// Method releasing all the allocated resources before returning from GVO.
 	/// @brief Method used before returning from GVO to release all the allocated resources.
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool FreeResources();
+	Bool FreeResources();
 
 private:
 	//----------------------------------------------------------------------------------------
@@ -273,7 +270,7 @@ Bool LoftedMesh::Init(GeListNode* node)
 	_curvesData.Reset();
 
 	// Check the provided input pointer.
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	// Cast the node to the BasObject class.
@@ -283,7 +280,7 @@ Bool LoftedMesh::Init(GeListNode* node)
 	BaseContainer* bcPtr = baseObjPtr->GetDataInstance();
 
 	// Check the BaseContainer instance pointer.
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return false;
 
 	// Set the values for the different parameters of the generator.
@@ -297,7 +294,7 @@ Bool LoftedMesh::Init(GeListNode* node)
 void LoftedMesh::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 {
 	// Check the provided pointers.
-	if (nullptr == op || nullptr == rad || nullptr == mp)
+	if (!op || !rad || !mp)
 		return;
 
 	// Reset the radius and center vectors.
@@ -308,12 +305,12 @@ void LoftedMesh::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 BaseObject* LoftedMesh::GetVirtualObjects(BaseObject* op, HierarchyHelp* hh)
 {
 	// Check the provided pointers.
-	if (nullptr == op || nullptr == hh)
+	if (!op || !hh)
 		return BaseObject::Alloc(Onull);
 
 	// Retrieve the BaseContainer associated check it.
 	BaseContainer* bcPtr = op->GetDataInstance();
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return BaseObject::Alloc(Onull);
 
 	// Retrieve the number of subdivisions which every of the two splines will be subdivided in.
@@ -415,7 +412,7 @@ Bool LoftedMesh::Message(GeListNode* node, Int32 type, void* data)
 }
 /// @}
 
-const Bool LoftedMesh::FreeResources()
+Bool LoftedMesh::FreeResources()
 {
 	for (Int32 i = 0; i < _curvesCnt; ++i)
 	{
@@ -430,7 +427,7 @@ const Bool LoftedMesh::FreeResources()
 	return true;
 }
 
-const Bool LoftedMesh::PrepareDependencyList(BaseObject* op, HierarchyHelp* hh, const BaseDocument* doc, Bool& isDLChanged)
+Bool LoftedMesh::PrepareDependencyList(BaseObject* op, HierarchyHelp* hh, const BaseDocument* doc, Bool& isDLChanged)
 {
 	if (!op || !hh)
 		return false;
@@ -460,7 +457,7 @@ const Bool LoftedMesh::PrepareDependencyList(BaseObject* op, HierarchyHelp* hh, 
 	return true;
 }
 
-const Bool LoftedMesh::FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const SPLINETYPE& interpType)
+Bool LoftedMesh::FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const SPLINETYPE& interpType)
 {
 	const Float sStep = 1.0f / float(stepsS);
 	const Float tStep = 1.0f / float(stepsT);
@@ -510,7 +507,7 @@ const Bool LoftedMesh::FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Ve
 	return true;
 }
 
-const Bool LoftedMesh::CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj)
+Bool LoftedMesh::CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj)
 {
 	if (!op || !polyObj)
 		return false;

@@ -27,15 +27,15 @@ namespace RuledMeshHelpers
 	/// @param[in] closedT						The reference to the boolean closure status along T-direction.
 	/// @return												True if operation completes successfully, false otherwise.
 	//------------------------------------------------------------------------------------------------
-	const Bool FillPolygonObjectData(PolygonObject &polyObj, const Int32 &verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Bool& closedS = false, const Bool& closedT = false);
-	const Bool FillPolygonObjectData(PolygonObject &polyObj, const Int32 &verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Bool& closedS /*= false*/, const Bool& closedT /*= false*/)
+	static Bool FillPolygonObjectData(PolygonObject &polyObj, const Int32 &verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Bool& closedS = false, const Bool& closedT = false);
+	static Bool FillPolygonObjectData(PolygonObject &polyObj, const Int32 &verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Bool& closedS /*= false*/, const Bool& closedT /*= false*/)
 	{
 		Vector* verticesArrayW = polyObj.GetPointW();
-		if (nullptr == verticesArrayW)
+		if (!verticesArrayW)
 			return false;
 
 		CPolygon* polysIdxArrayW = polyObj.GetPolygonW();
-		if (nullptr == polysIdxArrayW)
+		if (!polysIdxArrayW)
 			return false;
 
 		Int32 vtxIdx, s, t;
@@ -125,8 +125,8 @@ namespace RuledMeshHelpers
 	/// @param[in] closedB						The reference to the boolean closure status along T-direction.
 	/// @return												True if resize successfully occurs, false otherwise.
 	//------------------------------------------------------------------------------------------------	
-	Bool ResizeVerticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Int32 &sizeA, const Int32 &sizeB, const Bool& closedA = false, const Bool& closedB = false);
-	Bool ResizeVerticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Int32 &sizeA, const Int32 &sizeB, const Bool& closedA /*= false*/, const Bool& closedB /*= false*/)
+	static Bool ResizeVerticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Int32 &sizeA, const Int32 &sizeB, const Bool& closedA = false, const Bool& closedB = false);
+	static Bool ResizeVerticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesBA, const Int32 &sizeA, const Int32 &sizeB, const Bool& closedA /*= false*/, const Bool& closedB /*= false*/)
 	{
 		Int32 sizeA_ = sizeA;
 		if (closedA)
@@ -157,9 +157,6 @@ namespace RuledMeshHelpers
 /// objects and connecting via linear interpolation (https://en.wikipedia.org/wiki/Ruled_surface). 
 /// Mesh creation is controlled by specifying S/T curves segmentations and curves parametrization.
 //------------------------------------------------------------------------------------------------
-
-/*! \brief A simple object generator creating a ruled mesh from two curves.
-*/
 class RuledMesh : public ObjectData
 {
 	INSTANCEOF(RuledMesh, ObjectData)
@@ -181,7 +178,7 @@ private:
 	/// @param[in] firstChild			The pointer to the first input object to start the clone from. @callerOwnsPointed{object}.
 	/// @return										True if successful, false otherwise.
 	//------------------------------------------------------------------------------------------------
-	const Bool GetFirstAndSecondClonedCurves(BaseObject* op, HierarchyHelp* hh, Bool &dirtyFlag, BaseObject* firstChild);
+	Bool GetFirstAndSecondClonedCurves(BaseObject* op, HierarchyHelp* hh, Bool &dirtyFlag, BaseObject* firstChild);
 	
 	//------------------------------------------------------------------------------------------------
 	/// Private method to populate the 2-dim BAseArray responsible for storing the vertices position.
@@ -195,7 +192,7 @@ private:
 	/// @param[in] paramSecond		The reference to the parametrization type on the second curve.
 	/// @return										True if successful, false otherwise.
 	//------------------------------------------------------------------------------------------------
-	const Bool FillVerticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesData, const Int32 &stepsS, const Int32 &stepsT, const Bool &firstFlip, const Bool &secondFlip, const Int32 &paramFirst, const Int32 &paramSecond);
+	Bool FillVerticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesData, const Int32 &stepsS, const Int32 &stepsT, const Bool &firstFlip, const Bool &secondFlip, const Int32 &paramFirst, const Int32 &paramSecond);
 
 	//------------------------------------------------------------------------------------------------
 	/// Private method to check and set the Phong tag for the returned PolygonObject.
@@ -204,21 +201,21 @@ private:
 	/// @param[in] polyObj				The pointer to the PolygonOjbect isntance. @callerOwnsPointed{polygon object}.
 	/// @return										True if successful, false otherwise.
 	//------------------------------------------------------------------------------------------------
-	const Bool CheckAndSetPhongTag(BaseObject *op, PolygonObject *polyObj);
+	Bool CheckAndSetPhongTag(BaseObject *op, PolygonObject *polyObj);
 
 	//------------------------------------------------------------------------------------------------
 	/// Private method to allocate the SplingLengthHelper() instances.
 	/// @brief Method to allocate the SplingLengthHelper() instances.
 	/// @return										True if successful, false otherwise.
 	//------------------------------------------------------------------------------------------------
-	const Bool AllocateSplineHelpers();
+	Bool AllocateSplineHelpers();
 
 	//------------------------------------------------------------------------------------------------
 	/// Private method used before returning from GVO to release all the allocated resources.
 	/// @brief Method used before returning from GVO to release all the allocated resources.
 	/// @return										True if successful, false otherwise.
 	//------------------------------------------------------------------------------------------------
-	const Bool FreeResources();
+	Bool FreeResources();
 
 private:
 	BaseObject *_clonedObjs;										/// Pointer to the BaseObject resulting from GetAndCheckHierarchyClone()
@@ -238,7 +235,7 @@ Bool RuledMesh::Init(GeListNode* node)
 	_secondCurveLengthHelper = nullptr;
 
 	// Check the provided input pointer.
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	// Cast the node to the BasObject class.
@@ -248,7 +245,7 @@ Bool RuledMesh::Init(GeListNode* node)
 	BaseContainer* bcPtr = baseObjPtr->GetDataInstance();
 
 	// Check the BaseContainer instance pointer.
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return false;
 
 	// Set the values for the different parameters of the generator.
@@ -273,7 +270,7 @@ Bool RuledMesh::Message(GeListNode* node, Int32 type, void* data)
 void RuledMesh::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 {
 	// Check the provided pointers.
-	if (nullptr == op || nullptr == rad || nullptr == mp)
+	if (!op || !rad || !mp)
 		return;
 
 	// Reset the radius and center vectors.
@@ -281,7 +278,7 @@ void RuledMesh::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 	rad->SetZero();
 }
 
-const Bool RuledMesh::FreeResources()
+Bool RuledMesh::FreeResources()
 {
 	if (_clonedObjs)
 	{
@@ -304,7 +301,7 @@ const Bool RuledMesh::FreeResources()
 	return true;
 }
 
-const Bool RuledMesh::GetFirstAndSecondClonedCurves(BaseObject* op, HierarchyHelp* hh, Bool &dirtyFlag, BaseObject* firstChild)
+Bool RuledMesh::GetFirstAndSecondClonedCurves(BaseObject* op, HierarchyHelp* hh, Bool &dirtyFlag, BaseObject* firstChild)
 {
 	_clonedObjs = op->GetAndCheckHierarchyClone(hh, firstChild, HIERARCHYCLONEFLAGS_ASIS, &dirtyFlag, nullptr, true);
 	if (!dirtyFlag)
@@ -328,7 +325,7 @@ const Bool RuledMesh::GetFirstAndSecondClonedCurves(BaseObject* op, HierarchyHel
 	return true;
 }
 
-const Bool RuledMesh::FillVerticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesData, const Int32 &stepsS, const Int32 &stepsT, const Bool &flipFirst, const Bool &flipSecond, const Int32 &paramFirst, const Int32 &paramSecond)
+Bool RuledMesh::FillVerticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>> &verticesData, const Int32 &stepsS, const Int32 &stepsT, const Bool &flipFirst, const Bool &flipSecond, const Int32 &paramFirst, const Int32 &paramSecond)
 {
 	// Retrieve the local transformation for both cloned children
 	Matrix firstLocalMtx = _firstCrv->GetMl();
@@ -376,7 +373,7 @@ const Bool RuledMesh::FillVerticesPosition(maxon::BaseArray<maxon::BaseArray<Vec
 	return true;
 }
 
-const Bool RuledMesh::CheckAndSetPhongTag(BaseObject *op, PolygonObject *polyObj)
+Bool RuledMesh::CheckAndSetPhongTag(BaseObject *op, PolygonObject *polyObj)
 {
 	if (!op || !polyObj)
 		return false;
@@ -395,14 +392,14 @@ const Bool RuledMesh::CheckAndSetPhongTag(BaseObject *op, PolygonObject *polyObj
 			phongTagPolyObj = (BaseTag*)op->GetTag(Tphong)->GetClone(COPYFLAGS_0, nullptr);
 			
 			// Insert the newly cloned tag.
-			if (nullptr != phongTagPolyObj)
+			if (phongTagPolyObj)
 				polyObj->InsertTag(phongTagPolyObj);
 		}
 	
 	return true;
 }
 
-const Bool RuledMesh::AllocateSplineHelpers()
+Bool RuledMesh::AllocateSplineHelpers()
 {
 	// Allocate the SplineLength helper objects.
 	_firstCurveLengthHelper = SplineLengthData::Alloc();
@@ -421,7 +418,7 @@ const Bool RuledMesh::AllocateSplineHelpers()
 BaseObject* RuledMesh::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 {
 	// Check the provided pointers.
-	if (nullptr == op || nullptr == hh)
+	if (!op || !hh)
 		return BaseObject::Alloc(Onull);
 
 	// Check the presence of two children curves needed to run the generator.
@@ -430,7 +427,7 @@ BaseObject* RuledMesh::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 
 	BaseObject* firstLeaf = op->GetDown();
 	BaseObject* secondLeaf = firstLeaf->GetNext();
-	if (nullptr == secondLeaf)
+	if (!secondLeaf)
 		return BaseObject::Alloc(Onull);
 
 	Bool cloneIsDirty = false;
@@ -445,7 +442,7 @@ BaseObject* RuledMesh::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 
 	// Retrieve the BaseContainer associated check it 
 	BaseContainer* bcPtr = op->GetDataInstance();
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 	{
 		FreeResources();
 		return BaseObject::Alloc(Onull);

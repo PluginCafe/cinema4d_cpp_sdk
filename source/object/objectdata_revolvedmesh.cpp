@@ -29,15 +29,15 @@ namespace RevolvedMeshHelpers
 /// @param[in] closedT						The reference to the boolean closure status along T-direction.
 /// @return												@trueIfOtherwiseFalse{successful}
 //------------------------------------------------------------------------------------------------
-const Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS = false, const Bool& closedT = false);
-const Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS/*= false*/, const Bool& closedT/*= false*/)
+static Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS = false, const Bool& closedT = false);
+static Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAlongS, const Int32& verticesAlongT, HierarchyHelp* hh, const maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Bool& closedS/*= false*/, const Bool& closedT/*= false*/)
 {
 	Vector* verticesArrayW = polyObj.GetPointW();
-	if (nullptr == verticesArrayW)
+	if (!verticesArrayW)
 		return false;
 
 	CPolygon* polysIdxArrayW = polyObj.GetPolygonW();
-	if (nullptr == polysIdxArrayW)
+	if (!polysIdxArrayW)
 		return false;
 
 	const Int32 polysAlongS = verticesAlongS - 1;
@@ -126,8 +126,8 @@ const Bool FillPolygonObjectData(PolygonObject& polyObj, const Int32& verticesAl
 /// @param[in] closedB						The reference to the boolean closure status along T-direction.
 /// @return												@trueIfOtherwiseFalse{successful}
 //------------------------------------------------------------------------------------------------
-Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA = false, const Bool& closedB = false);
-Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA/*= false*/, const Bool& closedB/*= false*/)
+static Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA = false, const Bool& closedB = false);
+static Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesBA, const Int32& sizeA, const Int32& sizeB, const Bool& closedA/*= false*/, const Bool& closedB/*= false*/)
 {
 	Int32 sizeA_ = sizeA;
 	if (closedA)
@@ -158,9 +158,6 @@ Bool ResizeverticesBaseArray(maxon::BaseArray<maxon::BaseArray<Vector>>& vertice
 /// input objects and connecting via linear, cubic or B-Spline interpolation.
 /// Mesh creation is controlled by specifying S/T curves segmentations and interpolation type.
 //------------------------------------------------------------------------------------------------
-
-/*! \brief A simple object generator creating a revolved mesh from two or more curves.
-*/
 class RevolvedMesh : public ObjectData
 {
 	INSTANCEOF(RevolvedMesh, ObjectData)
@@ -186,7 +183,7 @@ private:
 	/// @param[in] closedT				The reference to the boolean closure status along T-direction.
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const Vector& axis = Vector(0, 1, 0), const Float& angleStart = 0, const Float& angleEnd = 360, const Bool& closedS = false, const Bool& closedT = false);
+	Bool FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const Vector& axis = Vector(0, 1, 0), const Float& angleStart = 0, const Float& angleEnd = 360, const Bool& closedS = false, const Bool& closedT = false);
 
 	//------------------------------------------------------------------------------------------------
 	/// Method checking and setting the Phong tag for the returned PolygonObject.
@@ -195,14 +192,7 @@ private:
 	/// @param[in] polyObj				The pointer to the PolygonObject instance. @callerOwnsPointed{polygon object}.
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj);
-
-	//------------------------------------------------------------------------------------------------
-	/// Method releasing all the allocated resources used before returning from GVO.
-	/// @brief Method used before returning from GVO to release all the allocated resources.
-	/// @return										@trueIfOtherwiseFalse{successful}
-	//------------------------------------------------------------------------------------------------
-	const Bool FreeResources();
+	Bool CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj);
 
 private:
 	SplineObject*			_childSpline;			///< Retains the pointer to the SplineObject instance of the revolved profile.
@@ -222,7 +212,7 @@ Bool RevolvedMesh::Init(GeListNode* node)
 	_lastChild = nullptr;
 
 	// Check the provided input pointer.
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	// Cast the node to the BasObject class.
@@ -232,7 +222,7 @@ Bool RevolvedMesh::Init(GeListNode* node)
 	BaseContainer* bcPtr = baseObjPtr->GetDataInstance();
 
 	// Check the BaseContainer instance pointer.
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return false;
 
 	// Set the values for the different parameters of the generator.
@@ -257,7 +247,7 @@ Bool RevolvedMesh::Message(GeListNode* node, Int32 type, void* data)
 void RevolvedMesh::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 {
 	// Check the provided pointers.
-	if (nullptr == op || nullptr == rad || nullptr == mp)
+	if (!op || !rad || !mp)
 		return;
 
 	// Reset the radius and center vectors.
@@ -265,7 +255,7 @@ void RevolvedMesh::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 	rad->SetZero();
 }
 
-const Bool RevolvedMesh::FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const Vector& axis/*= Vector(0, 1, 0)*/, const Float& angleStart/*= 0*/, const Float& angleEnd/*= 360*/, const Bool& closedS/*= false*/, const Bool& closedT/*= false*/)
+Bool RevolvedMesh::FillverticesPosition(maxon::BaseArray<maxon::BaseArray<Vector>>& verticesData, const Int32& stepsS, const Int32& stepsT, const Vector& axis/*= Vector(0, 1, 0)*/, const Float& angleStart/*= 0*/, const Float& angleEnd/*= 360*/, const Bool& closedS/*= false*/, const Bool& closedT/*= false*/)
 {
 	const Float sStep = 1.0f / float(stepsS);
 
@@ -330,7 +320,7 @@ const Bool RevolvedMesh::FillverticesPosition(maxon::BaseArray<maxon::BaseArray<
 	return true;
 }
 
-const Bool RevolvedMesh::CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj)
+Bool RevolvedMesh::CheckAndSetPhongTag(BaseObject* op, PolygonObject* polyObj)
 {
 	if (!op || !polyObj)
 		return false;
@@ -350,7 +340,7 @@ const Bool RevolvedMesh::CheckAndSetPhongTag(BaseObject* op, PolygonObject* poly
 		phongTagPolyObj = static_cast<BaseTag*>(phongTagBaseObj->GetClone(COPYFLAGS_0, nullptr));
 
 		// Insert the newly cloned tag.
-		if (nullptr != phongTagPolyObj)
+		if (phongTagPolyObj)
 			polyObj->InsertTag(phongTagPolyObj);
 	}
 
@@ -360,12 +350,12 @@ const Bool RevolvedMesh::CheckAndSetPhongTag(BaseObject* op, PolygonObject* poly
 BaseObject* RevolvedMesh::GetVirtualObjects(BaseObject* op, HierarchyHelp* hh)
 {
 	// Check the provided pointers.
-	if (nullptr == op || nullptr == hh)
+	if (!op || !hh)
 		return BaseObject::Alloc(Onull);
 
 	// Retrieve the BaseContainer associated check it.
 	BaseContainer* bcPtr = op->GetDataInstance();
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return BaseObject::Alloc(Onull);
 
 	// Retrieve the number of subdivisions which every of the two splines will be subdivided in.

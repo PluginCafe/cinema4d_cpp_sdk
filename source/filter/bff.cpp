@@ -59,6 +59,7 @@ IMAGERESULT BFFLoaderData::Load(const Filename& name, BaseBitmap* bm, Int32 fram
 
 	for (y = 0; y < bh && ok; y++)
 	{
+		// check if current thread is canceled and return IMAGERESULT_THREADCANCELED
 		file->ReadBytes(line, bw * 3);
 		ok = bm->SetPixelCnt(0, y, bw, line, COLORBYTES_RGB, COLORMODE_RGB, PIXELCNT_0);
 	}

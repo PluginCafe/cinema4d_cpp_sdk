@@ -228,11 +228,11 @@ Bool PluginStart()
 	// Polygon Reduction example
 	if (!RegisterPolygonReductionTest())
 		return false;
-	
+
 	// ObjectData example demonstrating the use of HyperFile class in Read()/Write()
 	if (!RegisterObjectHyperFileExample())
 		return false;
-
+		
 	// ObjectData example showing how to create a Greek temple starting from basic shapes
 	if (!RegisterGreekTemple())
 		return false;

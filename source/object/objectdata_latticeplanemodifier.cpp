@@ -37,172 +37,172 @@ public:
 
 namespace LatticePlaneModifierHelper
 {
-//------------------------------------------------------------------------------------------------
-/// EvaluateBinomialCoefficient evaluates the value of the binomial coefficient (https://en.wikipedia.org/wiki/Binomial_coefficient) given the two terms required.
-/// @brief EvaluateBinomialCoefficient evaluates the value of the binomial coefficients.
-/// @param[in] n			First term of the binomial coefficient.
-/// @param[in] k			Second term of the binomial coefficient.
-/// @return						The binomial coefficient value for n and k.
-//------------------------------------------------------------------------------------------------
-const Float EvaluateBinomialCoefficient(const Int32 n, const Int32 k);
-const Float EvaluateBinomialCoefficient(const Int32 n, const Int32 k)
-{
-	// Init the res to 1
-	Float res = 1.0f;
-
-	for (Int32 i = 1; i <= k; i++)
-		res *= (n - (k - i)) / (float)i;
-
-	return res;
-}
-
-//------------------------------------------------------------------------------------------------
-/// EvaluateBernsteinPoly evaluates the Bernstein polynomial (https://en.wikipedia.org/wiki/Bernstein_polynomial) given the k-th term (out of n-th) and the abscissa (x) value to be used in the FFD to evaluate mesh points displacement.
-/// @brief EvaluateBernsteinPoly computes the Bernstein polynomial coefficients.
-/// @param[in] n			Total number of terms of the Bernstein polynomial.
-/// @param[in] k			Current k-th term of the Bernstein polynomial.
-/// @param[in] x			Current abscissa to evaluate the polynomial.
-/// @return						The value of Bernstein polynomial.
-//------------------------------------------------------------------------------------------------
-const Float EvaluateBernsteinPoly(const Int32 n, const Int32 k, const Float x);
-const Float EvaluateBernsteinPoly(const Int32 n, const Int32 k, const Float x)
-{
-	Float res = EvaluateBinomialCoefficient(n, k) * Pow((Float)(1.0f - x), (Float)(n - k)) * Pow(x, (Float)k);
-	return res;
-}
-
-//------------------------------------------------------------------------------------------------
-/// EvaluateBBMinMax evaluates the bounding box min and max points given a BaseObject instance.
-/// @brief EvaluateBBMinMax evaluates the bounding box extremes of a BaseObject instance.
-/// @param[out] min							The furthest negative extreme.
-/// @param[out] max							The furthest positive extreme.
-/// @param[in] pointObj					The BaseObject instance to evaluate.
-/// @param[in] evaluatePoints		Evaluate the bouding box on the real points position rather than on the value returned by GetRad()
-/// @return							@trueIfOtherwiseFalse{extremes are successfully evaluated}
-//------------------------------------------------------------------------------------------------
-const Bool EvaluateBBMinMax(Vector& min, Vector& max, PointObject* pointObj, const Bool evaluatePoints = false);
-const Bool EvaluateBBMinMax(Vector& min, Vector& max, PointObject* pointObj, const Bool evaluatePoints/*= false*/)
-{
-	if (!pointObj)
-		return false;
-
-	if (evaluatePoints)
+	//------------------------------------------------------------------------------------------------
+	/// EvaluateBinomialCoefficient evaluates the value of the binomial coefficient (https://en.wikipedia.org/wiki/Binomial_coefficient) given the two terms required.
+	/// @brief EvaluateBinomialCoefficient evaluates the value of the binomial coefficients.
+	/// @param[in] n			First term of the binomial coefficient.
+	/// @param[in] k			Second term of the binomial coefficient.
+	/// @return						The binomial coefficient value for n and k.
+	//------------------------------------------------------------------------------------------------
+	static Float EvaluateBinomialCoefficient(const Int32 n, const Int32 k);
+	static Float EvaluateBinomialCoefficient(const Int32 n, const Int32 k)
 	{
-		const Vector* pointsR = pointObj->GetPointR();
-		const Int32		pointsCnt = pointObj->GetPointCount();
+		// Init the res to 1
+		Float res = 1.0f;
 
-		min = Vector(maxon::MAXVALUE_FLOAT64);
-		max = Vector(maxon::MINVALUE_FLOAT64);
+		for (Int32 i = 1; i <= k; i++)
+			res *= (n - (k - i)) / (float)i;
 
-		for (Int32 i = 0; i < pointsCnt; ++i)
+		return res;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	/// EvaluateBernsteinPoly evaluates the Bernstein polynomial (https://en.wikipedia.org/wiki/Bernstein_polynomial) given the k-th term (out of n-th) and the abscissa (x) value to be used in the FFD to evaluate mesh points displacement.
+	/// @brief EvaluateBernsteinPoly computes the Bernstein polynomial coefficients.
+	/// @param[in] n			Total number of terms of the Bernstein polynomial.
+	/// @param[in] k			Current k-th term of the Bernstein polynomial.
+	/// @param[in] x			Current abscissa to evaluate the polynomial.
+	/// @return						The value of Bernstein polynomial.
+	//------------------------------------------------------------------------------------------------
+	static Float EvaluateBernsteinPoly(const Int32 n, const Int32 k, const Float x);
+	static Float EvaluateBernsteinPoly(const Int32 n, const Int32 k, const Float x)
+	{
+		Float res = EvaluateBinomialCoefficient(n, k) * Pow((Float)(1.0f - x), (Float)(n - k)) * Pow(x, (Float)k);
+		return res;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	/// EvaluateBBMinMax evaluates the bounding box min and max points given a BaseObject instance.
+	/// @brief EvaluateBBMinMax evaluates the bounding box extremes of a BaseObject instance.
+	/// @param[out] min							The furthest negative extreme.
+	/// @param[out] max							The furthest positive extreme.
+	/// @param[in] pointObj					The BaseObject instance to evaluate.
+	/// @param[in] evaluatePoints		Evaluate the bouding box on the real points position rather than on the value returned by GetRad()
+	/// @return							@trueIfOtherwiseFalse{extremes are successfully evaluated}
+	//------------------------------------------------------------------------------------------------
+	static Bool EvaluateBBMinMax(Vector& min, Vector& max, PointObject* pointObj, const Bool evaluatePoints = false);
+	static Bool EvaluateBBMinMax(Vector& min, Vector& max, PointObject* pointObj, const Bool evaluatePoints/*= false*/)
+	{
+		if (!pointObj)
+			return false;
+
+		if (evaluatePoints)
 		{
-			const Vector point = pointsR[i];
-			min.x = maxon::Min(min.x, point.x);
-			min.y = maxon::Min(min.y, point.y);
-			min.z = maxon::Min(min.z, point.z);
-			max.x = maxon::Max(max.x, point.x);
-			max.y = maxon::Max(max.y, point.y);
-			max.z = maxon::Max(max.z, point.z);
+			const Vector* pointsR = pointObj->GetPointR();
+			const Int32		pointsCnt = pointObj->GetPointCount();
+
+			min = Vector(maxon::MAXVALUE_FLOAT64);
+			max = Vector(maxon::MINVALUE_FLOAT64);
+
+			for (Int32 i = 0; i < pointsCnt; ++i)
+			{
+				const Vector point = pointsR[i];
+				min.x = maxon::Min(min.x, point.x);
+				min.y = maxon::Min(min.y, point.y);
+				min.z = maxon::Min(min.z, point.z);
+				max.x = maxon::Max(max.x, point.x);
+				max.y = maxon::Max(max.y, point.y);
+				max.z = maxon::Max(max.z, point.z);
+			}
 		}
-	}
-	else
-	{
-		max = pointObj->GetRad();
-		min = -max;
-	}
+		else
+		{
+			max = pointObj->GetRad();
+			min = -max;
+		}
 
-	if (min == max)
-		return false;
+		if (min == max)
+			return false;
 
-	return true;
-}
-
-//------------------------------------------------------------------------------------------------
-/// EvaluateMainAxes evaluates the orthonormal basis given the bounding box min and max points retrieved from a BaseObject instance.
-/// @brief EvaluateMainAxes evaluates the orthonormal basis of a bounding box
-/// @param[out] axisA	The Vector instance returning the first main axis of the modifier cage.
-/// @param[out] axisB	The Vector instance returning the second main axis of the modifier cage.
-/// @param[out] axisC	The Vector instance returning the third main axis of the modifier cage.
-/// @param[in] min		The Vector instance storing the bounding box furthest negative extreme.
-/// @param[in] max		The Vector instance storing the bounding box furthest positive extreme.
-/// @param[in] setST	The Bool instance defining the if STU axis should always match XYZ.
-/// @return						@trueIfOtherwiseFalse{the three main axes are set}
-//------------------------------------------------------------------------------------------------
-const Bool EvaluateMainAxes(Vector& axisA, Vector& axisB, Vector& axisC, const Vector& min, const Vector& max, const Bool setST = true);
-const Bool EvaluateMainAxes(Vector& axisA, Vector& axisB, Vector& axisC, const Vector& min, const Vector& max, const Bool setST/*= true*/)
-{
-	if ((max.x - min.x) > 0 && (max.y - min.y) > 0)
-	{
-		axisA = Vector(max.x - min.x, 0, 0);
-		axisB = Vector(0, max.y - min.y, 0);
-		axisC = Cross(axisA, axisB);
 		return true;
 	}
-	if (setST)
+
+	//------------------------------------------------------------------------------------------------
+	/// EvaluateMainAxes evaluates the orthonormal basis given the bounding box min and max points retrieved from a BaseObject instance.
+	/// @brief EvaluateMainAxes evaluates the orthonormal basis of a bounding box
+	/// @param[out] axisA	The Vector instance returning the first main axis of the modifier cage.
+	/// @param[out] axisB	The Vector instance returning the second main axis of the modifier cage.
+	/// @param[out] axisC	The Vector instance returning the third main axis of the modifier cage.
+	/// @param[in] min		The Vector instance storing the bounding box furthest negative extreme.
+	/// @param[in] max		The Vector instance storing the bounding box furthest positive extreme.
+	/// @param[in] setST	The Bool instance defining the if STU axis should always match XYZ.
+	/// @return						@trueIfOtherwiseFalse{the three main axes are set}
+	//------------------------------------------------------------------------------------------------
+	static Bool EvaluateMainAxes(Vector& axisA, Vector& axisB, Vector& axisC, const Vector& min, const Vector& max, const Bool setST = true);
+	static Bool EvaluateMainAxes(Vector& axisA, Vector& axisB, Vector& axisC, const Vector& min, const Vector& max, const Bool setST/*= true*/)
 	{
-		if ((max.y - min.y) > 0 && (max.z - min.z) > 0)
+		if ((max.x - min.x) > 0 && (max.y - min.y) > 0)
 		{
-			axisA = Vector(0, 0, max.z - min.z);
+			axisA = Vector(max.x - min.x, 0, 0);
 			axisB = Vector(0, max.y - min.y, 0);
 			axisC = Cross(axisA, axisB);
 			return true;
 		}
-
-		if ((max.x - min.x) > 0 && (max.z - min.z) > 0)
+		if (setST)
 		{
-			axisA = Vector(max.x - min.x, 0, 0);
-			axisB = Vector(0, 0, max.z - min.z);
-			axisC = Cross(axisA, axisB);
-			return true;
+			if ((max.y - min.y) > 0 && (max.z - min.z) > 0)
+			{
+				axisA = Vector(0, 0, max.z - min.z);
+				axisB = Vector(0, max.y - min.y, 0);
+				axisC = Cross(axisA, axisB);
+				return true;
+			}
+
+			if ((max.x - min.x) > 0 && (max.z - min.z) > 0)
+			{
+				axisA = Vector(max.x - min.x, 0, 0);
+				axisB = Vector(0, 0, max.z - min.z);
+				axisC = Cross(axisA, axisB);
+				return true;
+			}
 		}
-	}
-	else
-	{
-		if ((max.y - min.y) > 0 && (max.z - min.z) > 0)
+		else
 		{
-			axisB = Vector(0, max.y - min.y, 0);
-			axisC = Vector(0, 0, max.z - min.z);
-			axisA = Cross(axisC, axisB);
-			return true;
+			if ((max.y - min.y) > 0 && (max.z - min.z) > 0)
+			{
+				axisB = Vector(0, max.y - min.y, 0);
+				axisC = Vector(0, 0, max.z - min.z);
+				axisA = Cross(axisC, axisB);
+				return true;
+			}
+
+			if ((max.x - min.x) > 0 && (max.z - min.z) > 0)
+			{
+				axisA = Vector(max.x - min.x, 0, 0);
+				axisC = Vector(0, 0, max.z - min.z);
+				axisB = Cross(axisA, axisC);
+				return true;
+			}
 		}
 
-		if ((max.x - min.x) > 0 && (max.z - min.z) > 0)
-		{
-			axisA = Vector(max.x - min.x, 0, 0);
-			axisC = Vector(0, 0, max.z - min.z);
-			axisB = Cross(axisA, axisC);
-			return true;
-		}
-	}
-
-	return false;
-}
-
-//------------------------------------------------------------------------------------------------
-/// FillBernsteinTerms, given the number of segments composing the lattice modifier, evaluates the Bernstein polynomial at a given s-th and t-th cage point and store in a 2-dim BaseArray.
-/// @brief FillBernsteinTerms evaluates the Bernstein polynomial at a given s-th and t-th cage point and store in 2-dim BaseArray.
-/// @param[out] pointFFD	The FFD_Data instance storing the relevant data for the FFD evaluation.
-/// @param[in] sSegs			The number of segments along the S-axis of the deformation cage.
-/// @param[in] tSegs			The number of segments along the T-axis of the deformation cage.
-/// @return								@trueIfOtherwiseFalse{evaluation is performed}
-//------------------------------------------------------------------------------------------------
-const Bool FillBernsteinTerms(FFD_Data& pointFFD, const Int32 sSegs = 0, const Int32 tSegs = 0);
-const Bool FillBernsteinTerms(FFD_Data& pointFFD, const Int32 sSegs/*= 0*/, const Int32 tSegs/*= 0*/)
-{
-	if ((sSegs == 0) && (tSegs == 0))
 		return false;
-
-	for (Int32 i = 0; i <= sSegs; ++i)
-	{
-		for (Int32 j = 0; j <= tSegs; ++j)
-		{
-			pointFFD._bernsteinPolyTerms[1].Append(EvaluateBernsteinPoly(tSegs, j, pointFFD._t));
-		}
-		pointFFD._bernsteinPolyTerms[0].Append(EvaluateBernsteinPoly(sSegs, i, pointFFD._s));
 	}
 
-	return true;
-}
+	//------------------------------------------------------------------------------------------------
+	/// FillBernsteinTerms, given the number of segments composing the lattice modifier, evaluates the Bernstein polynomial at a given s-th and t-th cage point and store in a 2-dim BaseArray.
+	/// @brief FillBernsteinTerms evaluates the Bernstein polynomial at a given s-th and t-th cage point and store in 2-dim BaseArray.
+	/// @param[out] pointFFD	The FFD_Data instance storing the relevant data for the FFD evaluation.
+	/// @param[in] sSegs			The number of segments along the S-axis of the deformation cage.
+	/// @param[in] tSegs			The number of segments along the T-axis of the deformation cage.
+	/// @return								@trueIfOtherwiseFalse{evaluation is performed}
+	//------------------------------------------------------------------------------------------------
+	static Bool FillBernsteinTerms(FFD_Data& pointFFD, const Int32 sSegs = 0, const Int32 tSegs = 0);
+	static Bool FillBernsteinTerms(FFD_Data& pointFFD, const Int32 sSegs/*= 0*/, const Int32 tSegs/*= 0*/)
+	{
+		if ((sSegs == 0) && (tSegs == 0))
+			return false;
+
+		for (Int32 i = 0; i <= sSegs; ++i)
+		{
+			for (Int32 j = 0; j <= tSegs; ++j)
+			{
+				pointFFD._bernsteinPolyTerms[1].Append(EvaluateBernsteinPoly(tSegs, j, pointFFD._t));
+			}
+			pointFFD._bernsteinPolyTerms[0].Append(EvaluateBernsteinPoly(sSegs, i, pointFFD._s));
+		}
+
+		return true;
+	}
 }
 
 //------------------------------------------------------------------------------------------------
@@ -211,10 +211,6 @@ const Bool FillBernsteinTerms(FFD_Data& pointFFD, const Int32 sSegs/*= 0*/, cons
 /// Mesh modification is controlled by specifying S/T segmentations of the deforming plane,
 /// the normal check and the normal check threshold.
 //------------------------------------------------------------------------------------------------
-			
-	/*! \brief A simple object modifier deforming the parent mesh using a lattice plane via B-Spline interpolation.
-	 */
-
 class LatticePlaneModifier : public ObjectData
 {
 	INSTANCEOF(LatticePlaneModifier, ObjectData)
@@ -240,7 +236,7 @@ private:
 	/// @param[out] pointObj	The pointer to the PointObject instance storing the cage representation.
 	/// @return								@trueIfOtherwiseFalse{PointObject is updated}
 	//------------------------------------------------------------------------------------------------
-	const Bool UpdateCageData(PointObject* pointObj);
+	Bool UpdateCageData(PointObject* pointObj);
 
 	//------------------------------------------------------------------------------------------------
 	/// UpdateSData updates the PointObject instance when the parameters (size and segmentation) related to the S-axis change.
@@ -250,7 +246,7 @@ private:
 	/// @param[in] sSize			The length of the deformer along the S-axis.
 	/// @return								@trueIfOtherwiseFalse{the update referred to the S-axis is properly achieved}
 	//------------------------------------------------------------------------------------------------
-	const Bool UpdateSData(PointObject* pointObj, const Int32 sSegs, const Float sSize);
+	Bool UpdateSData(PointObject* pointObj, const Int32 sSegs, const Float sSize);
 
 	//------------------------------------------------------------------------------------------------
 	/// UpdateTData updates the PointObject instance when the parameters (size and segmentation) related to the T-axis change.
@@ -260,7 +256,7 @@ private:
 	/// @param[in] tSize			The length of the deformer along the T-axis.
 	/// @return								@trueIfOtherwiseFalse{the update referred to the T-axis is properly achieved}
 	//------------------------------------------------------------------------------------------------
-	const Bool UpdateTData(PointObject* pointObj, const Int32 tSegs, const Float tSize);
+	Bool UpdateTData(PointObject* pointObj, const Int32 tSegs, const Float tSize);
 
 	//------------------------------------------------------------------------------------------------
 	/// PrepareFFD fills up the FFD_Data BaseArray responsible for storing for each vertex of the deformed object the values to properly evaluate the Bernstein polynomials at each cage's point
@@ -270,7 +266,7 @@ private:
 	/// @param[in] modPointObj	The pointer to the PointObject instance representing the modifier's cage.
 	/// @return									@trueIfOtherwiseFalse{the BaseArray is properly filled up}
 	//------------------------------------------------------------------------------------------------
-	const Bool PrepareFFD(maxon::BaseArray<FFD_Data>& pointsFFD, PointObject* opPointObj, PointObject* modPointObj);
+	Bool PrepareFFD(maxon::BaseArray<FFD_Data>& pointsFFD, PointObject* opPointObj, PointObject* modPointObj);
 
 	//------------------------------------------------------------------------------------------------
 	/// EvaluateFFD evaluates, looping over each point of the cage, the position of the deformed object's points.
@@ -280,7 +276,7 @@ private:
 	/// @param[in] pointsFFD		The FFD_Data BaseArray containing the values used to compute new position the deformed object's points.
 	/// @return									@trueIfOtherwiseFalse{the BaseArray is properly filled up}
 	//------------------------------------------------------------------------------------------------
-	const Bool EvaluateFFD(PointObject* opPointObj, PointObject* modPointObj, const maxon::BaseArray<FFD_Data>& pointsFFD);
+	Bool EvaluateFFD(PointObject* opPointObj, PointObject* modPointObj, const maxon::BaseArray<FFD_Data>& pointsFFD);
 
 	//------------------------------------------------------------------------------------------------
 	/// CheckNormalAlignmentWithModifierZ verify the alignment of a vertex normal with the modifiers Z-axis.
@@ -289,7 +285,7 @@ private:
 	/// @param[in] angleThd			The threshold value for the dot product between the two normals.
 	/// @return									@trueIfOtherwiseFalse{the normals dot product is within the threshold range}
 	//------------------------------------------------------------------------------------------------
-	const Bool CheckNormalAlignmentWithModifierZ(const FFD_Data* pointData, const Float angleThd = 0);
+	Bool CheckNormalAlignmentWithModifierZ(const FFD_Data* pointData, const Float angleThd = 0);
 
 	//------------------------------------------------------------------------------------------------
 	/// DrawPoints is responsible for representing in viewport the points used to modify the FFD cage.
@@ -312,7 +308,7 @@ private:
 	/// @param[in] onlyZ					The flag to optionally reset only the Z-component of the modifier's points.
 	/// @return										@trueIfOtherwiseFalse{PointObject is successfully updated}
 	//------------------------------------------------------------------------------------------------
-	const Bool ResetCagePoints(PointObject* pointObj, const Float sSize, const Float tSize, const Int32 sSegs, const Int32 tSegs, const Bool onlyZ = false);
+	Bool ResetCagePoints(PointObject* pointObj, const Float sSize, const Float tSize, const Int32 sSegs, const Int32 tSegs, const Bool onlyZ = false);
 
 	//------------------------------------------------------------------------------------------------
 	/// EvaluateAndStoreVertexNormals is responsible to evaluate the vertex normal for each vertex and store in the corresponding FFD_Data entry.
@@ -322,7 +318,7 @@ private:
 	/// @param[in] polygonObj			The pointer to the PolygonObject instance whose vertex normals should be evaluated.
 	/// @return										@trueIfOtherwiseFalse{successful}
 	//------------------------------------------------------------------------------------------------
-	const Bool EvaluateAndStoreVertexNormals(maxon::BaseArray<FFD_Data>& pointsFFD, PolygonObject* polygonObj);
+	Bool EvaluateAndStoreVertexNormals(maxon::BaseArray<FFD_Data>& pointsFFD, PolygonObject* polygonObj);
 
 public:
 protected:
@@ -343,7 +339,7 @@ private:
 	Float		_normalAngleThr;	///< Normal check threshold value.
 };
 
-const Bool LatticePlaneModifier::UpdateCageData(PointObject* pointObj)
+Bool LatticePlaneModifier::UpdateCageData(PointObject* pointObj)
 {
 	if (!pointObj)
 		return false;
@@ -409,7 +405,7 @@ const Bool LatticePlaneModifier::UpdateCageData(PointObject* pointObj)
 	return true;
 }
 
-const Bool LatticePlaneModifier::UpdateSData(PointObject* pointObj, const Int32 sSegs, const Float sSize)
+Bool LatticePlaneModifier::UpdateSData(PointObject* pointObj, const Int32 sSegs, const Float sSize)
 {
 	if (!pointObj || sSegs < 1 || sSize <= 0)
 		return false;
@@ -473,7 +469,7 @@ const Bool LatticePlaneModifier::UpdateSData(PointObject* pointObj, const Int32 
 	return true;
 }
 
-const Bool LatticePlaneModifier::UpdateTData(PointObject* pointObj, const Int32 tSegs, const Float tSize)
+Bool LatticePlaneModifier::UpdateTData(PointObject* pointObj, const Int32 tSegs, const Float tSize)
 {
 	if (!pointObj || tSegs < 1 || tSize <= 0)
 		return false;
@@ -538,7 +534,7 @@ const Bool LatticePlaneModifier::UpdateTData(PointObject* pointObj, const Int32 
 	return true;
 }
 
-const Bool LatticePlaneModifier::PrepareFFD(maxon::BaseArray<FFD_Data>& pointsFFD, PointObject* opPointObj, PointObject* modPointObj)
+Bool LatticePlaneModifier::PrepareFFD(maxon::BaseArray<FFD_Data>& pointsFFD, PointObject* opPointObj, PointObject* modPointObj)
 {
 	if (!opPointObj || !modPointObj)
 		return false;
@@ -605,7 +601,7 @@ const Bool LatticePlaneModifier::PrepareFFD(maxon::BaseArray<FFD_Data>& pointsFF
 	return true;
 }
 
-const Bool LatticePlaneModifier::EvaluateFFD(PointObject* opPointObj, PointObject* modPointObj, const maxon::BaseArray<FFD_Data>& pointsFFD)
+Bool LatticePlaneModifier::EvaluateFFD(PointObject* opPointObj, PointObject* modPointObj, const maxon::BaseArray<FFD_Data>& pointsFFD)
 {
 	// Check the input parameter and verify validity
 	if (pointsFFD.GetCount() == 0 || !opPointObj || !modPointObj)
@@ -679,7 +675,7 @@ const Bool LatticePlaneModifier::EvaluateFFD(PointObject* opPointObj, PointObjec
 	return true;
 }
 
-const Bool LatticePlaneModifier::CheckNormalAlignmentWithModifierZ(const FFD_Data* pointData, const Float angleThd/*= 0*/)
+Bool LatticePlaneModifier::CheckNormalAlignmentWithModifierZ(const FFD_Data* pointData, const Float angleThd/*= 0*/)
 {
 	// Retrieve the orientation of the modifier in the object space and check against the direction
 	// of the normal at the current point.
@@ -727,16 +723,18 @@ void LatticePlaneModifier::DrawPoints(BaseDraw* bd, BaseSelect* pointsBS, const 
 
 	// Draw the unselected points.
 	bd->SetPen(GetViewColor(VIEWCOLOR_INACTIVEPOINT));
+	const Int32 unselPntsCnt = (Int32)unselPoints.GetCount();
 	if (unselPoints.GetFirst())
-		bd->DrawPointArray(pointsCnt, unselPoints.GetFirst());
+		bd->DrawPointArray(unselPntsCnt, unselPoints.GetFirst());
 
 	// Draw the selected points.
 	bd->SetPen(GetViewColor(VIEWCOLOR_ACTIVEPOINT));
+	const Int32 selPntsCnt = (Int32)selPoints.GetCount();
 	if (selPoints.GetFirst())
-		bd->DrawPointArray(pointsCnt, selPoints.GetFirst());
+		bd->DrawPointArray(selPntsCnt, selPoints.GetFirst());
 }
 
-const Bool LatticePlaneModifier::ResetCagePoints(PointObject* pointObj, const Float sSize, const Float tSize, const Int32 sSegs, const Int32 tSegs, const Bool onlyZ/*= false*/)
+Bool LatticePlaneModifier::ResetCagePoints(PointObject* pointObj, const Float sSize, const Float tSize, const Int32 sSegs, const Int32 tSegs, const Bool onlyZ/*= false*/)
 {
 	if (!pointObj)
 		return false;
@@ -762,7 +760,7 @@ const Bool LatticePlaneModifier::ResetCagePoints(PointObject* pointObj, const Fl
 	return true;
 }
 
-const Bool LatticePlaneModifier::EvaluateAndStoreVertexNormals(maxon::BaseArray<FFD_Data>& pointsFFD, PolygonObject* polygonObj)
+Bool LatticePlaneModifier::EvaluateAndStoreVertexNormals(maxon::BaseArray<FFD_Data>& pointsFFD, PolygonObject* polygonObj)
 {
 	// Check input PolygonObject pointer instance validity.
 	if (!polygonObj)
@@ -812,7 +810,7 @@ const Bool LatticePlaneModifier::EvaluateAndStoreVertexNormals(maxon::BaseArray<
 /// @{
 Bool LatticePlaneModifier::Init(GeListNode* node)
 {
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	// Retrieve the BaseContainer object belonging to the generator.
@@ -898,7 +896,7 @@ void LatticePlaneModifier::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 
 	// Retrieve the BaseContainer pointer instance of the input BaseObject and check validity
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return;
 
 	// Retrieve the sizes of the planar cage.
@@ -975,7 +973,7 @@ Bool LatticePlaneModifier::GetDEnabling(GeListNode* node, const DescID& id, cons
 Bool LatticePlaneModifier::ModifyObject(BaseObject* mod, BaseDocument* doc, BaseObject* op, const Matrix& op_mg, const Matrix& mod_mg, Float lod, Int32 flags, BaseThread* thread)
 {
 	// Check the input parameters validity.
-	if (nullptr == mod || nullptr == op || nullptr == doc || nullptr == thread)
+	if (!mod || !op || !doc || !thread)
 		return false;
 
 	// Retrieve BaseContainer instance pointer and check for validity

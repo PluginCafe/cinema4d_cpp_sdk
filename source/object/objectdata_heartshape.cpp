@@ -21,8 +21,8 @@ namespace HeartShapeHelpers
 	/// @param[in] radiusValue 				Radius of the circle circumscribing the polygonal curve.
 	/// @return												True if creation process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateHeartShape(SplineObject& splineObj, const Float& radiusValue);
-	const Bool CreateHeartShape(SplineObject& splineObj, const Float& radiusValue)
+	static Bool CreateHeartShape(SplineObject& splineObj, const Float& radiusValue);
+	static Bool CreateHeartShape(SplineObject& splineObj, const Float& radiusValue)
 	{
 
 		if (radiusValue == 0)
@@ -42,13 +42,13 @@ namespace HeartShapeHelpers
 
 		// Access the array of the points representing the curve passing points.
 		Vector* splinePntsPtr = splineObj.GetPointW();
-		if (nullptr == splinePntsPtr || splineObj.GetPointCount() != 6)
+		if (splinePntsPtr || splineObj.GetPointCount() != 6)
 			return false;
 
 		// Access the array of the tangents (left and right) at  the curve passing points.
 		// NOTE:The tangents naming refers the following scheme (vl)<--(point)-->(vr)
 		Tangent* splineTgtsPtr = splineObj.GetTangentW();
-		if (nullptr == splineTgtsPtr || splineObj.GetTangentCount() != 6)
+		if (splineTgtsPtr || splineObj.GetTangentCount() != 6)
 			return false;
 
 		// Set the control vertexes' position and tangents accordingly.
@@ -78,7 +78,7 @@ namespace HeartShapeHelpers
 
 		// Access the curve's segments array.
 		Segment* splineSegsPtr = splineObj.GetSegmentW();
-		if (nullptr == splineSegsPtr)
+		if (splineSegsPtr)
 			return false;
 
 		// Set the closure status and the number of CVs for the only one segment existing.
@@ -95,9 +95,6 @@ namespace HeartShapeHelpers
 /// The example, by overriding the GetCountour method, delivers a tool to generate heart-shaped 
 /// contours by specifying the overall object radius.
 //------------------------------------------------------------------------------------------------
-
-/*! \brief A simple object generator creating a heart-shaped curve.
-*/
 class HeartShape : public ObjectData
 {
 	INSTANCEOF(HeartShape, ObjectData)
@@ -113,11 +110,11 @@ public:
 /// @{
 Bool HeartShape::Init(GeListNode* node)
 {
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	//	Retrieve the BaseContainer object belonging to the generator.
-	BaseObject* baseObjectPtr = (BaseObject*)node;
+	BaseObject* baseObjectPtr = static_cast<BaseObject*>(node);
 	BaseContainer* objectDataPtr = baseObjectPtr->GetDataInstance();
 
 	//	Fill the retrieve BaseContainer object with initial values.
@@ -129,7 +126,7 @@ Bool HeartShape::Init(GeListNode* node)
 void HeartShape::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 {
 	// Check the passed pointers.
-	if (nullptr == op || nullptr == mp || nullptr == rad)
+	if (!op || ! mp || !rad)
 		return;
 
 	//	Reset the barycenter position and the bbox radius vector.
@@ -144,7 +141,7 @@ void HeartShape::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return;
 
 	// Set radius values accordingly to the bbox values stored during the init.
@@ -155,7 +152,7 @@ void HeartShape::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 SplineObject* HeartShape::GetContour(BaseObject* op, BaseDocument* doc, Float lod, BaseThread* bt)
 {
 	// Check the passed pointer.
-	if (nullptr == op)
+	if (!op)
 		return nullptr;
 
 	//	Retrieve the BaseContainer object belonging to the generator.
@@ -167,12 +164,14 @@ SplineObject* HeartShape::GetContour(BaseObject* op, BaseDocument* doc, Float lo
 	// Alloc a SplineObject and check it.
 	// NOTE: in order to use and set tangents the spline type should be anything but linear
 	SplineObject* splineObjPtr = SplineObject::Alloc(6, SPLINETYPE_BEZIER);
-	if (nullptr == splineObjPtr)
+	if (!splineObjPtr)
 		return nullptr;
 
 	// Invoke the helper function to set the SplineObject object member accordingly.
 	if (HeartShapeHelpers::CreateHeartShape(*splineObjPtr, heartRadius))
+	{
 		return splineObjPtr;
+	}
 	else
 	{
 		SplineObject::Free(splineObjPtr);

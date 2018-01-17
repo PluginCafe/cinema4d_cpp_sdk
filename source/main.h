@@ -88,6 +88,7 @@ Bool RegisterSculptBrushSpline();
 Bool RegisterGetSetDParameterExample();
 Bool RegisterTakeTestCommmands();
 Bool RegisterPolygonReductionTest();
+Bool RegisterObjectHyperFileExample();
 Bool RegisterPlaneByPolygons();
 Bool RegisterGreekTemple();
 Bool RegisterHeartShape();
@@ -98,7 +99,6 @@ Bool RegisterRevolvedMesh();
 Bool RegisterRuledMesh();
 Bool RegisterParticlesShuffling();
 Bool RegisterVertexHandle();
-Bool RegisterObjectHyperFileExample();
 
 void CommandLineRendering(C4DPL_CommandLineArgs* args);
 

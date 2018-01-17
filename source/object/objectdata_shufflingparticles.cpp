@@ -21,8 +21,8 @@ namespace ShufflingParticlesHelpers
 	/// @param[in] bd 				The passed BaseDraw instance.
 	/// @param[in] cubeSizes 	The vector containing the cube sizes.
 	//------------------------------------------------------------------------------------------------
-	void DrawCube(BaseDraw& bd, const Vector& cubeSizes);
-	void DrawCube(BaseDraw& bd, const Vector& cubeSizes)
+	static void DrawCube(BaseDraw& bd, const Vector& cubeSizes);
+	static void DrawCube(BaseDraw& bd, const Vector& cubeSizes)
 	{
 		maxon::BaseArray<Vector> cubeVertices; 
 		cubeVertices.Resize(8);
@@ -66,8 +66,8 @@ namespace ShufflingParticlesHelpers
 	/// @param[in] partModSizes							The reference to the vector representing the modifier's size.
 	/// @return 														True if particle is contained in the modifier box.
 	//------------------------------------------------------------------------------------------------
-	const Bool IsParticleInObjectBoundaries(const Matrix& partModGlobalMatrixInv, const Vector& particleGlobalPosition, const Vector& partModSizes);
-	const Bool IsParticleInObjectBoundaries(const Matrix& partModGlobalMatrixInv, const Vector& particleGlobalPosition, const Vector& partModSizes)
+	static Bool IsParticleInObjectBoundaries(const Matrix& partModGlobalMatrixInv, const Vector& particleGlobalPosition, const Vector& partModSizes);
+	static Bool IsParticleInObjectBoundaries(const Matrix& partModGlobalMatrixInv, const Vector& particleGlobalPosition, const Vector& partModSizes)
 	{
 		// Convert the offset vector of the particle from world space to local (modifier) space
 		const Vector particleLocalModPosition = partModGlobalMatrixInv * particleGlobalPosition;
@@ -89,9 +89,6 @@ namespace ShufflingParticlesHelpers
 /// ObjectData implementation providing particles deformation. It shuffles particle trajectories 
 /// based on the seed parameter and on the trajectory deformation strength. 
 //------------------------------------------------------------------------------------------------
-
-/*! \brief A particle deformed shuffling reaching particles' trajectory on random directions
-*/
 class ShufflingParticles : public ObjectData
 {
 	INSTANCEOF(ShufflingParticles, ObjectData)
@@ -108,7 +105,7 @@ public:
 /// @{
 Bool ShufflingParticles::Init(GeListNode* node)
 {
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	//	Retrieve the BaseContainer object belonging to the generator.
@@ -116,7 +113,7 @@ Bool ShufflingParticles::Init(GeListNode* node)
 
 	BaseContainer* bcPtr = baseObjectPtr->GetDataInstance();
 
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return false;
 
 	//	Fill the retrieve BaseContainer object with initial values.
@@ -131,7 +128,7 @@ Bool ShufflingParticles::Init(GeListNode* node)
 
 DRAWRESULT ShufflingParticles::Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, BaseDrawHelp* bh)
 {
-	if (nullptr == op || nullptr == bd || nullptr == bh)
+	if (!op || !bd || !bh)
 		return DRAWRESULT_SKIP;
 
 	// Retrieve the object world transformation matrix
@@ -152,7 +149,7 @@ DRAWRESULT ShufflingParticles::Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw*
 void ShufflingParticles::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 {
 	// Check the passed pointers.
-	if (nullptr == op || nullptr == mp || nullptr == rad)
+	if (!op || !mp || !rad)
 		return;
 
 	//	Reset the barycenter position and the bounding box radius vector.
@@ -167,7 +164,7 @@ void ShufflingParticles::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* bcPtr = op->GetDataInstance();
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return;
 
 	// Set radius values accordingly to arbitrary default value (they won't be used).
@@ -179,13 +176,13 @@ void ShufflingParticles::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 void ShufflingParticles::ModifyParticles(BaseObject* op, Particle* pp, BaseParticle* ss, Int32 pcnt, Float diff)
 {
 	// Check the passed pointers
-	if (nullptr == op || nullptr == pp || nullptr == ss)
+	if (!op || !pp || !ss)
 		return;
 
 	BaseContainer* bcPtr = op->GetDataInstance();
 
 	// Check the retrieved BaseContainer instance belonging to the particle modifier.
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return;
 
 	// Retrieve the particles modifiers parameters value

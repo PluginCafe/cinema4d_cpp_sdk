@@ -20,8 +20,8 @@ namespace PorcupineModifierHelpers
 	/// @param[in] mat				The matrix to be verified.
 	/// @return								True if matrix produces no offset, rotation and scaling
 	//------------------------------------------------------------------------------------------------
-	const Bool IsMatrixIdentity(const Matrix& mat);
-	const Bool IsMatrixIdentity(const Matrix& mat)
+	static Bool IsMatrixIdentity(const Matrix& mat);
+	static Bool IsMatrixIdentity(const Matrix& mat)
 	{
 		if (mat.off == Vector(0, 0, 0) && mat.v1 == Vector(1, 0, 0) && mat.v2 == Vector(0, 1, 0) && mat.v3 == Vector(0, 0, 1))
 			return true;
@@ -37,8 +37,8 @@ namespace PorcupineModifierHelpers
 	/// @param[in] rndGen			Random generator reference.
 	/// @return								The random number within the range.
 	//------------------------------------------------------------------------------------------------
-	const Int32 PickRandomNumberBetweenMinMax(const Int32 &min, const Int32& max, Random& rndGen);
-	const Int32 PickRandomNumberBetweenMinMax(const Int32 &min, const Int32& max, Random& rndGen)
+	static Int32 PickRandomNumberBetweenMinMax(const Int32 &min, const Int32& max, Random& rndGen);
+	static Int32 PickRandomNumberBetweenMinMax(const Int32 &min, const Int32& max, Random& rndGen)
 	{
 		const Int32 retVal = SAFEINT32(rndGen.Get01() * (1 + max - min)) + min;
 		return retVal;
@@ -114,15 +114,15 @@ private:
 Bool PorcupineModifier::AllocateArrays(const Int32& currentArraySize, const Int32 previousArraySize)
 {	
 	// Allocate the float array of noise values based on the number of object points.
-	if (nullptr == _noiseArray && currentArraySize)
+	if (!_noiseArray && currentArraySize)
 		_noiseArray = NewMemClear(Float, currentArraySize);
 
 	// Allocate the normals array based on the number of object points.
-	if (nullptr == _pointsNrmArray && currentArraySize)
+	if (!_pointsNrmArray && currentArraySize)
 		_pointsNrmArray = NewMemClear(Vector, currentArraySize);
 
 	// Allocate the boolean array of the changing status based on the number of object points.
-	if (nullptr == _changedPntsArray && currentArraySize)
+	if (!_changedPntsArray && currentArraySize)
 		_changedPntsArray = NewMemClear(Bool, currentArraySize);
 
 	// Check object points count and update accordingly the allocated arrays.
@@ -136,7 +136,7 @@ Bool PorcupineModifier::AllocateArrays(const Int32& currentArraySize, const Int3
 		_changedPntsArray = NewMemClear(Bool, currentArraySize);
 	}
 
-	if (nullptr == _noiseArray || nullptr == _pointsNrmArray || nullptr == _changedPntsArray)
+	if (!_noiseArray || !_pointsNrmArray || !_changedPntsArray)
 		return false;
 
 	return true;
@@ -144,7 +144,7 @@ Bool PorcupineModifier::AllocateArrays(const Int32& currentArraySize, const Int3
 
 Bool PorcupineModifier::FillFaceNormals(const CPolygon* objectPolysPtrR, const Int32 objectPolysCount)
 {
-	if (nullptr == objectPolysPtrR || nullptr == _pointsNrmArray || objectPolysCount == 0)
+	if (!objectPolysPtrR || !_pointsNrmArray || objectPolysCount == 0)
 		return false;
 
 	// Compute the vertex normal starting from the face normal because this information will be
@@ -173,7 +173,7 @@ Bool PorcupineModifier::FillFaceNormals(const CPolygon* objectPolysPtrR, const I
 
 Bool PorcupineModifier::DisplacePointsAlongDirection(const Int32& changeablePntsCount, const Int32& pntsCount, BaseThread* bt, Random& randomGen, const Matrix& op_mg, const Matrix& mod_mg, const Vector& modLocalOffset)
 {	
-	if (changeablePntsCount == 0 || pntsCount == 0 || nullptr == bt)
+	if (changeablePntsCount == 0 || pntsCount == 0 || !bt)
 		return false;
 
 	// Compute the objectspace-to-modifierspace and modifierspace-to-objectspace matrices.
@@ -242,14 +242,14 @@ Bool PorcupineModifier::DisplacePointsAlongDirection(const Int32& changeablePnts
 
 Bool PorcupineModifier::Init(GeListNode* node)
 {
-	if (nullptr == node)
+	if (!node)
 		return false;
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseObject* baseObjectPtr = static_cast<BaseObject*>(node);
 
 	BaseContainer* objectDataPtr = baseObjectPtr->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return false;
 
 	// Fill the retrieve BaseContainer object with initial values.
@@ -267,14 +267,23 @@ Bool PorcupineModifier::Init(GeListNode* node)
 void PorcupineModifier::Free(GeListNode* node)
 {
 	// Deallocate all the arrays used to store noise, normal and vertices change status.
-	if (nullptr != _noiseArray)
+	if (_noiseArray)
+	{
 		DeleteMem(_noiseArray);
+		_noiseArray = nullptr;
+	}
 
-	if (nullptr != _pointsNrmArray)
+	if (_pointsNrmArray)
+	{
 		DeleteMem(_pointsNrmArray);
+		_pointsNrmArray = nullptr;
+	}
 
-	if (nullptr != _changedPntsArray)
+	if (_changedPntsArray)
+	{
 		DeleteMem(_changedPntsArray);
+		_changedPntsArray = nullptr;
+	}
 }
 
 void PorcupineModifier::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
@@ -284,7 +293,7 @@ void PorcupineModifier::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 	rad->SetZero();
 
 	// Check the passed pointers.
-	if (nullptr == op || nullptr == mp || nullptr == rad)
+	if (!op || !mp || !rad)
 		return;
 	BaseObject* parentObj = op->GetUp();
 	if (!parentObj)
@@ -298,7 +307,7 @@ void PorcupineModifier::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return;
 
 	// Set radius values accordingly to arbitrary default value (they won't be used).
@@ -309,7 +318,7 @@ void PorcupineModifier::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 
 Bool PorcupineModifier::ModifyObject(BaseObject* mod, BaseDocument* doc, BaseObject* op, const Matrix& op_mg, const Matrix& mod_mg, Float lod, Int32 flags, BaseThread* thread)
 {
-	if (nullptr == mod || nullptr == op || nullptr == doc || nullptr == thread)
+	if (!mod || !op || !doc || !thread)
 		return false;
 
 	// Retrieve the BaseContainer instance of the modifier.

@@ -39,12 +39,12 @@ private:
 	/// @param[in] vertexIdx 	The value of the vertex index.
 	/// @return 							The value of the angle in radians.
 	//------------------------------------------------------------------------------------------------
-	const Float GetCurrentAngle(const Int32& vertexIdx);
+	Float GetCurrentAngle(const Int32& vertexIdx);
 };
 
 /// @name ObjectData functions
 /// @{
-const Float VertexHandle::GetCurrentAngle(const Int32& vertexIdx)
+Float VertexHandle::GetCurrentAngle(const Int32& vertexIdx)
 {
 	// Set the current angle delta to 120deg as on an equilateral triangle
 	const Float angleDelta = -2 * PI / 3;
@@ -78,13 +78,13 @@ Int32 VertexHandle::GetHandleCount(BaseObject* op)
 
 void VertexHandle::GetHandle(BaseObject* op, Int32 i, HandleInfo& info)
 {
-	if (nullptr == op)
+	if (!op)
 		return;
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* bcPtr = op->GetDataInstance();
 
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return;
 
 	// Define a vector containing for each of its components the distance of each vertex of the 
@@ -109,13 +109,13 @@ void VertexHandle::GetHandle(BaseObject* op, Int32 i, HandleInfo& info)
 
 void VertexHandle::SetHandle(BaseObject* op, Int32 i, Vector p, const HandleInfo& info)
 {
-	if (nullptr == op)
+	if (!op)
 		return;
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* bcPtr = op->GetDataInstance();
 
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return;
 
 	// Project the final position of the handle (after being moved) on the moving direction in 
@@ -143,13 +143,13 @@ void VertexHandle::GetDimension(BaseObject *op, Vector *mp, Vector *rad)
 	mp->SetZero();
 	rad->SetZero();
 
-	if (nullptr == op)
+	if (!op)
 		return;
 
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* bcPtr = op->GetDataInstance();
 
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return;
 
 	// Store vertexes distances in a vector.
@@ -162,11 +162,11 @@ void VertexHandle::GetDimension(BaseObject *op, Vector *mp, Vector *rad)
 
 BaseObject* VertexHandle::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 {
-	if (nullptr == op)
+	if (!op)
 		return nullptr;
 
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return nullptr;
 
 	// Retrieve the distance-from-origin values from the Attribute Manager.
@@ -174,12 +174,12 @@ BaseObject* VertexHandle::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 
 	// Allocate a PolygonObject instance (a simple triangular face).
 	PolygonObject* triObjPtr = PolygonObject::Alloc(3, 1);
-	if (nullptr == triObjPtr)
+	if (!triObjPtr)
 		return BaseObject::Alloc(Onull);
 
 	// Get writing access to the vertexes array. 
 	Vector* triPntsPtr = triObjPtr->GetPointW();
-	if (nullptr == triPntsPtr)
+	if (!triPntsPtr)
 	{
 		PolygonObject::Free(triObjPtr);
 		return BaseObject::Alloc(Onull);
@@ -192,7 +192,7 @@ BaseObject* VertexHandle::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 
 	// Get writing access to the vertexes indexes array.
 	CPolygon* polysPtr = triObjPtr->GetPolygonW();
-	if (nullptr == polysPtr)
+	if (!polysPtr)
 	{
 		PolygonObject::Free(triObjPtr);
 		return BaseObject::Alloc(Onull);
@@ -213,7 +213,7 @@ DRAWRESULT VertexHandle::Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, B
 	// This override beside drawing small segments from the location of the handle identifying the 
 	// moving direction requires also to redraw the handles by explicitly calling DrawHandle.
 
-	if (nullptr == op || nullptr == bd || nullptr == bh)
+	if (!op || !bd || !bh)
 		return DRAWRESULT_ERROR;
 
 	if (drawpass != DRAWPASS_HANDLES)
@@ -222,7 +222,7 @@ DRAWRESULT VertexHandle::Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, B
 	// Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* bcPtr = op->GetDataInstance();
 
-	if (nullptr == bcPtr)
+	if (!bcPtr)
 		return DRAWRESULT_SKIP;
 
 

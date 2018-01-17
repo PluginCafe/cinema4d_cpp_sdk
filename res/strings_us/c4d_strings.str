@@ -134,6 +134,7 @@ STRINGTABLE
 	IDS_OBJECTDATA_DESCRIPTION "C++ SDK - Descriptions Example Object";
 
 	IDS_OBJECTDATA_GETSETDPARAMETEREXAMPLE "C++ SDK - Get-/SetDParameter Example Object";
+	IDS_OBJECTDATA_HYPERFILEEXAMPLE "C++ SDK - HyperFile Example Object";
 
 	IDS_OBJECTDATA_GREEKTEMPLE "C++ SDK - Greek Temple Generator Example";
 	IDS_OBJECTDATA_HEARTSHAPE "C++ SDK - Heart Shape Generator Example";
@@ -145,5 +146,4 @@ STRINGTABLE
 	IDS_OBJECTDATA_RULEDMESH "C++ SDK - Ruled Mesh Generator Example";
 	IDS_OBJECTDATA_PARTICLESSHUFFLING "C++ SDK - Particles Shuffling Modifier Example";
 	IDS_OBJECTDATA_VERTEXHANDLE "C++ SDK - Vertex Handle Example";
-	IDS_OBJECTDATA_HYPERFILEEXAMPLE "C++ SDK - HyperFile Example Object";
 }

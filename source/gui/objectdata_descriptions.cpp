@@ -921,6 +921,12 @@ void ObjectDynamicDescription::SetParameter(GeListNode* node)
 				if (entity != nullptr)
 					value = entity->GetName();
 			}
+			if (selection == DESCRIPTIONELEMENTS::STRING_MULTILINE)
+			{
+				// Use newline (\n) to add more lines to a multi-line string element.
+				// Note: In a string resource file the pipe symbol (|) is used instead.
+				value += "\n2nd line: Some more string.";
+			}
 
 			node->SetParameter(DescID(ID_DYNAMIC_ELEMENT + selection), value, DESCFLAGS_SET_0);
 			break;

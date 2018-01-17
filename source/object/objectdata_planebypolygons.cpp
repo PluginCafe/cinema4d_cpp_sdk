@@ -25,15 +25,15 @@ namespace PlaneByPolygonsHelpers
 	/// @param[in] hhPtr							A hierarchy helper for the operation. @callerOwnsPointed{hierarchy helper}
 	/// @return												True if creation process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreatePlaneByPolygons(PolygonObject& polygonObj, const Float& planeWidth, const Float& planeHeight, const Int32& planeWidthSegs, const Int32& planeHeightSegs, HierarchyHelp* hhPtr = nullptr);
-	const Bool CreatePlaneByPolygons(PolygonObject& polygonObj, const Float& planeWidth, const Float& planeHeight, const Int32& planeWidthSegs, const Int32& planeHeightSegs, HierarchyHelp* hhPtr /*= nullptr*/)
+	static Bool CreatePlaneByPolygons(PolygonObject& polygonObj, const Float& planeWidth, const Float& planeHeight, const Int32& planeWidthSegs, const Int32& planeHeightSegs, HierarchyHelp* hhPtr = nullptr);
+	static Bool CreatePlaneByPolygons(PolygonObject& polygonObj, const Float& planeWidth, const Float& planeHeight, const Int32& planeWidthSegs, const Int32& planeHeightSegs, HierarchyHelp* hhPtr /*= nullptr*/)
 	{
 		CPolygon* pPolygonsW = polygonObj.GetPolygonW();
-		if (nullptr == pPolygonsW)
+		if (!pPolygonsW)
 			return false;
 
 		Vector* pVerticesW = polygonObj.GetPointW();
-		if (nullptr == pVerticesW)
+		if (!pVerticesW)
 			return false;
 
 		if (planeHeightSegs == 0 || planeWidthSegs == 0)
@@ -147,11 +147,11 @@ void PlaneByPolygons::GetDimension(BaseObject *op, Vector *mp, Vector *rad)
 	mp->SetZero();
 	rad->SetZero();
 
-	if (nullptr == op)
+	if (!op)
 		return;
 
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return;
 
 	Float fWidth = objectDataPtr->GetFloat(SDK_EXAMPLE_PLANEBYPOLYGONS_WIDTH);
@@ -163,7 +163,7 @@ void PlaneByPolygons::GetDimension(BaseObject *op, Vector *mp, Vector *rad)
 
 BaseObject* PlaneByPolygons::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh)
 {
-	if (nullptr == op)
+	if (!op)
 		return BaseObject::Alloc(Onull);
 
 	Bool isDirty = op->CheckCache(hh) || op->IsDirty(DIRTYFLAGS_DATA);
@@ -171,7 +171,7 @@ BaseObject* PlaneByPolygons::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh
 		return op->GetCache(hh);
 
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return BaseObject::Alloc(Onull);
 
 	//	Retrieve the value for the object parameters
@@ -197,7 +197,7 @@ BaseObject* PlaneByPolygons::GetVirtualObjects(BaseObject *op, HierarchyHelp *hh
 	//	Create the a PolygonObject object specifying vertices and 
 	//	polygons count
 	PolygonObject* polyObjPtr = PolygonObject::Alloc(iVtxCnt, iPolyCnt);
-	if (nullptr == polyObjPtr)
+	if (!polyObjPtr)
 		return BaseObject::Alloc(Onull);
 
 	// Fill the PolygonObject object with the vertices and polygons 

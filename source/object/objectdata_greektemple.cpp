@@ -27,8 +27,8 @@ namespace GreekTempleHelpers
 	/// @param[in] value					Original value to scale.
 	/// @return										Scaled value.
 	//------------------------------------------------------------------------------------------------
-	const Float ComputeScaleFactor(const Float& modulo, const Float& baseUnit, const Float& value);
-	const Float ComputeScaleFactor(const Float& modulo, const Float& baseUnit, const Float& value)
+	static Float ComputeScaleFactor(const Float& modulo, const Float& baseUnit, const Float& value);
+	static Float ComputeScaleFactor(const Float& modulo, const Float& baseUnit, const Float& value)
 	{
 		if (0 != modulo && 0 != value)
 			return (value - modulo * (baseUnit * 2)) / value;
@@ -45,8 +45,8 @@ namespace GreekTempleHelpers
 	/// @param[in] objSegsPtr			Segmentation array.
 	/// @return										True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateTempleBase(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr = nullptr, const Int32 stairsCount = 3);
-	const Bool CreateTempleBase(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr /*= nullptr*/, const Int32 stairsCount /*=3*/)
+	static Bool CreateTempleBase(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr = nullptr, const Int32 stairsCount = 3);
+	static Bool CreateTempleBase(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr /*= nullptr*/, const Int32 stairsCount /*=3*/)
 	{
 
 		//	Create the rectangle profile used to extrude the base temple.
@@ -71,7 +71,7 @@ namespace GreekTempleHelpers
 
 		//	Assign the segmentation data to the slab object to allow
 		//	proper deforming operators to run.
-		if (nullptr != objSegsPtr)
+		if (objSegsPtr)
 		{
 			slabPtr->SetParameter(PRIM_CUBE_SUBX, (Int32)objSegsPtr[0], DESCFLAGS_SET_0);
 			slabPtr->SetParameter(PRIM_CUBE_SUBY, (Int32)objSegsPtr[1], DESCFLAGS_SET_0);
@@ -98,7 +98,7 @@ namespace GreekTempleHelpers
 		{
 			AutoAlloc<BaseObject> stairInstancePtr(Oinstance);
 
-			if (nullptr == stairInstancePtr)
+			if (!stairInstancePtr)
 				return false;
 
 			stairInstancePtr->SetName("TempleBaseStair_" + String::IntToString(i));
@@ -138,8 +138,8 @@ namespace GreekTempleHelpers
 	/// @param[in] objSize							Bounding box radius vector.
 	/// @return													True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool PerformBooleanSubrtraction(BaseObject* roofNullObjPtr, BaseObject* extrudeRoofGenRelPtr, const Float& baseUnit, const Vector& objSize);
-	const Bool PerformBooleanSubrtraction(BaseObject* roofNullObjPtr, BaseObject* extrudeRoofGenRelPtr, const Float& baseUnit, const Vector& objSize)
+	static Bool PerformBooleanSubrtraction(BaseObject* roofNullObjPtr, BaseObject* extrudeRoofGenRelPtr, const Float& baseUnit, const Vector& objSize);
+	static Bool PerformBooleanSubrtraction(BaseObject* roofNullObjPtr, BaseObject* extrudeRoofGenRelPtr, const Float& baseUnit, const Vector& objSize)
 	{
 		//	Create some instance of the roof to detail the temple roof using booleans.
 		AutoAlloc<BaseObject> roofBooleanSub01Ptr(Oinstance), roofBooleanSub02Ptr(Oinstance);
@@ -223,8 +223,8 @@ namespace GreekTempleHelpers
 	/// @param[in] objSegsPtr			Segmentation array.
 	/// @return										True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateTempleRoof(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr = nullptr);
-	const Bool CreateTempleRoof(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr /*= nullptr*/)
+	static Bool CreateTempleRoof(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr = nullptr);
+	static Bool CreateTempleRoof(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr /*= nullptr*/)
 	{
 
 		AutoAlloc<BaseObject> triangleShapePtr(Osplinenside);
@@ -248,7 +248,7 @@ namespace GreekTempleHelpers
 
 		//	Assign the segmentation data to the spline object to allow
 		//	proper deforming operators to run.
-		if (nullptr != objSegsPtr)
+		if (objSegsPtr)
 		{
 			triangleShapePtr->SetParameter(SPLINEOBJECT_INTERPOLATION, SPLINEOBJECT_INTERPOLATION_UNIFORM, DESCFLAGS_SET_0);
 			triangleShapePtr->SetParameter(SPLINEOBJECT_SUB, objSegsPtr[1], DESCFLAGS_SET_0);
@@ -269,7 +269,7 @@ namespace GreekTempleHelpers
 
 		//	Assign the segmentation data to the extruded object to allow
 		//	proper deforming operators to run.
-		if (nullptr != objSegsPtr)
+		if (objSegsPtr)
 			extrudeRoofGenPtr->SetParameter(EXTRUDEOBJECT_SUB, (Int32)objSegsPtr[2], DESCFLAGS_SET_0);
 
 		//	Translate the roof.
@@ -301,8 +301,8 @@ namespace GreekTempleHelpers
 	/// @param[in] objSegsPtr							Segmentation array.
 	/// @return														True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateColumnCapital(BaseObject* &columnCapitalRelPtr, const Float &capitalHeightRatio, const Float &capitalSideHeightRatio, const Int32* objSegsPtr = nullptr);
-	const Bool CreateColumnCapital(BaseObject* &columnCapitalRelPtr, const Float &capitalHeightRatio, const Float &capitalSideHeightRatio, const Int32* objSegsPtr /*= nullptr*/)
+	static Bool CreateColumnCapital(BaseObject* &columnCapitalRelPtr, const Float &capitalHeightRatio, const Float &capitalSideHeightRatio, const Int32* objSegsPtr = nullptr);
+	static Bool CreateColumnCapital(BaseObject* &columnCapitalRelPtr, const Float &capitalHeightRatio, const Float &capitalSideHeightRatio, const Int32* objSegsPtr /*= nullptr*/)
 	{
 		AutoAlloc<BaseObject> columnCapitalPtr(Ocube);
 		if (!columnCapitalPtr)
@@ -318,7 +318,7 @@ namespace GreekTempleHelpers
 
 		//	Assign the segmentation data to the steam, base and capital
 		//	to allow proper deforming operators to run
-		if (nullptr != objSegsPtr)
+		if (objSegsPtr)
 			columnCapitalPtr->SetParameter(PRIM_CUBE_SUBY, 8 * objSegsPtr[1], DESCFLAGS_SET_0);
 
 		//	Create two taper modifiers to get the typical look of the column
@@ -352,8 +352,8 @@ namespace GreekTempleHelpers
 	/// @param[in] objSegsPtr							Segmentation array.
 	/// @return														True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateColumnBase(BaseObject* &columnBaseRelPtr, const Float &baseHeightRatio, const Float &baseRadiusHeightRatio, const Int32* objSegsPtr = nullptr);
-	const Bool CreateColumnBase(BaseObject* &columnBaseRelPtr, const Float &baseHeightRatio, const Float &baseRadiusHeightRatio, const Int32* objSegsPtr /*= nullptr*/)
+	static Bool CreateColumnBase(BaseObject* &columnBaseRelPtr, const Float &baseHeightRatio, const Float &baseRadiusHeightRatio, const Int32* objSegsPtr = nullptr);
+	static Bool CreateColumnBase(BaseObject* &columnBaseRelPtr, const Float &baseHeightRatio, const Float &baseRadiusHeightRatio, const Int32* objSegsPtr /*= nullptr*/)
 	{
 
 		AutoAlloc<BaseObject> columnBasePtr(Ocylinder);
@@ -375,7 +375,7 @@ namespace GreekTempleHelpers
 
 		//	Assign the segmentation data to the steam, base and capital
 		//	to allow proper deforming operators to run
-		if (nullptr != objSegsPtr)
+		if (objSegsPtr)
 			columnBasePtr->SetParameter(PRIM_CYLINDER_HSUB, objSegsPtr[1], DESCFLAGS_SET_0);
 
 		columnBaseRelPtr = columnBasePtr.Release();
@@ -392,8 +392,8 @@ namespace GreekTempleHelpers
 	/// @param[in] objSegsPtr							Segmentation array.
 	/// @return														True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateColumnStem(BaseObject* &columnStemRelPtr, const Float &stemHeightRatio, const Float &stemRadiusHeightRatio, const Int32* objSegsPtr = nullptr);
-	const Bool CreateColumnStem(BaseObject* &columnStemRelPtr, const Float &stemHeightRatio, const Float &stemRadiusHeightRatio, const Int32* objSegsPtr /*= nullptr*/)
+	static Bool CreateColumnStem(BaseObject* &columnStemRelPtr, const Float &stemHeightRatio, const Float &stemRadiusHeightRatio, const Int32* objSegsPtr = nullptr);
+	static Bool CreateColumnStem(BaseObject* &columnStemRelPtr, const Float &stemHeightRatio, const Float &stemRadiusHeightRatio, const Int32* objSegsPtr /*= nullptr*/)
 	{
 		AutoAlloc<BaseObject> columnStemPtr(Ocylinder);
 		if (!columnStemPtr)
@@ -409,10 +409,8 @@ namespace GreekTempleHelpers
 
 		//	Assign the segmentation data to the steam, base and capital
 		//	to allow proper deforming operators to run
-		if (nullptr != objSegsPtr)
-		{
+		if (objSegsPtr)
 			columnStemPtr->SetParameter(PRIM_CYLINDER_HSUB, objSegsPtr[1], DESCFLAGS_SET_0);
-		}
 
 		//	Create two taper modifiers to get the typical look of the column
 		AutoAlloc<BaseObject> stemTaper(Otaper);
@@ -452,8 +450,8 @@ namespace GreekTempleHelpers
 	/// @param[in] hhPtr								A hierarchy helper for the operation. @callerOwnsPointed{hierarchy helper}
 	/// @return													True if instancing process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool PerformeColumnsInstancing(BaseObject* &colonnadeNullRelPtr, BaseObject* columnNullRelPtr, const Float& topStepWidth, const Float& topStepHeight, const Vector& topStepBLVertexPos, const Vector& columnRadius, const Vector& columnScaleVector, const Float xSpace = 0, const Float zSpace = 0, HierarchyHelp* hhPtr = nullptr);
-	const Bool PerformeColumnsInstancing(BaseObject* &colonnadeNullRelPtr, BaseObject* columnNullRelPtr, const Float& topStepWidth, const Float& topStepHeight, const Vector& topStepBLVertexPos, const Vector& columnRadius, const Vector& columnScaleVector, const Float xSpace /*= 0*/, const Float zSpace /*= 0*/, HierarchyHelp* hhPtr /*= nullptr*/)
+	static Bool PerformeColumnsInstancing(BaseObject* &colonnadeNullRelPtr, BaseObject* columnNullRelPtr, const Float& topStepWidth, const Float& topStepHeight, const Vector& topStepBLVertexPos, const Vector& columnRadius, const Vector& columnScaleVector, const Float xSpace = 0, const Float zSpace = 0, HierarchyHelp* hhPtr = nullptr);
+	static Bool PerformeColumnsInstancing(BaseObject* &colonnadeNullRelPtr, BaseObject* columnNullRelPtr, const Float& topStepWidth, const Float& topStepHeight, const Vector& topStepBLVertexPos, const Vector& columnRadius, const Vector& columnScaleVector, const Float xSpace /*= 0*/, const Float zSpace /*= 0*/, HierarchyHelp* hhPtr /*= nullptr*/)
 	{
 		//	Create a null object acting as parent of the column parts
 		AutoAlloc<BaseObject> colonnadeNullPtr(Onull);
@@ -511,7 +509,7 @@ namespace GreekTempleHelpers
 		{
 			for (Int32 j = 0; j <= columnCopiesZ; ++j)
 			{
-				if (nullptr != hhPtr && nullptr != hhPtr->GetThread())
+				if (hhPtr && hhPtr->GetThread())
 				{
 					BaseThread* runningThreadPtr = hhPtr->GetThread();
 					if (runningThreadPtr->TestBreak())
@@ -566,8 +564,8 @@ namespace GreekTempleHelpers
 	/// @param[in] hhPtr					A hierarchy helper for the operation. @callerOwnsPointed{hierarchy helper}
 	/// @return										True if building process succeeds.
 	//------------------------------------------------------------------------------------------------
-	const Bool CreateTempleColonnade(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr = nullptr, const Float xSpace = 0, const Float zSpace = 0, HierarchyHelp* hhPtr = nullptr);
-	const Bool CreateTempleColonnade(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr /*= nullptr*/, const Float xSpace /*= 0*/, const Float zSpace /*= 0*/, HierarchyHelp* hhPtr /*= nullptr*/)
+	static Bool CreateTempleColonnade(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr = nullptr, const Float xSpace = 0, const Float zSpace = 0, HierarchyHelp* hhPtr = nullptr);
+	static Bool CreateTempleColonnade(BaseObject* &parentObj, const Float& baseUnit, const Vector& objSize, const Int32* objSegsPtr /*= nullptr*/, const Float xSpace /*= 0*/, const Float zSpace /*= 0*/, HierarchyHelp* hhPtr /*= nullptr*/)
 	{
 		//	Create a column composed by three element the base, the stem and the
 		//	capital with sizes in the following ratio (.1 - .75 - .15).
@@ -706,12 +704,12 @@ void GreekTemple::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 	rad->SetZero();
 
 	//	Check the passed pointer.
-	if (nullptr == op)
+	if (!op)
 		return;
 
 	//	Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return;
 
 	//	Set radius values accordingly to the bbox values stored during the init.
@@ -725,7 +723,7 @@ void GreekTemple::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
 BaseObject* GreekTemple::GetVirtualObjects(BaseObject* op, HierarchyHelp* hh)
 {
 	//	Check the passed pointer.
-	if (nullptr == op)
+	if (!op)
 		return BaseObject::Alloc(Onull);
 
 	//	Verify if object cache already exist and check its status.
@@ -737,7 +735,7 @@ BaseObject* GreekTemple::GetVirtualObjects(BaseObject* op, HierarchyHelp* hh)
 
 	//	Retrieve the BaseContainer object belonging to the generator.
 	BaseContainer* objectDataPtr = op->GetDataInstance();
-	if (nullptr == objectDataPtr)
+	if (!objectDataPtr)
 		return BaseObject::Alloc(Onull);
 
 	//	Retrieve the bbox values.
@@ -764,7 +762,7 @@ BaseObject* GreekTemple::GetVirtualObjects(BaseObject* op, HierarchyHelp* hh)
 
 	// Create a null object to be used as dummy object for the temple.
 	BaseObject* templeObjPtr = BaseObject::Alloc(Onull);
-	if (nullptr == templeObjPtr)
+	if (!templeObjPtr)
 		return BaseObject::Alloc(Onull);
 
 	//	Establish the temple base unit.

@@ -2,7 +2,7 @@
 
 #include "main.h"
 #include "c4d_symbols.h"
-#include "Ohyperfile.h"
+#include "ohyperfile.h"
 
 //----------------------------------------------------------------------------------------
 /// This ObjectData example demonstrates how to work with HyperFiles and different data types.

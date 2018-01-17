@@ -727,15 +727,13 @@ void LatticePlaneModifier::DrawPoints(BaseDraw* bd, BaseSelect* pointsBS, const 
 
 	// Draw the unselected points.
 	bd->SetPen(GetViewColor(VIEWCOLOR_INACTIVEPOINT));
-	const Int32 unselPntsCnt = (Int32)unselPoints.GetCount();
 	if (unselPoints.GetFirst())
-		bd->DrawPointArray(unselPntsCnt, unselPoints.GetFirst());
+		bd->DrawPointArray(pointsCnt, unselPoints.GetFirst());
 
 	// Draw the selected points.
 	bd->SetPen(GetViewColor(VIEWCOLOR_ACTIVEPOINT));
-	const Int32 selPntsCnt = (Int32)selPoints.GetCount();
 	if (selPoints.GetFirst())
-		bd->DrawPointArray(selPntsCnt, selPoints.GetFirst());
+		bd->DrawPointArray(pointsCnt, selPoints.GetFirst());
 }
 
 const Bool LatticePlaneModifier::ResetCagePoints(PointObject* pointObj, const Float sSize, const Float tSize, const Int32 sSegs, const Int32 tSegs, const Bool onlyZ/*= false*/)

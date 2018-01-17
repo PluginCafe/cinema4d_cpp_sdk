@@ -20,7 +20,7 @@ public:
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 	virtual DRAWRESULT Draw(BaseObject* op, DRAWPASS drawpass, BaseDraw* bd, BaseDrawHelp* bh);
 
-	static NodeData* Alloc(void) { return NewObjClear(HairDeformerObject); }
+	static NodeData* Alloc() { return NewObjClear(HairDeformerObject); }
 
 	//////////////////////////////////////////////////////////////////////////
 

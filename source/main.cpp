@@ -6,13 +6,13 @@
 //
 // #include "c4d.h"
 //
-// Bool PluginStart(void)
+// Bool PluginStart()
 // {
 //   ...do or register something...
 //   return true;
 // }
 //
-// void PluginEnd(void)
+// void PluginEnd()
 // {
 // }
 //
@@ -26,8 +26,7 @@
 #include <string.h>
 #include "main.h"
 
-
-Bool PluginStart(void)
+Bool PluginStart()
 {
 	VERSIONTYPE versionType = GeGetVersionType();
 
@@ -199,7 +198,7 @@ Bool PluginStart(void)
 		return false;
 
 	// SnapData example
-	if(!RegisterSnapDataNullSnap())
+	if (!RegisterSnapDataNullSnap())
 		return false;
 
 	// take system example
@@ -207,25 +206,29 @@ Bool PluginStart(void)
 		return false;
 
 	// String custom GUI example
-	if(!RegisterCustomGUIString())
+	if (!RegisterCustomGUIString())
 		return false;
 
 	// CustomDataType and CustomGUI example
-	if(!RegisterCustomDatatypeCustomGUI())
+	if (!RegisterCustomDatatypeCustomGUI())
 		return false;
 
 	// GeDialog example
-	if(!RegisterExampleDialogCommand())
+	if (!RegisterExampleDialogCommand())
 		return false;
 
 	// ObjectData example showing the use of GetDDescription()
-	if(!RegisterObjectDynamicDescription())
+	if (!RegisterObjectDynamicDescription())
 		return false;
 
 	// ObjectData example showing the use of Get-/SetDParameter() with certain CustomGUIs
-	if(!RegisterGetSetDParameterExample())
+	if (!RegisterGetSetDParameterExample())
 		return false;
 
+	// Polygon Reduction example
+	if (!RegisterPolygonReductionTest())
+		return false;
+	
 	// ObjectData example demonstrating the use of HyperFile class in Read()/Write()
 	if (!RegisterObjectHyperFileExample())
 		return false;
@@ -273,7 +276,7 @@ Bool PluginStart(void)
 	return true;
 }
 
-void PluginEnd(void)
+void PluginEnd()
 {
 	FreeGLTestObject();
 	FreeExampleSNHook();
@@ -293,25 +296,25 @@ Bool PluginMessage(Int32 id, void* data)
 				return false;
 
 			// serial hook example; if used must be registered before PluginStart(), best in C4DPL_INIT_SYS
-			//if (!RegisterExampleSNHook()) return false;
+			// if (!RegisterExampleSNHook()) return false;
 
 			return true;
 
 		case C4DMSG_PRIORITY:
-			//react to this message to set a plugin priority (to determine in which order plugins are initialized or loaded
-			//SetPluginPriority(data, mypriority);
+			// react to this message to set a plugin priority (to determine in which order plugins are initialized or loaded
+			// SetPluginPriority(data, mypriority);
 			return true;
 
 		case C4DPL_BUILDMENU:
-			//react to this message to dynamically enhance the menu
-			//EnhanceMainMenu();
+			// react to this message to dynamically enhance the menu
+			// EnhanceMainMenu();
 			break;
 
 		case C4DPL_COMMANDLINEARGS:
-			//sample implementation of command line rendering:
-			//CommandLineRendering((C4DPL_CommandLineArgs*)data);
+			// sample implementation of command line rendering:
+			// CommandLineRendering((C4DPL_CommandLineArgs*)data);
 
-			//react to this message to react to command line arguments on startup
+			// react to this message to react to command line arguments on startup
 			/*
 			{
 				C4DPL_CommandLineArgs *args = (C4DPL_CommandLineArgs*)data;

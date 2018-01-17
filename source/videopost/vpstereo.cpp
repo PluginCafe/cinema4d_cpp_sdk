@@ -394,7 +394,7 @@ Bool StereoVideoPost::GlDraw(BaseVideoPost* node, BaseDraw* bd, GlFrameBuffer* f
 		pFactory->UnbindPrograms();
 		return true;
 
-displayError:
+	displayError:
 		if (pFactory && bFactoryBound)
 		{
 			pFactory->UnbindPrograms();

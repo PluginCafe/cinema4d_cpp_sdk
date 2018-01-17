@@ -11,7 +11,7 @@ class HairSDKVideopost : public VideoPostData
 
 public:
 	virtual Bool Init(GeListNode* node);
-	static NodeData* Alloc(void) { return NewObjClear(HairSDKVideopost); }
+	static NodeData* Alloc() { return NewObjClear(HairSDKVideopost); }
 
 	virtual RENDERRESULT Execute(BaseVideoPost* node, VideoPostStruct* vps);
 	virtual VIDEOPOSTINFO GetRenderInfo(BaseVideoPost* node) { return VIDEOPOSTINFO_0; }

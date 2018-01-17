@@ -56,7 +56,7 @@ void SnapTool::InitDefaultSettings(BaseDocument* doc, BaseContainer& data)
 {
 	DescriptionToolData::InitDefaultSettings(doc, data);
 
-	//Enable local snap settings for the tool
+	// Enable local snap settings for the tool
 	BaseContainer psnap;
 	psnap.SetBool(SNAP_SETTINGS_ENABLED, true);
 
@@ -152,7 +152,7 @@ Bool SnapTool::MouseInput(BaseDocument* doc, BaseContainer& data, BaseDraw* bd, 
 
 	// initialize snap always
 	if (!_snap->Init(doc, bd))
-			goto Error;
+		goto Error;
 
 	// if snap modify initial position do not pass SNAPFLAGS_IGNORE_SELECTED otherwise selected object will be not evaluated
 	if (_snap->Snap(startPos, snapResul, SNAPFLAGS_0) && snapResul.snapmode != NOTOK)

@@ -12,8 +12,8 @@ public:
 	LayerShaderBrowser();
 	virtual ~LayerShaderBrowser();
 
-	virtual Bool CreateLayout(void);
-	virtual Bool InitValues(void);
+	virtual Bool CreateLayout();
+	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 	virtual Int32 Message(const BaseContainer& msg, BaseContainer& result);
 	virtual Bool CoreMessage  (Int32 id, const BaseContainer& msg);

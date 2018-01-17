@@ -13,7 +13,7 @@ struct TestData
 	Char	name[20];
 };
 
-TestData testdata[] =
+TestData g_testdata[] =
 {
 	{ 10, "Sharpen" },
 	{ 12, "LensFlares" },
@@ -32,14 +32,14 @@ private:
 	AutoAlloc<BaseSelect>	selection;
 	Int32									counter2;
 
-	void UpdateButtons(void);
+	void UpdateButtons();
 
 public:
-	ListViewDialog(void);
-	virtual ~ListViewDialog(void);
+	ListViewDialog();
+	virtual ~ListViewDialog();
 
-	virtual Bool CreateLayout(void);
-	virtual Bool InitValues(void);
+	virtual Bool CreateLayout();
+	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 	virtual Int32 Message(const BaseContainer& msg, BaseContainer& result);
 
@@ -51,16 +51,16 @@ enum
 	IDC_ACCESS = 1002
 };
 
-ListViewDialog::ListViewDialog(void)
+ListViewDialog::ListViewDialog()
 {
 	counter2 = 0;
 }
 
-ListViewDialog::~ListViewDialog(void)
+ListViewDialog::~ListViewDialog()
 {
 }
 
-Bool ListViewDialog::CreateLayout(void)
+Bool ListViewDialog::CreateLayout()
 {
 	// first call the parent instance
 	Bool res = GeDialog::CreateLayout();
@@ -76,7 +76,7 @@ Bool ListViewDialog::CreateLayout(void)
 	return res;
 }
 
-void ListViewDialog::UpdateButtons(void)
+void ListViewDialog::UpdateButtons()
 {
 	if (!selection)
 		return;
@@ -85,7 +85,7 @@ void ListViewDialog::UpdateButtons(void)
 	Enable(GADGET_REMOVE, listview2.GetSelection(selection));
 }
 
-Bool ListViewDialog::InitValues(void)
+Bool ListViewDialog::InitValues()
 {
 	// first call the parent instance
 	if (!GeDialog::InitValues())
@@ -107,11 +107,11 @@ Bool ListViewDialog::InitValues(void)
 
 	data = BaseContainer();
 
-	for (i = 0; testdata[i].id; i++)
+	for (i = 0; g_testdata[i].id; i++)
 	{
-		data.SetString('name', testdata[i].name);
+		data.SetString('name', g_testdata[i].name);
 		//data.SetInt32('used',false);
-		listview1.SetItem(testdata[i].id, data);
+		listview1.SetItem(g_testdata[i].id, data);
 	}
 
 	//data = BaseContainer();
@@ -171,9 +171,9 @@ Bool ListViewDialog::Command(Int32 id, const BaseContainer& msg)
 					GePrintF("Button clicked id: %d, col: %d", msg.GetInt32(LV_SIMPLE_ITEM_ID), msg.GetInt32(LV_SIMPLE_COL_ID));
 					break;
 			}
-		}
 			UpdateButtons();
 			break;
+		}
 
 		//		case GADGET_LISTVIEW2:
 		//			break;
@@ -212,12 +212,12 @@ Bool ListViewDialog::Command(Int32 id, const BaseContainer& msg)
 					GePrint("Selection: " + str);
 
 					BaseContainer data;
-					for (i = 0; testdata[i].id; i++)
+					for (i = 0; g_testdata[i].id; i++)
 					{
-						if (selection->IsSelected(testdata[i].id))
+						if (selection->IsSelected(g_testdata[i].id))
 						{
 							data.SetInt32('chck', true);
-							data.SetString('name', testdata[i].name);
+							data.SetString('name', g_testdata[i].name);
 							data.SetString('bttn', "...");
 							selection->Select(counter2);
 							listview2.SetItem(counter2++, data);
@@ -227,9 +227,9 @@ Bool ListViewDialog::Command(Int32 id, const BaseContainer& msg)
 					listview2.DataChanged();
 				}
 			}
-		}
 			UpdateButtons();
 			break;
+		}
 
 		case GADGET_REMOVE:
 		{
@@ -245,9 +245,9 @@ Bool ListViewDialog::Command(Int32 id, const BaseContainer& msg)
 				}
 				listview2.DataChanged();
 			}
-		}
 			UpdateButtons();
 			break;
+		}
 	}
 	return true;
 }
@@ -287,7 +287,7 @@ Bool ListViewTest::RestoreLayout(void* secret)
 	return dlg.RestoreLayout(ID_LISTVIEWTEST, 0, secret);
 }
 
-Bool RegisterListView(void)
+Bool RegisterListView()
 {
 	return RegisterCommandPlugin(ID_LISTVIEWTEST, GeLoadString(IDS_LISTVIEW), 0, nullptr, String(), NewObjClear(ListViewTest));
 }

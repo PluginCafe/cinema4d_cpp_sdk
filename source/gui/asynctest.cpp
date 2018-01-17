@@ -30,16 +30,16 @@ public:
 	SDKGradient				grad[MAXGRADIENT];
 	Int32							count, interpolation, type;
 
-	SDKGradientArea(void);
+	SDKGradientArea();
 
-	virtual Bool Init(void);
+	virtual Bool Init();
 	virtual Bool GetMinSize(Int32& w, Int32& h);
 	virtual void Sized(Int32 w, Int32 h);
 	virtual void DrawMsg(Int32 x1, Int32 y1, Int32 x2, Int32 y2, const BaseContainer& msg);
 	virtual Bool InputEvent(const BaseContainer& msg);
 };
 
-SDKGradientArea::SDKGradientArea(void)
+SDKGradientArea::SDKGradientArea()
 {
 	Int32 i;
 	for (i = 0; i < MAXGRADIENT; i++)
@@ -55,7 +55,7 @@ SDKGradientArea::SDKGradientArea(void)
 	type = 0;
 }
 
-Bool SDKGradientArea::Init(void)
+Bool SDKGradientArea::Init()
 {
 	ggtmp.Init(this, grad, &count, &interpolation, MAXGRADIENT);
 	return true;
@@ -153,19 +153,19 @@ private:
 	String				array_drag[100];
 	BaseContainer links;
 
-	void DoEnable(void);
+	void DoEnable();
 	Bool CheckDropArea(Int32 id, const BaseContainer& msg);
-	void CreateDynamicGroup(void);
-	void ReLayout(void);
+	void CreateDynamicGroup();
+	void ReLayout();
 	String GetStaticText(Int32 i);
 
 	SDKGradientArea sg;
 	C4DGadget*			gradientarea;
 
 public:
-	AsyncDialog(void);
-	virtual Bool CreateLayout(void);
-	virtual Bool InitValues(void);
+	AsyncDialog();
+	virtual Bool CreateLayout();
+	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 	virtual Int32 Message(const BaseContainer& msg, BaseContainer& result);
 	virtual Bool CoreMessage  (Int32 id, const BaseContainer& msg);
@@ -180,13 +180,13 @@ enum
 	IDC_XINTERPOL	= 1005
 };
 
-AsyncDialog::AsyncDialog(void)
+AsyncDialog::AsyncDialog()
 {
 	gradientarea = nullptr;
 	rows = 1;
 }
 
-Bool AsyncDialog::CreateLayout(void)
+Bool AsyncDialog::CreateLayout()
 {
 	// first call the parent instance
 	Bool res = GeDialog::CreateLayout();
@@ -276,7 +276,7 @@ Bool AsyncDialog::CreateLayout(void)
 	return res;
 }
 
-void AsyncDialog::DoEnable(void)
+void AsyncDialog::DoEnable()
 {
 	Float pos = 0.0;
 	Bool	ok	= sg.ggtmp.GetPosition(&pos);
@@ -284,14 +284,14 @@ void AsyncDialog::DoEnable(void)
 	Enable(IDC_XINTERPOL, ok);
 }
 
-void AsyncDialog::ReLayout(void)
+void AsyncDialog::ReLayout()
 {
 	LayoutFlushGroup(GROUP_DYNAMIC);
 	CreateDynamicGroup();
 	LayoutChanged(GROUP_DYNAMIC);
 }
 
-Bool AsyncDialog::InitValues(void)
+Bool AsyncDialog::InitValues()
 {
 	// first call the parent instance
 	if (!GeDialog::InitValues())
@@ -319,7 +319,7 @@ Bool AsyncDialog::CheckDropArea(Int32 id, const BaseContainer& msg)
 	return dy > y && dy < y + h;
 }
 
-void AsyncDialog::CreateDynamicGroup(void)
+void AsyncDialog::CreateDynamicGroup()
 {
 	Int32 i;
 	for (i = 0; i < rows; i++)
@@ -649,24 +649,7 @@ Bool AsyncTest::RestoreLayout(void* secret)
 	return dlg.RestoreLayout(ID_ASYNCTEST, 0, secret);
 }
 
-//Bool AsyncTest::ExecuteSubID(BaseDocument *doc, Int32 subid)
-//{
-//	switch (subid)
-//	{
-//		case 1000: GeOutString("Hello",GEMB_OK); break;
-//		case 1001: GeOutString("World",GEMB_OK); break;
-//	}
-//	return true;
-//}
-
-//Bool AsyncTest::GetSubContainer(BaseDocument *doc, BaseContainer &submenu)
-//{
-//	submenu.SetString(1000,String("Hello"));
-//	submenu.SetString(1001,String("World"));
-//	return true;
-//}
-
-Bool RegisterAsyncTest(void)
+Bool RegisterAsyncTest()
 {
 	return RegisterCommandPlugin(ID_ASYNCTEST, GeLoadString(IDS_ASYNCTEST), 0, nullptr, String("C++ SDK Menu Test Plugin"), NewObjClear(AsyncTest));
 }

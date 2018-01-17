@@ -19,7 +19,7 @@ public:
 
 	virtual Bool Message(GeListNode* node, Int32 type, void* data);
 
-	static NodeData* Alloc(void) { return NewObjClear(HairRenderingTag); }
+	static NodeData* Alloc() { return NewObjClear(HairRenderingTag); }
 
 	//////////////////////////////////////////////////////////////////////////
 
@@ -59,9 +59,9 @@ static Float _ModifyHairShadowTransparencyFn(HairVideoPost* vp, Int32 oindex, Ha
 	HairRenderingTag* hrt = bl->GetNodeData<HairRenderingTag>();
 
 	if (light)	// shadow call
-		trans = (Float) 1.0 - Clamp01(((Float) 1.0 - Clamp01(trans)) * hrt->m_Shadow);
+		trans = 1.0_f - Clamp01((1.0_f - Clamp01(trans)) * hrt->m_Shadow);
 	else
-		trans = (Float) 1.0 - Clamp01(((Float) 1.0 - Clamp01(trans)) * hrt->m_Trans);
+		trans = 1.0_f - Clamp01((1.0_f - Clamp01(trans)) * hrt->m_Trans);
 
 	if (hrt->m_Depth > 1)
 	{

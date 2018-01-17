@@ -19,7 +19,7 @@ public:
 	virtual BaseObject* GetVirtualObjects(BaseObject* op, HierarchyHelp* hh);
 	virtual Bool GetDDescription(GeListNode* node, Description* description, DESCFLAGS_DESC& flags);
 
-	static NodeData* Alloc(void) { return NewObjClear(MorphMixerObject); }
+	static NodeData* Alloc() { return NewObjClear(MorphMixerObject); }
 };
 
 static Bool ReadLine(BaseFile* bf, String* v)
@@ -243,6 +243,7 @@ Bool MorphMixerObject::Message(GeListNode* node, Int32 type, void* data)
 				MagpieImport((BaseObject*)node);
 				EventAdd(EVENT_ANIMATE);
 			}
+			break;
 		}
 	}
 
@@ -347,7 +348,7 @@ error:
 // be sure to use unique IDs obtained from www.plugincafe.com
 #define ID_MORPHMIXER_OBJECT 1001156
 
-Bool RegisterMorphMixer(void)
+Bool RegisterMorphMixer()
 {
 	return RegisterObjectPlugin(ID_MORPHMIXER_OBJECT, GeLoadString(IDS_MORPHMIXER), OBJECT_GENERATOR | OBJECT_INPUT, MorphMixerObject::Alloc, "Omorphmixer", AutoBitmap("morphmixer.tif"), 0);
 }

@@ -11,14 +11,14 @@
 class SculptBrushMultiStamp : public SculptBrushToolData
 {
 public:
-	SculptBrushMultiStamp(SculptBrushParams *pParams);
+	explicit SculptBrushMultiStamp(SculptBrushParams *pParams);
 	virtual ~SculptBrushMultiStamp();
 
 	virtual Int32 GetToolPluginId();
 	virtual const String GetResourceSymbol();
 	virtual Bool HasDrawMode(Int32 mode)
 	{
-		return true; //Has all Draw Modes
+		return true; // Has all Draw Modes
 	}
 
 	virtual void StartDab(Int32 strokeInstanceID);
@@ -99,9 +99,10 @@ void SculptBrushMultiStamp::InitStamps(const Filename &folder)
 
 Bool SculptBrushMultiStamp::SetDParameter(BaseDocument* doc, BaseContainer& data, const DescID& id, const GeData& t_data, DESCFLAGS_SET& flags)
 {
-	if (!SculptBrushToolData::SetDParameter(doc, data, id, t_data, flags)) return false;
+	if (!SculptBrushToolData::SetDParameter(doc, data, id, t_data, flags)) 
+		return false;
 
-	//Load in all the stamps that are in the same directory as the selected one
+	// Load in all the stamps that are in the same directory as the selected one
 	if (id[0].id == MDATA_SCULPTBRUSH_STAMP_TEXTUREFILENAME)
 	{
 		FreeStamps();
@@ -124,7 +125,7 @@ const String SculptBrushMultiStamp::GetResourceSymbol()
 
 void SculptBrushMultiStamp::StartDab(Int32 strokeInstanceID)
 {
-	//Swap the bitmaps
+	// Swap the bitmaps
 	_currentMap++;
 	if (_currentMap >= _bitmaps.GetCount())
 	{
@@ -144,7 +145,8 @@ Bool SculptBrushMultiStamp::GetCustomData(Int32 strokeInstanceID, SculptCustomDa
 
 Bool SculptBrushMultiStamp::MovePointsFunc(BrushDabData *dab)
 {
-	if (dab->GetBrushStrength() == 0) return true;
+	if (dab->GetBrushStrength() == 0) 
+		return true;
 
 	const BaseContainer *brushData = dab->GetData();
 
@@ -154,10 +156,12 @@ Bool SculptBrushMultiStamp::MovePointsFunc(BrushDabData *dab)
 	Bool usePreview = dab->IsPreviewDab();
 
 	Float brushRadius = dab->GetBrushRadius();
-	if (brushRadius <= 0) return false;
+	if (brushRadius <= 0) 
+		return false;
 
 	PolygonObject *polyObj = dab->GetPolygonObject();
-	if (!polyObj) return false;
+	if (!polyObj) 
+		return false;
 
 	Float dim = Len(polyObj->GetRad()) * 0.005;
 
@@ -180,7 +184,8 @@ Bool SculptBrushMultiStamp::MovePointsFunc(BrushDabData *dab)
 	{
 		Int32 pointIndex = pPointData[a].pointIndex;
 		Float fallOff = dab->GetBrushFalloff(a);
-		if (fallOff == 0) continue;
+		if (fallOff == 0) 
+			continue;
 		Vector res = fallOff * multPreMult;
 
 		if (!usePreview)
@@ -193,9 +198,12 @@ Bool SculptBrushMultiStamp::MovePointsFunc(BrushDabData *dab)
 
 Bool RegisterSculptBrushMultiStamp()
 {
-	String name = GeLoadString(IDS_SCULPT_BRUSH_MULTISTAMP); if (!name.Content()) return true;
+	String name = GeLoadString(IDS_SCULPT_BRUSH_MULTISTAMP); 
+	if (!name.Content()) 
+		return true;
 	SculptBrushParams *pParams = SculptBrushParams::Alloc();
-	if (!pParams) return false;
+	if (!pParams) 
+		return false;
 
 	pParams->EnableInvertCheckbox(true);
 	pParams->EnableBuildup(true);
@@ -207,5 +215,5 @@ Bool RegisterSculptBrushMultiStamp()
 	pParams->SetUndoType(SCULPTBRUSHDATATYPE_POINT);
 	pParams->SetMovePointFunc(&SculptBrushMultiStamp::MovePointsFunc);
 
-	return RegisterToolPlugin(ID_SCULPT_BRUSH_MULTISTAMP,name,PLUGINFLAG_HIDEPLUGINMENU|PLUGINFLAG_TOOL_SCULPTBRUSH|PLUGINFLAG_TOOL_NO_OBJECTOUTLINE,nullptr,"",NewObjClear(SculptBrushMultiStamp,pParams));
+	return RegisterToolPlugin(ID_SCULPT_BRUSH_MULTISTAMP, name, PLUGINFLAG_HIDEPLUGINMENU | PLUGINFLAG_TOOL_SCULPTBRUSH | PLUGINFLAG_TOOL_NO_OBJECTOUTLINE, nullptr, "", NewObjClear(SculptBrushMultiStamp, pParams));
 }

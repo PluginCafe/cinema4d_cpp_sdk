@@ -21,8 +21,7 @@ static const Int32 ID_AUTOTAKE = 1033816;
 class TakeTestCommmand : public CommandData
 {
 public:
-  
-  TakeTestCommmand(Int32 commandID) : _commandID(commandID) { }
+  explicit TakeTestCommmand(Int32 commandID) : _commandID(commandID) { }
 
   virtual Int32 GetState(BaseDocument* doc);
   virtual Bool Execute(BaseDocument* doc);
@@ -231,7 +230,7 @@ Bool TakeTestCommmand::Execute(BaseDocument* doc)
           key->ChangeNBit(NBIT_CKEY_CLAMP, NBITCONTROL_SET);
 
           // we can add an additional override
-          did = DescID(DescLevel(ID_BASEOBJECT_REL_POSITION, DTYPE_VECTOR,0), DescLevel(VECTOR_X, DTYPE_REAL,0)); // descid have to be defined like in animations at subdescription level
+          did = DescID(DescLevel(ID_BASEOBJECT_REL_POSITION, DTYPE_VECTOR, 0), DescLevel(VECTOR_X, DTYPE_REAL, 0)); // descid have to be defined like in animations at subdescription level
           newValue = GeData(100.0); // value for new take
           overrideNode = cTake->FindOrAddOverrideParam(takeData, op, did, newValue);
           overrideNode->UpdateSceneNode(takeData, DescID(ID_BASEOBJECT_REL_POSITION)); // update the scene node if necesaty, ALWAYS call it at least one time after override a node

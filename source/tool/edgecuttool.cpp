@@ -417,7 +417,7 @@ Bool EdgeCutTool::ModelingEdgeCut(AtomArray* arr, MODELINGCOMMANDMODE mode, Base
 
 					// check that all points are in the [0.05, 0.95] range
 					temp1 = offset + (Float(subdiv) / Float(subdiv + 1) - .5f) * tempscale;
-					temp2 = offset + (Float(1) / Float(subdiv + 1) - .5f) * tempscale;
+					temp2 = offset + (1.0_f / Float(subdiv + 1) - .5f) * tempscale;
 					if (temp1 < POINT_MIN || temp1 > POINT_MAX || temp2 < POINT_MIN || temp2 > POINT_MAX)
 						continue;
 					scale = tempscale;
@@ -428,7 +428,7 @@ Bool EdgeCutTool::ModelingEdgeCut(AtomArray* arr, MODELINGCOMMANDMODE mode, Base
 					Float tempoffset = offset + dx;
 					// check that all points are in the [0.05, 0.95] range
 					temp1 = tempoffset + (Float(subdiv) / Float(subdiv + 1) - .5f) * scale;
-					temp2 = tempoffset + (Float(1) / Float(subdiv + 1) - .5f) * scale;
+					temp2 = tempoffset + (1.0_f / Float(subdiv + 1) - .5f) * scale;
 					if (temp1 < POINT_MIN || temp1 > POINT_MAX || temp2 < POINT_MIN || temp2 > POINT_MAX)
 						continue;
 					offset = tempoffset;

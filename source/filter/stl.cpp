@@ -15,7 +15,7 @@ public:
 	virtual Bool Identify(BaseSceneLoader* node, const Filename& name, UChar* probe, Int32 size);
 	virtual FILEERROR Load(BaseSceneLoader* node, const Filename& name, BaseDocument* doc, SCENEFILTER filterflags, String* error, BaseThread* bt);
 
-	static NodeData* Alloc(void) { return NewObjClear(STLLoaderData); }
+	static NodeData* Alloc() { return NewObjClear(STLLoaderData); }
 };
 
 Bool STLLoaderData::Init(GeListNode* node)
@@ -35,7 +35,7 @@ public:
 	virtual Bool Init(GeListNode* node);
 	virtual FILEERROR Save(BaseSceneSaver* node, const Filename& name, BaseDocument* doc, SCENEFILTER filterflags);
 
-	static NodeData* Alloc(void) { return NewObjClear(STLSaverData); }
+	static NodeData* Alloc() { return NewObjClear(STLSaverData); }
 };
 
 Bool STLSaverData::Init(GeListNode* node)
@@ -67,14 +67,14 @@ public:
 	PolygonObject* op;
 	ZPolygon*			 vadr;
 
-	STLLOAD(void);
-	~STLLOAD(void);
+	STLLOAD();
+	~STLLOAD();
 
-	Bool ReadArg(void);
+	Bool ReadArg();
 	Bool ReadFloat(Float& l);
 };
 
-Bool STLLOAD::ReadArg(void)
+Bool STLLOAD::ReadArg()
 {
 	Char* pos = str;
 	Bool	ok	= true, trenner;
@@ -132,7 +132,7 @@ Bool STLLOAD::ReadFloat(Float& r)
 	return true;
 }
 
-STLLOAD::STLLOAD(void)
+STLLOAD::STLLOAD()
 {
 	flags = 0;
 	op = nullptr;
@@ -145,7 +145,7 @@ STLLOAD::STLLOAD(void)
 	vbuf = 500;
 }
 
-STLLOAD::~STLLOAD(void)
+STLLOAD::~STLLOAD()
 {
 	BaseFile::Free(file);
 	blDelete(op);
@@ -281,8 +281,8 @@ FILEERROR STLLoaderData::Load(BaseSceneLoader* node, const Filename& name, BaseD
 	}
 	else
 	{
-Binary:
 
+	Binary:
 		stl.file->Seek(80, FILESEEK_START);
 		Int32 val;
 		if (!stl.file->ReadInt32(&val) || val <= 0)
@@ -379,12 +379,12 @@ public:
 	BaseDocument* doc;
 	Int32					pos, cnt, flags;
 
-	STLSAVE(void);
-	~STLSAVE(void);
+	STLSAVE();
+	~STLSAVE();
 
 };
 
-STLSAVE::STLSAVE(void)
+STLSAVE::STLSAVE()
 {
 	doc	= nullptr;
 	pos	= 0;
@@ -393,7 +393,7 @@ STLSAVE::STLSAVE(void)
 	file	= BaseFile::Alloc();
 }
 
-STLSAVE::~STLSAVE(void)
+STLSAVE::~STLSAVE()
 {
 	BaseFile::Free(file);
 	BaseDocument::Free(doc);
@@ -492,7 +492,7 @@ FILEERROR STLSaverData::Save(BaseSceneSaver* node, const Filename& name, BaseDoc
 	return stl.file->GetError();
 }
 
-Bool RegisterSTL(void)
+Bool RegisterSTL()
 {
 	String name = GeLoadString(IDS_STL);
 	if (!RegisterSceneLoaderPlugin(1000984, name, 0, STLLoaderData::Alloc, "Fsdkstlimport", nullptr))

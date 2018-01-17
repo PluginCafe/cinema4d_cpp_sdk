@@ -28,18 +28,18 @@ public:
 	}
 };
 
-ExampleSNHookClass* snhook = nullptr;
+ExampleSNHookClass* g_snhook = nullptr;
 
 Bool RegisterExampleSNHook()
 {
-	snhook = NewObjClear(ExampleSNHookClass);
-	if (!snhook->Register(450000241, SNFLAG_OWN))
+	g_snhook = NewObjClear(ExampleSNHookClass);
+	if (!g_snhook->Register(450000241, SNFLAG_OWN))
 		return false;
 	return true;
 }
 
 void FreeExampleSNHook()
 {
-	if (snhook)
-		DeleteObj(snhook);
+	if (g_snhook)
+		DeleteObj(g_snhook);
 }

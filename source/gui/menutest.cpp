@@ -21,7 +21,7 @@ public:
 		_result = _rnd.Get01();
 		_duration = GeGetMilliSeconds() - t1;
 	}
-	virtual const Char* GetThreadName(void) { return "SDK MpTest"; }
+	virtual const Char* GetThreadName() { return "SDK MpTest"; }
 	void SetStart(Int32 start) { _start = start; }
 	Float GetResult() const { return _result; }
 	Float GetDuration() const { return _duration; }
@@ -44,7 +44,7 @@ public:
 		maxon::BaseArray<C4DThread*> threadPointers;
 		MPAlloc<MPTest> threads;
 
-		if (!threadPointers.Resize(cnt) || !threads.Init(cnt))
+		if (threadPointers.Resize(cnt) == maxon::FAILED || !threads.Init(cnt))
 		{
 			_result = "Initialization failed";
 			return;
@@ -88,7 +88,7 @@ public:
 		_result += "|Thread start: " + String::FloatToString(start_duration) + " ms";
 		_result += "|Total duration: " + String::FloatToString(total_duration) + " ms";
 	}
-	virtual const Char* GetThreadName(void) { return "SDK ControlThread"; }
+	virtual const Char* GetThreadName() { return "SDK ControlThread"; }
 	String GetResult() const { return _result; }
 
 private:
@@ -113,7 +113,9 @@ Bool MenuTest::Execute(BaseDocument* doc)
 		msg = ct.GetResult();
 	}
 	else
+	{
 		msg = "Thread start failed";
+	}
 	GeShowMouse(MOUSE_NORMAL);
 
 	MessageDialog(msg);
@@ -121,7 +123,7 @@ Bool MenuTest::Execute(BaseDocument* doc)
 	return true;
 }
 
-Bool RegisterMenuTest(void)
+Bool RegisterMenuTest()
 {
 	// be sure to use a unique ID obtained from www.plugincafe.com
 	return RegisterCommandPlugin(1000956, GeLoadString(IDS_MENUTEST), 0, AutoBitmap("icon.tif"), String("C++ SDK Menu Test Plugin"), NewObjClear(MenuTest));

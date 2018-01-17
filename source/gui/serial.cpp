@@ -30,12 +30,12 @@ private:
 	Char* str;
 
 public:
-	SerialDialog(Char* t_str);
+	explicit SerialDialog(Char* t_str);
 
-	virtual Bool CreateLayout(void);
-	virtual Bool InitValues(void);
+	virtual Bool CreateLayout();
+	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
-	virtual Bool AskClose(void);
+	virtual Bool AskClose();
 };
 
 SerialDialog::SerialDialog(Char* t_str)
@@ -43,7 +43,7 @@ SerialDialog::SerialDialog(Char* t_str)
 	str = t_str;
 }
 
-Bool SerialDialog::AskClose(void)
+Bool SerialDialog::AskClose()
 {
 	String v;
 	GetString(IDC_SERIALNUMBER, v);
@@ -63,12 +63,12 @@ Bool SerialDialog::AskClose(void)
 	return false;
 }
 
-Bool SerialDialog::CreateLayout(void)
+Bool SerialDialog::CreateLayout()
 {
 	return GeModalDialog::CreateLayout() && LoadDialogResource(DLG_REGISTER, nullptr, 0);
 }
 
-Bool SerialDialog::InitValues(void)
+Bool SerialDialog::InitValues()
 {
 	// first call the parent instance
 	if (!GeModalDialog::InitValues())
@@ -98,7 +98,7 @@ static Bool OpenSerialDialog(Char* sn)
 	return dlg.Open();
 }
 
-static Bool CheckSerial(void)	// call this routine AFTER resources have been initialized
+static Bool CheckSerial()	// call this routine AFTER resources have been initialized
 {
 	Char data[SERIAL_SIZE], sn[SERIAL_SIZE];
 

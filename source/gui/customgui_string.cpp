@@ -33,7 +33,7 @@ private:
 public:
 	
 	iExampleCustomGUIString(const BaseContainer &settings, CUSTOMGUIPLUGIN *plugin);
-	virtual Bool CreateLayout (void);
+	virtual Bool CreateLayout();
 	virtual Bool InitValues();
 	virtual Bool Command(Int32 id, const BaseContainer &msg);
 	virtual Bool SetData(const TriState<GeData> &tristate);
@@ -47,17 +47,17 @@ iExampleCustomGUIString::iExampleCustomGUIString(const BaseContainer &settings, 
 	_tristate = false;
 };
 
-Bool iExampleCustomGUIString::CreateLayout (void)
+Bool iExampleCustomGUIString::CreateLayout()
 {
 	GroupBegin(1000, BFH_SCALEFIT|BFV_FIT, 2, 1, String(), 0);
 	{
 		GroupSpace(0, 0);
 
 		// Add text field
-		AddEditText(TEXT_ID,BFH_LEFT | BFH_SCALEFIT | BFV_SCALEFIT,100,10);
+		AddEditText(TEXT_ID, BFH_LEFT | BFH_SCALEFIT | BFV_SCALEFIT, 100, 10);
 
 		// Add counter
-		AddStaticText(COUNT_ID,BFH_LEFT | BFV_TOP,30,10,"",BORDER_BLACK );				
+		AddStaticText(COUNT_ID, BFH_LEFT | BFV_TOP, 30, 10, "", BORDER_BLACK);
 	}
 	GroupEnd();
 
@@ -71,10 +71,10 @@ Bool iExampleCustomGUIString::InitValues()
 
 	// the counter's tristate is handled explicitly
 
-	if(_tristate)
+	if (_tristate)
 	{
 		// At least one value of all selected parameteres is different; show "---"
-		this->SetString(COUNT_ID,"---");
+		this->SetString(COUNT_ID, "---");
 	}
 	else
 	{
@@ -83,7 +83,7 @@ Bool iExampleCustomGUIString::InitValues()
 		const Int32 length					= _string.GetLength();
 		const String lengthString		= String::IntToString(length);
 
-		this->SetString(COUNT_ID,lengthString);
+		this->SetString(COUNT_ID, lengthString);
 	}
 
 	return true;
@@ -95,7 +95,7 @@ Bool iExampleCustomGUIString::Command(Int32 id, const BaseContainer &msg)
 {
 	switch (id)
 	{
-		case(TEXT_ID):
+		case TEXT_ID:
 		{
 			// The string text field was changed.
 
@@ -143,7 +143,7 @@ TriState<GeData> iExampleCustomGUIString::GetData()
 
 
 
-static Int32 stringtable[] = { DTYPE_STRING }; ///< This array defines the applicable datatypes.
+static Int32 g_stringtable[] = { DTYPE_STRING }; ///< This array defines the applicable datatypes.
 
 
 //---------------------
@@ -214,31 +214,22 @@ CustomProperty* SDKExampleCustomGUIString::GetProperties()
 Int32 SDKExampleCustomGUIString::GetResourceDataType(Int32*& table)
 {
 	// Returns the applicable datatypes defined in the stringtable array.
-	table = stringtable; 
-	return sizeof(stringtable)/sizeof(Int32);
+	table = g_stringtable; 
+	return sizeof(g_stringtable)/sizeof(Int32);
 };
 
-
-//-----------------
-/// Register
-//-----------------
-
-
-Bool RegisterCustomGUIString(void)
+Bool RegisterCustomGUIString()
 {
 	static BaseCustomGuiLib myStringGUIlib;
 
-	ClearMem(&myStringGUIlib,sizeof(myStringGUIlib));
+	ClearMem(&myStringGUIlib, sizeof(myStringGUIlib));
 	FillBaseCustomGui(myStringGUIlib);
 
 	if (!InstallLibrary(ID_SDK_EXAMPLE_CUSTOMGUI_STRING, &myStringGUIlib, 1000, sizeof(myStringGUIlib))) 
 		return false;
 
-	
-	if(!RegisterCustomGuiPlugin(GeLoadString(IDS_CUSTOMGUISTRING), 0, NewObjClear(SDKExampleCustomGUIString)))
-	return false;
-
-
+	if (!RegisterCustomGuiPlugin(GeLoadString(IDS_CUSTOMGUISTRING), 0, NewObjClear(SDKExampleCustomGUIString)))
+		return false;
 
 	return true;
 }

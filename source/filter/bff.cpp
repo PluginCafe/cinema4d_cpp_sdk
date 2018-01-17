@@ -13,7 +13,7 @@ class BFFLoaderData : public BitmapLoaderData
 public:
 	virtual Bool Identify(const Filename& name, UChar* probe, Int32 size);
 	virtual IMAGERESULT Load(const Filename& name, BaseBitmap* bm, Int32 frame);
-	virtual Int32 GetSaver(void) { return ID_BFFSAVER; }
+	virtual Int32 GetSaver() { return ID_BFFSAVER; }
 };
 
 class BFFSaverData : public BitmapSaverData
@@ -59,7 +59,6 @@ IMAGERESULT BFFLoaderData::Load(const Filename& name, BaseBitmap* bm, Int32 fram
 
 	for (y = 0; y < bh && ok; y++)
 	{
-		// check if current thread is canceled and return IMAGERESULT_THREADCANCELED
 		file->ReadBytes(line, bw * 3);
 		ok = bm->SetPixelCnt(0, y, bw, line, COLORBYTES_RGB, COLORMODE_RGB, PIXELCNT_0);
 	}
@@ -109,7 +108,7 @@ IMAGERESULT BFFSaverData::Save(const Filename& name, BaseBitmap* bm, BaseContain
 	return ok ? IMAGERESULT_OK : IMAGERESULT_FILEERROR;
 }
 
-Bool RegisterBFF(void)
+Bool RegisterBFF()
 {
 	String name = GeLoadString(IDS_BFF);
 	if (!RegisterBitmapLoaderPlugin(ID_BFFLOADER, name, 0, NewObjClear(BFFLoaderData)))

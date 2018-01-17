@@ -6,7 +6,7 @@
 #define DATATYPE_DEFAULTLONG	 1000
 #define DATATYPE_DEFAULTSTRING 1001
 
-CustomProperty datatypeprops[] =
+CustomProperty g_dataTypeProps[] =
 {
 	{ CUSTOMTYPE_LONG, DATATYPE_DEFAULTLONG, "DEFAULTLONG" },
 	{ CUSTOMTYPE_STRING, DATATYPE_DEFAULTLONG, "DEFAULTSTRING" },
@@ -26,7 +26,7 @@ class iExampleDataType : public iCustomDataType<ExampleDataType>
 	Vector vdata;
 
 public:
-	iExampleDataType(void)
+	iExampleDataType()
 	{
 		ldata = 0;
 	}
@@ -34,20 +34,20 @@ public:
 
 #define CUSTOMDATATYPE_EXAMPLE 123123123
 
-Int32 convfrom[] =
+Int32 g_convfrom[] =
 {
-	ID_GV_VALUE_TYPE_STRING,	//DA_STRING,
-	ID_GV_VALUE_TYPE_INTEGER,	//DA_LONG,
+	ID_GV_VALUE_TYPE_STRING,	// DA_STRING,
+	ID_GV_VALUE_TYPE_INTEGER,	// DA_LONG,
 	CUSTOMDATATYPE_EXAMPLE,
 	CUSTOMDATATYPE_SPLINE,
-	400006000,	//ID_GV_VALUE_TYPE_GENERAL_OBJECT
+	400006000,	// ID_GV_VALUE_TYPE_GENERAL_OBJECT
 };
 
-Int32 convto[] =
+Int32 g_convto[] =
 {
-	ID_GV_VALUE_TYPE_STRING,	//	DA_STRING,
-	ID_GV_VALUE_TYPE_INTEGER,	//DA_LONG,
-	//	CUSTOMDATATYPE_SPLINE,
+	ID_GV_VALUE_TYPE_STRING,	// DA_STRING,
+	ID_GV_VALUE_TYPE_INTEGER,	// DA_LONG,
+	// CUSTOMDATATYPE_SPLINE,
 	400006000,
 };
 
@@ -143,7 +143,7 @@ public:
 
 	virtual CustomProperty*	GetProperties()
 	{
-		return datatypeprops;
+		return g_dataTypeProps;
 	}
 
 	virtual void GetDefaultProperties(BaseContainer& data)	// fill default DESC_xxx values
@@ -155,8 +155,8 @@ public:
 
 	virtual Int32 GetConversionsFrom(Int32*& table)
 	{
-		table = convfrom;
-		return sizeof(convfrom) / sizeof(Int32);
+		table = g_convfrom;
+		return sizeof(g_convfrom) / sizeof(Int32);
 	}
 
 	virtual GvError ConvertFromGv(Int32 type, const void* const src, Int32 cpu_id, CustomDataType* dst)
@@ -195,8 +195,8 @@ public:
 
 	virtual Int32 GetConversionsTo(Int32*& table)
 	{
-		table = convto;
-		return sizeof(convto) / sizeof(Int32);
+		table = g_convto;
+		return sizeof(g_convto) / sizeof(Int32);
 	}
 
 	virtual GvError ConvertToGv(Int32 type, const CustomDataType* src, void* dst, Int32 cpu_id)
@@ -292,7 +292,7 @@ public:
 };
 
 
-Bool RegisterExampleDataType(void)
+Bool RegisterExampleDataType()
 {
 	RegisterDescription(CUSTOMDATATYPE_EXAMPLE, "Dexample");
 
@@ -301,7 +301,6 @@ Bool RegisterExampleDataType(void)
 				CUSTOMDATATYPE_INFO_LOADSAVE |
 				CUSTOMDATATYPE_INFO_TOGGLEDISPLAY |
 				CUSTOMDATATYPE_INFO_HASSUBDESCRIPTION |
-//CUSTOMDATATYPE_INFO_NEEDDATAFORSUBDESC|
 				0,
 				NewObjClear(ExampleDataTypeClass),
 				1))

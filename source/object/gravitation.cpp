@@ -11,7 +11,7 @@ public:
 	virtual void ModifyParticles(BaseObject* op, Particle* pp, BaseParticle* ss, Int32 pcnt, Float diff);
 	virtual void GetDimension		(BaseObject* op, Vector* mp, Vector* rad);
 
-	static NodeData* Alloc(void) { return NewObjClear(Gravitation); }
+	static NodeData* Alloc() { return NewObjClear(Gravitation); }
 };
 
 void Gravitation::GetDimension(BaseObject* op, Vector* mp, Vector* rad)
@@ -84,7 +84,7 @@ void Gravitation::ModifyParticles(BaseObject* op, Particle* ps, BaseParticle* ss
 // be sure to use a unique ID obtained from www.plugincafe.com
 #define ID_GRAVITATIONOBJECT 1001155
 
-Bool RegisterGravitation(void)
+Bool RegisterGravitation()
 {
 	return RegisterObjectPlugin(ID_GRAVITATIONOBJECT, GeLoadString(IDS_GRAVITATION), OBJECT_PARTICLEMODIFIER, Gravitation::Alloc, "", AutoBitmap("gravitation.tif"), 0);
 }

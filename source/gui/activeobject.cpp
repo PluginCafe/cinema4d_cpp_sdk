@@ -421,11 +421,7 @@ public:
 		}
 		if (col == 'addr' || col == 'drtL')
 		{
-#ifdef MAXON_TARGET_64BIT
 			return pArea->DrawGetTextWidth("0x8888888888888888") + 12;
-#else
-			return pArea->DrawGetTextWidth("0x88888888") + 12;
-#endif
 		}
 		if (col == 'type')
 		{
@@ -470,7 +466,6 @@ public:
 			case 'drta':	name = "Filter"; break;
 			case 'drtb':	name = "NBit"; break;
 			case 'drtL':	name = "Mask"; break;
-				break;
 		}
 
 		drawinfo->frame->DrawSetTextCol(COLOR_TEXT, COLOR_BG);
@@ -598,7 +593,9 @@ public:
 			}
 		}
 	}
-} functable;
+};
+
+Function2 g_functable;
 
 enum
 {
@@ -624,8 +621,8 @@ public:
 
 	DescriptionCustomGui* gad;
 
-	virtual Bool CreateLayout(void);
-	virtual Bool InitValues(void);
+	virtual Bool CreateLayout();
+	virtual Bool InitValues();
 	virtual void DestroyWindow();
 	virtual Bool Command(Int32 id, const BaseContainer& msg);
 	virtual Bool CoreMessage(Int32 id, const BaseContainer& msg);
@@ -637,7 +634,7 @@ void ActiveObjectDialog::DestroyWindow()
 	gad	 = nullptr;
 }
 
-Bool ActiveObjectDialog::CreateLayout(void)
+Bool ActiveObjectDialog::CreateLayout()
 {
 	// first call the parent instance
 	Bool res = GeDialog::CreateLayout();
@@ -696,7 +693,7 @@ Bool ActiveObjectDialog::CreateLayout(void)
 	return res;
 }
 
-Bool ActiveObjectDialog::InitValues(void)
+Bool ActiveObjectDialog::InitValues()
 {
 	// first call the parent instance
 	if (!GeDialog::InitValues())
@@ -711,7 +708,7 @@ Bool ActiveObjectDialog::InitValues(void)
 		oldlist.FlushAll();
 		oldlist.CopyFrom(newlist);
 		oldlist.Sort();
-		tree->SetRoot(&root_of_docs, &functable, nullptr);
+		tree->SetRoot(&root_of_docs, &g_functable, nullptr);
 		tree->Refresh();
 	}
 
@@ -736,11 +733,9 @@ Bool ActiveObjectDialog::CoreMessage(Int32 id, const BaseContainer& msg)
 {
 	switch (id)
 	{
-		//case EVMSG_DOCUMENTRECALCULATED:
 		case EVMSG_CHANGE:
 			if (CheckCoreMessage(msg) && !lock)
 			{
-				//DescriptionCustomGui *gad = (DescriptionCustomGui*)FindCustomGui(IDC_AO_DESCRIPTION,CUSTOMGUI_DESCRIPTION);
 				if (gad && GetActiveDocument())
 				{
 					InitValues();
@@ -785,7 +780,7 @@ static void ShowObjectProps(BaseList2D* obj)
 	g_cmd->dlg.gad->SetObject(obj);
 }
 
-Bool RegisterActiveObjectDlg(void)
+Bool RegisterActiveObjectDlg()
 {
 	g_cmd = NewObjClear(ActiveObjectDialogCommand);
 	return RegisterCommandPlugin(ID_ACTIVEOBJECT, GeLoadString(IDS_ACTIVEOBJECT), 0, nullptr, String("C++ SDK Active Object"), g_cmd);
